@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+s<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Adinor PA Vidrio montado</title>
@@ -30,6 +30,7 @@
     form {
       margin-left: 30px;
     }
+    
 
     .btn {
       display: flex;
@@ -69,9 +70,114 @@
       align-items: center;
     }
 
+ 
+    /* ------   Opciones de formulario 1   ------ */
+
+    /* Estilos de los marcos verdes */
+    .grupo-opciones {
+      border: 2px solid #4CAF50;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .grupo-opciones legend {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #4CAF50;
+      padding: 0 10px;
+    }
+
+    /* Contenedor para los marcos en horizontal */
+    .contenedor-marcos {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .contenedor-marcos .grupo-opciones {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    /* Hacer que las imágenes sean responsivas */
+    .grupo-opciones img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Mantener las imágenes en horizontal dentro de cada cuadro */
+    .grupo-opciones .opciones-imagenes {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .grupo-opciones .opcion {
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    /* Sub-opciones en horizontal por defecto (PC) */
+    .Sub-opcion {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      margin-top: 18px;   /* Distanca entre imagen y textos */
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .Sub-opcion .opcion {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      min-width: auto;
+      flex: none;
+    }
+
+    /* Separación uniforme entre texto y radio button en todos los cuadros */
+    .grupo-opciones .opcion p {
+      margin-bottom: 8px;
+    }
+
+    .Sub-opcion .opcion p {
+      margin: 0;
+    }
+
+    /* Ajustes para móvil */
+    @media (max-width: 768px) {
+      .contenedor-marcos {
+        flex-direction: column;
+      }
+      
+      .grupo-opciones .opcion {
+        min-width: 100%;
+      }
+      
+      /* Sub-opciones en vertical solo en móvil */
+      .Sub-opcion {
+        flex-direction: column;
+      }
+      
+      .Sub-opcion .opcion {
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+    }
+
+    /*------------Fin Form 1-----------------------------*/
+    /*--------------------------------------------------*/
+
+
     #form1 .opcion img {
       width: 230px;
-      height: 240px;
+      height: 200px;
       object-fit: contain;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -248,7 +354,6 @@
       .tabla-informe th {
         background: #ddd;
         font-weight: bold;
-
       }
 
     .tabla-informe td:empty {
@@ -257,8 +362,6 @@
       background: transparent;
     }
 
-
-
     .tabla-informe .imagen-perfil {
       width: 80px;
       font-size: 20px;
@@ -266,7 +369,7 @@
 
     .tabla-informe .texto-izq {
       text-align: left;
-      padding-left: 15px;
+      padding-left: 5px;
     }
      .tabla-informe .texto-Der {
       text-align: Right;
@@ -282,8 +385,6 @@
       padding-top: 30px;
       border-top: 2px solid #eee;
     }
-
-
 
 
 /* ================================== */
@@ -302,7 +403,6 @@
   }
 }
 
-
 /* Forza fondos y colores */
 #informe-container *,
 #hoja-pedido-container * {
@@ -320,7 +420,6 @@
   background: white !important;
 }
 
-
     /* Fondo blanco forzado para PDF */
   #informe-container,
   #hoja-pedido-container {
@@ -332,34 +431,66 @@
 </head>
 <body>
 
+
   <!-- Formulario 1 -->
   <form id="form1" class="formulario active">
     <h2>Configurador Sistema PA montado con vidrio</h2>
+    <br>
+    
+    <div class="contenedor-marcos">
+      <!-- Marco 1: Frentes completos -->
+      <fieldset class="grupo-opciones">
+        <legend>Frentes completos - instalación en hueco</legend>
         <div class="opciones-imagenes">
-      <label class="opcion">
-        <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/PuertaCorredera.png" alt="Opción 1" width="300"><br><br>
-        <p>Puerta corredera</p>
-        <input type="radio" name="imagen" value="1">
-      </label>
-      <label class="opcion">
-        <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/PuertaAbatible.png" alt="Opción 2" width="300"><br><br>
-        <p>Puerta Abatible</p>
-        <input type="radio" name="imagen" value="2">
-      </label>
-      <label class="opcion">
-        <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/ElementoSuelto.png" alt="Opción 3" width="300"><br><br>
-        <p>Elemento suelto</p>
-        <input type="radio" name="imagen" value="2">
-      </label>
-
+          <label class="opcion">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/PuertaCorredera.png" alt="Opción 1" width="300"><br><br>
+            <p>Puerta corredera</p>
+            <input type="radio" name="imagen" value="1" required>
+          </label>
+          <label class="opcion">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/PuertaAbatible.png" alt="Opción 2" width="300"><br><br>
+            <p>Puerta Abatible</p>
+            <input type="radio" name="imagen" value="2">
+          </label>
+        </div>
+      </fieldset>
+      
+      <!-- Marco 2: Elementos independientes -->
+      <fieldset class="grupo-opciones">
+        <legend>Elementos independientes</legend>
+        <div class="opciones-imagenes">
+          <label class="opcion">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/ElementoSuelto.png" alt="Opción 3" width="300"><br><br>
+            <br>
+            <div class="Sub-opcion">
+              <div class="opcion">
+                <p>Puerta corredera</p>
+                <input type="radio" name="imagen" value="3">
+              </div>
+              <div class="opcion">
+                <p>Puerta abatible</p>
+                <input type="radio" name="imagen" value="5">
+              </div>
+              <div class="opcion">
+                <p>Fijo</p>
+                <input type="radio" name="imagen" value="4">
+              </div>
+            </div>
+          </label>
+        </div>
+      </fieldset>
     </div>
+    
     <br>
     <p>Seleccionar una opción antes de continuar</p>
-    <br>
+
     <div class="botones-formulario">
-        <button type="button" onclick="siguienteFormulario(1)" class="btn">Siguiente</button>
+      <button type="button" onclick="limpiarDatos()" class="btn">🔄 Nuevo</button>
+      <button type="button" onclick="siguienteFormulario(1)" class="btn">Siguiente</button>
     </div>
   </form>
+
+
 
   <!-- Formulario 2 -->
   <form id="form2" class="formulario">
@@ -368,7 +499,7 @@
       <label class="opcion">
         <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/SK112.png" alt="Opción 1" width="150"><br><br>
         <p>Montaje a pared</p>
-        <input type="radio" name="guia" value="SK112">
+        <input type="radio" name="guia" value="SK112" required>
       </label>
       <label class="opcion">
         <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/SK111.png" alt="Opción 2" width="150"><br><br>
@@ -383,7 +514,7 @@
     </div>
     <br>
     <p>Seleccionar una opción antes de continuar</p>
-    <br>
+    
     <div class="botones-formulario"> 
       <button type="button" onclick="anteriorFormulario(2)" class="btn">Atrás</button>
       <button type="button" onclick="siguienteFormulario(2)" class="btn">Siguiente</button>
@@ -397,7 +528,7 @@
   <form id="form3" class="formulario">
     <h2>Combinación de puertas</h2>
     <p>1 elementos</p>
-    <label><input type="radio" name="opcion" value="1puerta"> 1 puerta</label>
+    <label><input type="radio" name="opcion" value="1puerta" required> 1 puerta</label>
     <label><input type="radio" name="opcion" value="1puerta-casoneto"> 1 puerta casoneto</label>
     <p>2 elementos</p>
     <label><input type="radio" name="opcion" value="2puertas"> 2 puertas</label>
@@ -411,41 +542,45 @@
     <label><input type="radio" name="opcion" value="3puertas-1fijo"> 3 puertas y 1 fijo</label>
     <label><input type="radio" name="opcion" value="4puertas"> 4 puertas con arrastres</label>
     <br>
-    <p>Seleccionar una opción antes de continuar:</p>
+    <br>
+    <p>Seleccionar una opción antes de continuar</p>
     <div class="botones-formulario">
       <button type="button" onclick="anteriorFormulario(3)" class="btn">Atrás</button>
       <button type="button" onclick="siguienteFormulario(3)" class="btn">Siguiente</button>
     </div>
     </form>
 
+
   <!-- Formulario 4 -->
-  <form id="form4" class="formulario">
-    <h2>Tipología de Fijo</h2>
-    <div class="opciones-imagenes">
-      <label class="opcion">
-        <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared3.png" alt="Opción 0" width="150"><br>
-        <p>3 paredes</p>
-        <input type="radio" name="imagen" value="0">
-      </label>
-      <label class="opcion">
-        <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared3U.png" alt="Opción 1" width="150"><br>
-        <p>3 paredes U</p>
-        <input type="radio" name="imagen" value="A">
-      </label>
-      <label class="opcion">
-        <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared4.png" alt="Opción 2" width="150"><br>
-        <p>4 paredes</p>
-        <input type="radio" name="imagen" value="B">
-      </label>
-    </div>
-    <br>
-    <p>Seleccionar una opción antes de continuar</p>
-    <br>
-    <div class="botones-formulario">
-      <button type="button" onclick="anteriorFormulario(4)" class="btn">Atrás</button>
-      <button type="button" onclick="siguienteFormulario(4)" class="btn">Siguiente</button>
-    </div>
-  </form>
+
+<form id="form4" class="formulario">
+  <h2>Tipología de Fijo</h2>
+  <div class="opciones-imagenes">
+    <label class="opcion" id="opcion-3paredes">
+      <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared3.png" alt="3 paredes" width="150">
+      <p>3 paredes</p>
+      <input type="radio" name="imagen" value="0" required>
+    </label>
+    <label class="opcion" id="opcion-3paredesU">
+      <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared3U.png" alt="3 paredes U" width="150">
+      <p>3 paredes U</p>
+      <input type="radio" name="imagen" value="A">
+    </label>
+    <label class="opcion" id="opcion-4paredes">
+      <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared4.png" alt="4 paredes" width="150">
+      <p>4 paredes</p>
+      <input type="radio" name="imagen" value="B">
+    </label>
+  </div>
+  <br>
+  <p>Seleccionar una opción antes de continuar</p>
+
+  <div class="botones-formulario">
+    <button type="button" onclick="anteriorFormulario(4)" class="btn">Atrás</button>
+    <button type="button" onclick="siguienteFormulario(4)" class="btn">Siguiente</button>
+  </div>
+</form>
+
 
   <!-- Formulario 5    DIVISIONES   -->
 <form id="form5" class="formulario">
@@ -454,7 +589,7 @@
     <label class="opcion">
       <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Divisiones_0.png" alt="Sin Img" width="150"><br>
       <p>Sin embellecedor</p>
-      <input type="radio" name="NumDiv" value="0">
+      <input type="radio" name="NumDiv" value="0" required>
     </label>
     <label class="opcion">
       <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Divisiones_1.png" alt="Sin Img" width="150"><br>
@@ -479,7 +614,7 @@
   </div>
   <br>
   <p>Seleccionar una opción antes de continuar</p>
-  <br>
+
   <div class="botones-formulario">
     <button type="button" onclick="anteriorFormulario(5)" class="btn">Atrás</button>
     <button type="button" onclick="siguienteFormulario(5)" class="btn">Siguiente</button>
@@ -559,16 +694,14 @@
   </label>
   <div style="width: 450px;"></div> <!-- espacio vacío -->
 </div>
-
-
+ <br>
+    <p>Seleccionar una opción antes de continuar</p>
     <div class="botones-formulario" style="margin-top: 40px;">
       <button type="button" onclick="anteriorFormulario(6)" class="btn">Atrás</button>
-      <button type="button" onclick="siguienteFormulario(6)" class="btn">Siguiente</button>
+      <button type="button" onclick="finalizarFlujo()" class="btn">Siguiente</button>
     </div>
 
   </form>
-
-
 
   <!-- -->
   <!-- &&&&&&&&&&&&&&&&&&&&&     INFORME 1  &&&&&&&&&&&&&&&&&&&&&&& -->
@@ -715,7 +848,7 @@
 
 <!-- MEDIDAS PUERTA -->
 <div id="hp-bloque-puerta" class="bloque-informe">
-  <div class="bloque-titulo">MEDIDAS PUERTA</div>
+  <div class="bloque-titulo">RESUMEN PUERTA</div>
   <table class="tabla-informe">
     <thead>
         <tr>
@@ -751,7 +884,7 @@
 
 <!-- MEDIDAS FIJO -->
 <div id="hp-bloque-fijo" class="bloque-informe">
-  <div class="bloque-titulo">MEDIDAS FIJO</div>
+  <div class="bloque-titulo">RESUMEN FIJO</div>
   <table class="tabla-informe">
     <thead>
         <tr>
@@ -801,6 +934,10 @@
 </div>
 
 
+<!-- *********************************************************************************-->
+<!-- *****************-- CONTINÚA EN PARTE 2 CON EL JAVASCRIPT ***********************-->
+<!-- *********************************************************************************-->
+<!-- *********************************************************************************-->
 
 <!-- ========================================================= -->
 <!-- ✅ PARTE 3: SCRIPTS (EN ESTE ORDEN EXACTO) -->
@@ -812,10 +949,7 @@
 
 
   
-  <!-- *********************************************************************************-->
-  <!-- *****************-- CONTINÚA EN PARTE 2 CON EL JAVASCRIPT ***********************-->
-  <!-- *********************************************************************************-->
-  <!-- *********************************************************************************-->
+
 
 
 <script type="module">
@@ -860,6 +994,206 @@
         'B': '0401'   // 4 paredes
     };
 
+// ==========================================
+// SISTEMA DE FLUJOS DE NAVEGACIÓN
+// ==========================================
+
+
+
+const FLUJOS = {
+  '1': { // Puerta corredera (flujo completo con bifurcación)
+    rutaBase: [1, 2, 3], // Solo los pasos fijos
+    requiereFijo: true,   // Tiene bifurcación en Form3
+    mensaje: null,
+    valoresPorDefecto: {} // No usa valores por defecto (todo manual)
+  },
+  
+
+  '2': { // Mensaje común para los bloqueados
+      rutaBase: [1],
+      mensaje: '⚠️ Opción "Puerta Abatible" en construcción.\n\nPróximamente disponible.',
+      valoresPorDefecto: {}
+  },
+
+  '5': { // Mensaje común para los bloqueados
+      rutaBase: [1],
+      mensaje: '⚠️ Opción "Puerta Abatible" en construcción.\n\nPróximamente disponible.',
+      valoresPorDefecto: {}
+  }, 
+
+  '3': { // Elemento independiente → PUERTA ÚNICA
+    rutaBase: [1, 5, 6], // Salta directo a Form6
+    saltados: [2, 3, 4], // ✅ Documentación explícita
+    requiereFijo: false,
+    mensaje: null,
+    valoresPorDefecto: {
+      form2: { guia: 'SinGuia' },
+      form3: { opcion: 'PuertaUnica' },
+        }
+  },
+  '4': { // Elemento independiente → FIJO ÚNICO
+    rutaBase: [1, 4, 5, 6], // Muestra Form4 y Form5
+    requiereFijo: true,
+    mensaje: null,
+    valoresPorDefecto: {
+      form2: { guia: 'SinGuia' },
+      form3: { opcion: 'FijoUnico' },
+      // form4: null, // El usuario selecciona
+      // form5: null, // El usuario selecciona
+    }
+  }
+};
+
+let flujoActual = null; // Rastrea el flujo activo
+
+
+
+function calcularDestino(flujoId, formActual, direccion) {
+  // Tabla de rutas (solo navegación, sin valores por defecto)
+
+  // ========== 2️⃣ TABLA DE RUTAS ==========
+
+  const rutas = {
+    '1': { avance: {1:2, 2:3, 4:5, 5:6}, retroceso: {6:5, 4:3, 3:2, 2:1} },
+    '3': { avance: { 1:5, 5:6 },  retroceso: { 6:5, 5:1 } },
+    '4': { avance: {1:4, 4:5, 5:6}, retroceso: {6:5, 5:4, 4:1} }
+  };
+  const ruta = rutas[flujoId];
+  if (!ruta) return null; // Flujo no definido o bloqueado (2)
+
+  // Manejo de la BIFURCACIÓN CRÍTICA en Form3 (flujo 1)
+  if (flujoId === '1' && formActual === 3 && direccion === 'avance') {
+    const opcion = datosFormularios.form3?.opcion;
+    return opcion?.includes('fijo') ? 4 : 5;
+
+  }
+  // ========== 4️⃣ RETROCESO DESDE FORM5 (flujo 1) ==========
+  if (flujoId === '1' && formActual === 5 && direccion === 'retroceso') {
+    const opcion = datosFormularios.form3?.opcion;
+    return opcion?.includes('fijo') ? 4 : 3;
+  }
+
+ // ========== 5️⃣ DESTINO ESTÁNDAR ==========
+  return ruta[direccion][formActual] || null;
+}
+
+
+/**
+ * Aplica valores por defecto y marca radios físicamente
+ * @param {object} valoresPorDefecto - Objeto con valores a aplicar
+ */
+function aplicarValoresPorDefecto(valoresPorDefecto) {
+  if (!valoresPorDefecto) return;
+
+  Object.entries(valoresPorDefecto).forEach(([formKey, valor]) => {
+    if (!valor || typeof valor !== 'object') return;
+
+    // 1. Guardar en datosFormularios
+    datosFormularios[formKey] = valor;
+
+    // 2. Obtener número de formulario
+    const formNum = formKey.replace('form', ''); // 'form4' -> '4'
+
+    // 3. Marcar radios físicamente EN EL DOM
+    Object.entries(valor).forEach(([propiedad, valorProp]) => {
+      const radio = document.querySelector(`#form${formNum} input[name="${propiedad}"][value="${valorProp}"]`);
+      if (radio) {
+        radio.checked = true; // ✅ MARCA EL RADIO VISUALMENTE
+        console.log(`✅ Radio marcado: Form${formNum} → ${propiedad} = ${valorProp}`);
+      }
+    });
+  });
+}
+
+
+function aplicarFiltroForm4SegunFlujo() {
+  const form4 = document.getElementById('form4');
+  if (!form4) return;
+  
+  const valorForm1 = datosFormularios.form1?.imagen;
+  const opcion3Paredes = form4.querySelector('#opcion-3paredes');
+  const opcion4Paredes = form4.querySelector('#opcion-4paredes');
+  const opcion3ParedesU = form4.querySelector('#opcion-3paredesU');
+  
+  // ✅ RESET: Mostrar todas las opciones primero
+  if (opcion3Paredes) opcion3Paredes.style.display = 'block';
+  if (opcion4Paredes) opcion4Paredes.style.display = 'block';
+  if (opcion3ParedesU) opcion3ParedesU.style.display = 'block';
+  
+  // FILTRO EXCLUSIVO PARA FLUJO 1 (Puerta corredera)
+  if (valorForm1 === '1') {
+    if (opcion3Paredes) opcion3Paredes.style.display = 'none';
+    if (opcion4Paredes) opcion4Paredes.style.display = 'none';
+    
+    // Seleccionar automáticamente "3 paredes U"
+    const radioU = opcion3ParedesU?.querySelector('input[type="radio"]');
+    if (radioU) radioU.checked = true;
+  }
+  // FLUJO 4 (Value 4) no necesita filtro, ya están todas visibles
+}
+
+
+
+function guardarValoresPorDefecto(valoresPorDefecto, forzar = false) {
+  if (!valoresPorDefecto) return;
+  
+  Object.keys(valoresPorDefecto).forEach(formKey => {
+    if (valoresPorDefecto[formKey]) {
+      // ✅ Solo sobreescribir si forzar=true O si no existe
+      if (forzar || !datosFormularios[formKey]) {
+        datosFormularios[formKey] = valoresPorDefecto[formKey];
+        console.log(`✅ ${formKey} cargado con valores por defecto:`, valoresPorDefecto[formKey]);
+      }
+    }
+  });
+}
+
+
+
+function configurarForm6SegunFlujo(valorForm1) {
+  const labelAlto = document.querySelector('#form6 label[for="Alto"]');
+  const labelAncho = document.querySelector('#form6 label[for="Ancho"]');
+  
+  if (!labelAlto || !labelAncho) return;
+  
+  const inputAlto = document.getElementById('Alto');
+  const inputAncho = document.getElementById('Ancho');
+  
+  // ✅ DETECTAR CAMBIO DE FLUJO usando la variable global existente
+  const cambioFlujo = flujoActual !== null && flujoActual !== valorForm1;
+  
+  // ✅ Preservar valores solo si NO hay cambio de flujo
+  const valorAlto = cambioFlujo ? '' : (inputAlto?.value || '');
+  const valorAncho = cambioFlujo ? '' : (inputAncho?.value || '');
+  
+  let textoAlto, textoAncho, color;
+  
+  switch(valorForm1) {
+    case '3': // Puerta única
+      textoAlto = 'Alto de la puerta (mm)';
+      textoAncho = 'Ancho de la puerta (mm)';
+      color = 'blue';
+      break;
+    case '4': // Fijo único
+      textoAlto = 'Alto del fijo (mm)';
+      textoAncho = 'Ancho del fijo (mm)';
+      color = 'green';
+      break;
+    default: // Flujo normal (1)
+      textoAlto = 'Alto de hueco';
+      textoAncho = 'Ancho de hueco';
+      color = 'black';
+  }
+  
+  const estiloColor = color ? ` style="color: ${color}"` : '';
+  
+  labelAlto.innerHTML = `<span${estiloColor}>${textoAlto}</span><br>
+    <input type="number" id="Alto" name="Alto" required min="1" value="${valorAlto}" style="width: 100%; box-sizing: border-box; padding: 8px;">`;
+  
+  labelAncho.innerHTML = `<span${estiloColor}>${textoAncho}</span><br>
+    <input type="number" id="Ancho" name="Ancho" required min="1" value="${valorAncho}" style="width: 100%; box-sizing: border-box; padding: 8px;"><br><br>`;
+}
+
 
     // Función segura para establecer textContent
 function setSafeTextContent(id, valor) {
@@ -887,10 +1221,9 @@ function setSafeDisplay(id, mostrar) {
     }
   }
 
-function guardarDatosFormulario(numForm) {
-      
 
-    // ==================== EXCEPCIÓN FORM4 (texto del label) ====================
+function guardarDatosFormulario(numForm) {
+    // =================== EXCEPCIÓN FORM4 (texto del label) ====================
     if (numForm === 4) {
         const selected = document.querySelector('#form4 input[name="imagen"]:checked');
         if (!selected) return;
@@ -978,151 +1311,288 @@ function guardarDatosFormulario(numForm) {
     }
 }
 
+function finalizarFlujo() {
+  try {
+    // Validar Form6
+    const form6 = document.getElementById('form6');
+    if (!validarFormulario(form6, 6)) return;
+    
+    // Guardar datos de Form6
+    guardarDatosFormulario(6);
+    
+    // Aplicar valores por defecto finales (por si acaso)
+    const flujoId = datosFormularios.form1?.imagen;
+    const flujo = FLUJOS[flujoId];
+    if (flujo?.valoresPorDefecto) {
+      aplicarValoresPorDefecto(flujo.valoresPorDefecto);
+    }
+    
+    // Calcular y mostrar
+    const datosCalculados = realizarCalculos();
+    if (!datosCalculados) throw new Error('Cálculo fallido');
+    
+    mostrarInformesCompletos(datosCalculados);
+    
+  } catch (error) {
+    console.error('💥 ERROR en finalizarFlujo():', error.message);
+    alert(`Error al finalizar: ${error.message}`);
+  }
+}
+
+function finalizarFlujoTest() {
+  try {
+    // Validar Form6
+    const form6 = document.getElementById('form6');
+    if (!validarFormulario(form6, 6)) return;
+    
+    // Guardar datos de Form6
+    guardarDatosFormulario(6);
+    
+    // ========== 🔍 DEBUG: MOSTRAR TODOS LOS DATOS ==========
+    console.log('═══════════════════════════════════════════════════');
+    console.log('📊 ESTADO COMPLETO DE datosFormularios:');
+    console.log('═══════════════════════════════════════════════════');
+    console.log(JSON.stringify(datosFormularios, null, 2));
+    console.log('═══════════════════════════════════════════════════');
+    
+    // Desglose por formulario
+    console.log('📋 DESGLOSE POR FORMULARIO:');
+    console.log('');
+    
+    console.log('✅ Form1 (Flujo seleccionado):');
+    console.log('  - imagen:', datosFormularios.form1?.imagen);
+    console.log('');
+    
+    console.log('✅ Form2 (Guía):');
+    console.log('  - guia:', datosFormularios.form2?.guia);
+    console.log('');
+    
+    console.log('✅ Form3 (Opción):');
+    console.log('  - opcion:', datosFormularios.form3?.opcion);
+    console.log('');
+    
+    console.log('✅ Form4 (Tipo de fijo):');
+    console.log('  - imagen:', datosFormularios.form4?.imagen);
+    console.log('  - textoSeleccionado:', datosFormularios.form4?.textoSeleccionado);
+    console.log('  - codigoBastidor:', datosFormularios.form4?.codigoBastidor);
+    console.log('');
+    
+    console.log('✅ Form5 (División):');
+    console.log('  - division:', datosFormularios.form5?.division);
+    if (datosFormularios.form5?.division) {
+      console.log('    · tipo:', datosFormularios.form5.division.tipo);
+      console.log('    · texto:', datosFormularios.form5.division.texto);
+      console.log('    · codigoEmb:', datosFormularios.form5.division.codigoEmb);
+      console.log('    · lineas:', datosFormularios.form5.division.lineas);
+    }
+    console.log('');
+    
+    console.log('✅ Form6 (Medidas y datos finales):');
+    console.log('  - Alto:', datosFormularios.form6?.Alto);
+    console.log('  - Ancho:', datosFormularios.form6?.Ancho);
+    console.log('  - AcabadoAluminio:', datosFormularios.form6?.AcabadoAluminio);
+    console.log('  - ColorVidrio:', datosFormularios.form6?.ColorVidrio);
+    console.log('  - cliente:', datosFormularios.form6?.cliente);
+    console.log('  - numPedido:', datosFormularios.form6?.numPedido);
+    console.log('  - comentarios:', datosFormularios.form6?.comentarios);
+    console.log('  - conjuntos:', datosFormularios.form6?.conjuntos);
+    console.log('  - codigoColor:', datosFormularios.form6?.codigoColor);
+    console.log('  - codigoVidrio:', datosFormularios.form6?.codigoVidrio);
+    console.log('');
+    
+    console.log('═══════════════════════════════════════════════════');
+    // ========== FIN DEBUG ==========
+
+  } catch (error) {
+    console.error('💥 ERROR en finalizarFlujo():', error.message);
+    alert(`Error al finalizar: ${error.message}`);
+  }
+}
+
+
+
+
 function anteriorFormulario(actual) {
-  // LÓGICA ESPECIAL PARA FORM5
-  if (actual === 5) {
-    // Verificar si venimos de form3 (sin fijo) o de form4 (con fijo)
-    const opcion = datosFormularios.form3?.opcion;
-    if (opcion && !opcion.includes('fijo')) {
-      // Si no tiene fijo, volver a form3
-      document.getElementById(`form${actual}`).classList.remove('active');
-      document.getElementById('form3').classList.add('active');
+  try {
+    const formActual = document.getElementById(`form${actual}`);
+    const flujoId = datosFormularios.form1?.imagen;
+    const destino = calcularDestino(flujoId, actual, 'retroceso');
+    
+    if (!destino) {
+      console.warn(`No hay destino hacia atrás desde Form${actual}`);
       return;
     }
+    
+    // ✅ SOLO NAVEGAR (sin tocar datosFormularios)
+    formActual.classList.remove('active');
+    document.getElementById(`form${destino}`).classList.add('active');
+    
+    if (destino === 4) aplicarFiltroForm4SegunFlujo();
+  } catch (error) {
+    console.error('💥 ERROR en anteriorFormulario():', error.message);
   }
-   // Limpiar datos del formulario actual -  añadido posterior para poder navergar y reflejar cambios
-  datosFormularios[`form${actual}`] = {};
-
-  // Navegación normal
-  document.getElementById(`form${actual}`).classList.remove('active');
-  document.getElementById(`form${actual - 1}`).classList.add('active');
 }
 
 function siguienteFormulario(actual) {
-  
   try {
-    // 1️⃣ VALIDAR 'actual'
-    if (typeof actual !== 'number' || actual < 1 || actual > 6) {
-      throw new Error(`'actual' inválido: ${actual} (tipo: ${typeof actual})`);
-    }
+    const formActual = document.getElementById(`form${actual}`);
+    if (!validarFormulario(formActual, actual)) return;
     
-    // 2️⃣ OBTENER FORMULARIO ACTUAL
-    const formIdActual = `form${actual}`;
-    const formActual = document.getElementById(formIdActual);
+    guardarDatosFormulario(actual);
     
-    if (!formActual) {
-      throw new Error(`Formulario '${formIdActual}' NO ENCONTRADO`);
-    }
-
-    // 3️⃣ VALIDAR FORMULARIO (dentro de try-catch)
-    try {
-      if (!validarFormulario(formActual, actual)) {
-        console.warn(`❌ Form${actual} no validado`);
-        return;
-      }
-    } catch (e) {
-      throw new Error(`Error en validarFormulario(): ${e.message}`);
-    }
-
-    // 4️⃣ GUARDAR DATOS (dentro de try-catch)
-    try {
-      guardarDatosFormulario(actual);
-  
-    } catch (e) {
-      throw new Error(`Error en guardarDatosFormulario(): ${e.message}`);
-    }
-
-    // 5️⃣ CASO ESPECIAL: Form6
-    if (actual === 6) {
+    const flujoId = datosFormularios.form1?.imagen;
     
-      
-      const datosCalculados = realizarCalculos();
-      
-      if (!datosCalculados) {
-        throw new Error('realizarCalculos() devolvió null');
-      }
-      
-      // ⚠️ CAPTURAR ERROR EN mostrarInformesCompletos
-      try {
-        mostrarInformesCompletos(datosCalculados);
-      } catch (e) {
-        throw new Error(`Error en mostrarInformesCompletos(): ${e.message}`);
-      }
+    if (flujoId === '2' || flujoId === '5') {
+      const flujo = FLUJOS[flujoId];
+      alert(flujo?.mensaje || '⚠️ Opción en construcción');
       return;
     }
-
-    // 6️⃣ CASO ESPECIAL: Form3
-    if (actual === 3) {
-      const opcion = datosFormularios.form3?.opcion;
-      const tieneFijo = opcion?.includes('fijo');
-      const form4 = document.getElementById('form4');
-      const form5 = document.getElementById('form5');
+    
+    // ✅ AL SALIR DE FORM1: Limpiar y aplicar valores por defecto
+    if (actual === 1) {
+      const flujo = FLUJOS[flujoId];
       
-      if (!form4 || !form5) {
-        throw new Error('Form4 o Form5 no encontrados');
-      }
-      
-      formActual.classList.remove('active');
-      
-      if (!tieneFijo) {
+      // ✅ SI CAMBIÓ EL FLUJO: Limpiar formularios saltados
+      if (flujoActual !== flujoId) {
+        console.log(`🔄 Cambio de flujo detectado: ${flujoActual} → ${flujoId}`);
         
-        form5.classList.add('active');
-      } else {
-       
-        form4.classList.add('active');
+        // ✅ LIMPIAR FORMULARIOS SALTADOS
+        if (flujo.saltados && flujo.saltados.length > 0) {
+          flujo.saltados.forEach(numForm => {
+            const formKey = `form${numForm}`;
+            delete datosFormularios[formKey]; // ✅ Borrar completamente
+            console.log(`🗑️  ${formKey} eliminado (formulario saltado)`);
+          });
+        }
+        
+        // ✅ APLICAR VALORES POR DEFECTO
+        if (flujo.valoresPorDefecto && Object.keys(flujo.valoresPorDefecto).length > 0) {
+          guardarValoresPorDefecto(flujo.valoresPorDefecto, true);
+          console.log(`✅ Valores por defecto aplicados para flujo ${flujoId}`);
+        }
       }
+      
+      // ✅ Configurar Form6 y actualizar flujo actual
+      configurarForm6SegunFlujo(flujoId);
+      flujoActual = flujoId;
+    }
+    
+    const destino = calcularDestino(flujoId, actual, 'avance');
+    
+    if (!destino) {
+      console.warn(`No hay destino desde Form${actual}`);
       return;
     }
-
-    // 7️⃣ NAVEGACIÓN NORMAL
-    const siguienteNumero = actual + 1;
-    const formIdSiguiente = `form${siguienteNumero}`;
-    const formSiguiente = document.getElementById(formIdSiguiente);
     
-    if (!formSiguiente) {
-      throw new Error(`Formulario DESTINO '${formIdSiguiente}' NO ENCONTRADO`);
-    }
     formActual.classList.remove('active');
-    formSiguiente.classList.add('active');
+    document.getElementById(`form${destino}`).classList.add('active');
+    
+    if (destino === 4) aplicarFiltroForm4SegunFlujo();
     
   } catch (error) {
-    // ⭐ ESTE CATCH CAPTURA EL ERROR EXACTO
-    console.error('💥 ERROR CRÍTICO en siguienteFormulario():', error.message);
-    console.error('📍 Stack trace:', error.stack);
-    alert(`Error: ${error.message}\n\nRevisa la consola para más detalles.`);
+    console.error(error.message);
+    alert(error.message);
   }
 }
 
-function validarFormulario(form, numForm) {
-  //  Valida si los formularios estan completos
+function limpiarDatos() {
+  // ========== 1️⃣ RESET COMPLETO DEL OBJETO DE DATOS ==========
+  datosFormularios = {
+    form1: {}, // ← CRÍTICO: limpia también la selección de flujo inicial
+    form2: {},
+    form3: {},
+    form4: {},
+    form5: {},
+    form6: {}
+  };
+  
+  // ========== 2️⃣ RESET DE VARIABLES GLOBALES ==========
+  window.ultimosDatosInforme = null;
+  window.flujoActual = null; // Si usas variable para tracking del flujo
+  
+  // ========== 3️⃣ LIMPIEZA VISUAL DE FORMULARIOS ==========
+  
+  // --- Form1: Resetear radios/checkboxes principales ---
+  const flujoRadios = document.querySelectorAll('input[name="flujo"]');
+  flujoRadios.forEach(radio => radio.checked = false);
+  
+  // Añade aquí otros campos de form1 si los tienen
+  // Ej: document.getElementById('campo-form1').value = '';
+  
+  // --- Forms 1-6: Resetear todos los inputs ---
+  for (let i = 1; i <= 6; i++) {
+    const formElement = document.getElementById(`form${i}`);
+    if (formElement) {
+      // Resetear inputs de texto, número, email
+      formElement.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], textarea').forEach(input => {
+        input.value = '';
+      });
+      
+      // Resetear selects
+      formElement.querySelectorAll('select').forEach(select => {
+        select.selectedIndex = 0; // Volver a primera opción
+      });
+      
+      // Resetear radios y checkboxes
+      formElement.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+        input.checked = false;
+      });
+    }
+  }
+  
+  // ========== 4️⃣ OCULTAR INFORMES Y CONTENEDORES ==========
+  document.getElementById('informe-container').style.display = 'none';
+  document.getElementById('hoja-pedido-container').style.display = 'none';
+  
+  // ========== 5️⃣ OCULTAR BLOQUES CONDICIONALES ==========
+  // Lista de todos los bloques que pueden aparecer
+  const bloques = [
+    'bloque-puerta',
+    'bloque-fijo',
+    'hp-bloque-puerta',
+    'hp-bloque-fijo',
+    // Añade aquí cualquier otro bloque visual condicional
+  ];
+  
+  bloques.forEach(id => {
+    const elemento = document.getElementById(id);
+    if (elemento) elemento.classList.remove('active');
+  });
+  
+  // ========== 6️⃣ VOLVER A FORM1 LIMPIO ==========
+  // Ocultar todos los formularios
+  for (let i = 1; i <= 6; i++) {
+    document.getElementById(`form${i}`).classList.remove('active');
+  }
+  
+  // Mostrar solo form1
+  document.getElementById('form1').classList.add('active');
+  
+  // Scroll arriba
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  console.log('✅ Todos los datos han sido reseteados. Estado inicial limpio.');
+}
 
-  const tieneRadios = form.querySelector('input[type="radio"]');
-  if (tieneRadios) {
-    const radioSeleccionado = form.querySelector('input[type="radio"]:checked');
+function validarFormulario(form, numForm) {
+
+  // 1️⃣ Validar radios (si existen y son required)
+  const primerRadio = form.querySelector('input[type="radio"][required]');
+  if (primerRadio) {
+    const radioSeleccionado = form.querySelector(`input[name="${primerRadio.name}"]:checked`);
     if (!radioSeleccionado) {
       alert('Por favor, selecciona una opción antes de continuar');
       return false;
     }
-    return true;
   }
-  if (numForm === 6) {
-    const alto = form.querySelector('#Alto');
-    const ancho = form.querySelector('#Ancho');
-    if (!alto.value || !ancho.value) {
-      alert('Por favor, completa ambas medidas (Alto y Ancho)');
-      return false;
-    }
 
-  if (alto.value <= 0 || alto.value > 2700 || ancho.value <= 0 || ancho.value > 4500) {
-      alert('Revisar las medidas');
-      return false;
-    }
-    return true;
-  }
-  const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-  for (let input of inputs) {
-    if (!input.value) {
-      alert('Por favor, completa todos los campos obligatorios');
+  // 2️⃣ Validar Form6 (rangos de medidas)
+  if (numForm === 6) {
+    const alto = parseInt(form.querySelector('#Alto')?.value);
+    const ancho = parseInt(form.querySelector('#Ancho')?.value);
+    
+    if (!alto || !ancho || alto <= 0 || alto > 2700 || ancho <= 0 || ancho > 4500) {
+      alert('Revisar las medidas (rango válido: 1-2700mm alto, 1-4500mm ancho)');
       return false;
     }
   }
@@ -1139,10 +1609,21 @@ function AnchoEleCorredera(opcion, ancho) {
  let NumFijos = 0
     // Calcular X según la opción seleccionada
   switch(opcion) {
+    case 'PuertaUnica':
+      X = ancho;
+      NumPuertas = 1
+      break;
+
+    case 'FijoUnico':
+      X = ancho;
+      NumFijos = 1
+      break;
+
     case '1puerta':
       X = ancho + 24;
       NumPuertas = 1
       break;
+
     case '1puerta-casoneto':
       X = ancho + 12;
       retracInf = 1
@@ -1196,10 +1677,12 @@ function AnchoEleCorredera(opcion, ancho) {
 
 }
 
-
 function AltoEleCorredera(guia,alto) {
 let Y = 0; // alto del elemento
   switch(guia) {
+    case 'SinGuia':
+      Y = alto;
+      break;
     case 'SK112':
       Y = alto-15;
       break;
@@ -1213,52 +1696,79 @@ let Y = 0; // alto del elemento
   return { Y };    //  es el valor devuelto de la función, para poder seguir usandola.
 }
 
-
 function realizarCalculos() {
-
   try {
-    // Verificación de seguridad
+    // 1️⃣ VERIFICACIONES DE SEGURIDAD
     if (!tablasCargadas) {
-      throw new Error('Las tablas de precios no están cargadas. Espera unos segundos y vuelve a intentar.');
+      throw new Error('Las tablas de precios no están cargadas. Espera unos segundos.');
     }
     
     if (typeof calcularPresupuesto !== 'function') {
       throw new Error('La función calcularPresupuesto no está disponible.');
     }
 
+    // 2️⃣ OBTENER FLUJO Y OPCIÓN
+    const flujoId = datosFormularios.form1?.imagen;
+    const opcion = datosFormularios.form3?.opcion || 'PuertaUnica';
+    
+    // ✅ DETERMINAR QUÉ CALCULAR SEGÚN LA OPCIÓN
+    const tienePuerta = opcion.includes('puerta') || opcion === 'PuertaUnica';
+    const tieneFijo = opcion.includes('fijo') || opcion === 'FijoUnico';
+    
+    console.log('🔍 Flujo:', flujoId, '| Opción:', opcion);
+    console.log('  → Tiene puerta:', tienePuerta);
+    console.log('  → Tiene fijo:', tieneFijo);
 
-  //try {
+    // 3️⃣ DATOS COMUNES
+    const guia = datosFormularios.form2?.guia || 'SinGuia';
+    const cliente = datosFormularios.form6?.cliente?.trim() || 'Cliente';
+    const numPedido = datosFormularios.form6?.numPedido?.trim() || 'Sxx000';
+    const alto = parseInt(datosFormularios.form6?.Alto);
+    const ancho = parseInt(datosFormularios.form6?.Ancho);
+    const acabado = datosFormularios.form6?.AcabadoAluminio || 'Blanco mate 9003';
+    const colorVidrio = datosFormularios.form6?.ColorVidrio || 'TRANSPARENTE';
+    const conjuntos = parseInt(datosFormularios.form6?.conjuntos) || 1;
+    const comentarios = datosFormularios.form6?.comentarios?.trim() || '';
+    const codigoColor = datosFormularios.form6?.codigoColor || 'L.BM03';
+    const codigoVidrio = datosFormularios.form6?.codigoVidrio || '01';
+    
+    // División (siempre disponible)
+    const divisionData = datosFormularios.form5?.division || {};
+    const textoDivision = divisionData.texto || 'Sin embellecedor';
+    const codigoEmb = divisionData.codigoEmb || '';
 
-  const guia = datosFormularios.form2?.guia || 'SK112';
-  const opcion = datosFormularios.form3.opcion;
-  const tipoFijo = datosFormularios.form4?.imagen || null;
-  const textoTipoFijo = datosFormularios.form4?.textoSeleccionado || 'Sin tipo';
-  const textoDivision = datosFormularios.form5?.division?.texto || 'Sin Datos';
-  const cliente   = datosFormularios.form6.cliente?.trim();
-  const numPedido = datosFormularios.form6.numPedido?.trim();
-  const alto      = parseInt(datosFormularios.form6.Alto);
-  const ancho     = parseInt(datosFormularios.form6.Ancho);
-  const acabado   = datosFormularios.form6.AcabadoAluminio;
-  const colorVidrio = datosFormularios.form6.ColorVidrio;
-  const conjuntos = parseInt(datosFormularios.form6.conjuntos) || 1;
-  const codigoColor = datosFormularios.form6?.codigoColor;
-  const codigoVidrio = datosFormularios.form6?.codigoVidrio;
-  const codigoEmb = datosFormularios.form5?.division?.codigoEmb || '';
-  const codigoBastidor = datosFormularios.form4?.codigoBastidor || '';
+    // 4️⃣ DATOS Y CÁLCULOS DE FIJO (solo si tiene fijo)
+    let tipoFijo = null;
+    let textoTipoFijo = 'Sin tipo';
+    let codigoBastidor = '';
+    let resultadoFijo = { altoFijo: 0, anchoFijo: 0, perfiles: [], cristales: [] };
+    let preciosFijo = { puerta: { codigo: '', precio: 0 }, emb: { codigo: '', precio: 0 }, bast: { codigo: '', precio: 0 } };
+    
+    if (tieneFijo) {
+      tipoFijo = datosFormularios.form4?.imagen || null;
+      textoTipoFijo = datosFormularios.form4?.textoSeleccionado || 'Sin tipo';
+      codigoBastidor = datosFormularios.form4?.codigoBastidor || '';
+      
+      console.log('  → Calculando datos de FIJO...');
+      console.log('    · tipoFijo:', tipoFijo);
+      console.log('    · codigoBastidor:', codigoBastidor);
+    }
 
-// PASO 1: Calcular valores básicos
-  const { X, retracInf, NumPuertas, NumFijos } = AnchoEleCorredera(opcion, ancho);
-  const { Y } = AltoEleCorredera(guia, alto);
+    // 5️⃣ CALCULAR DIMENSIONES Y PERFILES
+    const { X, retracInf, NumPuertas, NumFijos } = AnchoEleCorredera(opcion, ancho);
+    const { Y } = AltoEleCorredera(guia, alto);
 
-  const resultadoPuerta = calcularPerfilesPuerta(Y, X, NumPuertas, retracInf);
-  const resultadoFijo = calcularPerfilesFijo(alto, X, NumFijos, tipoFijo);
+    console.log('  → NumPuertas:', NumPuertas, '| NumFijos:', NumFijos);
 
-  // Determinar qué bloques mostrar según la opción
-  const tienePuerta = opcion.includes('puerta');
-  const tieneFijo = opcion.includes('fijo');
-
-// 4.1. Construir objetos de entrada  Para Codigo-Precio
-    const entradaPuerta = {
+    // ✅ CALCULAR PERFILES SEGÚN LO QUE TIENE
+    let resultadoPuerta = { perfiles: [], cristales: [] };
+    let preciosPuerta = { puerta: { codigo: '', precio: 0 }, emb: { codigo: '', precio: 0 } };
+    
+    if (tienePuerta && NumPuertas > 0) {
+      console.log('  → Calculando PUERTA...');
+      resultadoPuerta = calcularPerfilesPuerta(Y, X, NumPuertas, retracInf);
+      
+      const entradaPuerta = {
         tipo: '01',
         color: codigoColor,
         vidrio: codigoVidrio,
@@ -1266,9 +1776,16 @@ function realizarCalculos() {
         ancho: X,
         modeloEmb: codigoEmb,
         bastidor: ''
-    };
+      };
+      
+      preciosPuerta = calcularPresupuesto(entradaPuerta);
+    }
 
-    const entradaFijo = {
+    if (tieneFijo && NumFijos > 0) {
+      console.log('  → Calculando FIJO...');
+      resultadoFijo = calcularPerfilesFijo(alto, X, NumFijos, tipoFijo);
+      
+      const entradaFijo = {
         tipo: '02',
         color: codigoColor,
         vidrio: codigoVidrio,
@@ -1276,66 +1793,74 @@ function realizarCalculos() {
         ancho: resultadoFijo.anchoFijo,
         modeloEmb: codigoEmb,
         bastidor: codigoBastidor
+      };
+      
+      preciosFijo = calcularPresupuesto(entradaFijo);
+    }
+
+    // 6️⃣ CONSTRUIR INFORME COMPLETO
+    const datosInforme = {
+      // Datos generales
+      cliente,
+      numPedido,
+      comentarios,
+      fecha: new Date().toLocaleDateString('es-ES'),
+      mensajeOpcion: generarMensajeOpcion(opcion, tipoFijo, textoDivision, conjuntos),
+      acabado,
+      colorVidrio,
+      
+      // Configuración
+      mostrarPuerta: tienePuerta,
+      mostrarFijo: tieneFijo,
+      numPuertas: NumPuertas,
+      numFijos: NumFijos,
+      Conjuntos: conjuntos,
+      
+      // Medidas
+      altoPuerta: Y,
+      anchoPuerta: X,
+      altoFijo: resultadoFijo.altoFijo,
+      anchoFijo: resultadoFijo.anchoFijo,
+      
+      // Descripciones
+      textoDivision,
+      textoTipoFijo,
+      
+      // Códigos
+      codigoColor,
+      codigoVidrio,
+      
+      // Resultados técnicos
+      perfilesPuerta: resultadoPuerta.perfiles,
+      perfilesFijo: resultadoFijo.perfiles,
+      embellecedorPuerta: tienePuerta ? calcularEmbellecedorPuerta(X, Y, acabado) : [],
+      embellecedorFijo: tieneFijo ? calcularEmbellecedorFijo(resultadoFijo.altoFijo, resultadoFijo.anchoFijo, acabado) : [],
+      cristalesPuerta: resultadoPuerta.cristales,
+      cristalesFijo: resultadoFijo.cristales,
+
+      // PRECIOS PUERTA
+      puertaCodigo: preciosPuerta.puerta.codigo,
+      puertaPrecioUnit: preciosPuerta.puerta.precio,
+      embPuertaCodigo: preciosPuerta.emb.codigo,
+      embPuertaPrecioUnit: preciosPuerta.emb.precio,
+      
+      // PRECIOS FIJO
+      fijoCodigo: preciosFijo.puerta.codigo,
+      fijoPrecioUnit: preciosFijo.puerta.precio,
+      embFijoCodigo: preciosFijo.emb.codigo,
+      embFijoPrecioUnit: preciosFijo.emb.precio,
+      bastidorCodigo: preciosFijo.bast.codigo,
+      bastidorPrecioUnit: preciosFijo.bast.precio
     };
 
-    // 4.2. Llamar a calcularPresupuesto()
-    const preciosPuerta = calcularPresupuesto(entradaPuerta);
-    const preciosFijo = calcularPresupuesto(entradaFijo);
-
-
-    // 5. CONSTRUIR datosInforme COMPLETO
-
-  const datosInforme = {
-
-    cliente: cliente || 'Cliente',
-    numPedido: numPedido || 'Sxx000',
-    comentarios: datosFormularios.form6?.comentarios?.trim() || '  ',
-    fecha: new Date().toLocaleDateString('es-ES'),
-    mensajeOpcion: generarMensajeOpcion(opcion, tipoFijo, textoDivision, conjuntos),
-    acabado: acabado,
-    colorVidrio: colorVidrio,
-    mostrarPuerta: tienePuerta || opcion === '1puerta' || opcion === '1puerta-casoneto' || opcion.includes('puertas'),
-    mostrarFijo: tieneFijo,
-    numPuertas: NumPuertas,
-    numFijos: NumFijos,
-    perfilesPuerta: resultadoPuerta.perfiles,
-    perfilesFijo: resultadoFijo.perfiles,
-    embellecedorPuerta: calcularEmbellecedorPuerta(X, Y, acabado), // PASAR EL VALOR
-    embellecedorFijo: calcularEmbellecedorFijo(resultadoFijo.altoFijo, resultadoFijo.anchoFijo, acabado),
-    cristalesPuerta: resultadoPuerta.cristales,
-    cristalesFijo: resultadoFijo.cristales,
-    altoPuerta: Y,  // ← Guardados par el segundo informe
-    anchoPuerta: X,
-    altoFijo: resultadoFijo.altoFijo,
-    anchoFijo: resultadoFijo.anchoFijo,
-    textoDivision: textoDivision ,
-    textoTipoFijo: textoTipoFijo,
-    codigoColor: datosFormularios.form6?.codigoColor,
-    codigoVidrio: datosFormularios.form6?.codigoVidri,
-    Conjuntos:datosFormularios.form6?.conjuntos,
-    // PRECIOS PUERTA (NUEVO)
-        puertaCodigo: preciosPuerta.puerta.codigo,
-        puertaPrecioUnit: preciosPuerta.puerta.precio,
-        embPuertaCodigo: preciosPuerta.emb.codigo,
-        embPuertaPrecioUnit: preciosPuerta.emb.precio,
-    // PRECIOS FIJO (NUEVO)
-        fijoCodigo: preciosFijo.puerta.codigo,
-        fijoPrecioUnit: preciosFijo.puerta.precio,
-        embFijoCodigo: preciosFijo.emb.codigo,
-        embFijoPrecioUnit: preciosFijo.emb.precio,
-        bastidorCodigo: preciosFijo.bast.codigo,
-        bastidorPrecioUnit: preciosFijo.bast.precio,
-  };
-
-
-
-    return datosInforme; // DEVUELVE los datos, se almacena en esa Variable
-      } catch (error) {
+    console.log('✅ datosInforme generado:', datosInforme);
+    return datosInforme;
+    
+  } catch (error) {
     console.error('💥 ERROR FATAL en realizarCalculos():', error);
     alert('Error en cálculos: ' + error.message);
-    return null; // ← Devuelve null en caso de error
+    return null;
   }
-
 }
 
 // Funciones para iconos de perfiles (imágenes jpg desde GitHub)
@@ -1362,7 +1887,16 @@ function IconoPAFU(size = 40) {
 
 
 function generarMensajeOpcion(opcion, tipoFijo, textoDivision, conjuntos) {
+
+    console.log('_________   Para mensaje __________')
+    console.log('opcion:', opcion);
+    console.log('tipoFijo:', tipoFijo);
+    console.log('textoDivision:', textoDivision);
+    console.log('conjuntos:', conjuntos);
+
     const comentarios = {
+        'PuertaUnica': "PUERTA INDEPENDIENTE",
+        'FijoUnico' : "FIJO INDEPENDIENTE",
         '1puerta': '1 PUERTA',
         '1puerta-casoneto': '1 PUERTA CASONETO',
         '2puertas': '2 PUERTAS',
@@ -1385,17 +1919,26 @@ function generarMensajeOpcion(opcion, tipoFijo, textoDivision, conjuntos) {
     
     // Si tiene fijo, añadir el tipo
     if (tipoFijo && tiposFijo[tipoFijo]) {
-        mensaje += tiposFijo[tipoFijo];
+        mensaje += tiposFijo[tipoFijo] || "";
     }
     
-    // ➜ NUEVO: Añadir texto de divisiones si existe, aunque siempre existe.
+    // Añadir texto de divisiones si existe, aunque siempre existe.
     mensaje += ` - ${textoDivision || 'Sin embellecedor PEPE'}`;
 
-    // ➜ NUEVO: Añadir el número de conjuntos al final
-    mensaje += ` - ( ${conjuntos} CONJUNTO${conjuntos > 1 ? 'S' : ''} )`;
+
+    // === Etiqueta dinámica para la última parte ===
+    // Usa UNIDAD/UNIDADES si es PuertaUnica o FijoUnico; si no, CONJUNTO/CONJUNTOS
+    const usaUnidades = opcion === 'PuertaUnica' || opcion === 'FijoUnico';
+    const etiqueta = usaUnidades
+      ? `UNIDAD${conjuntos > 1 ? 'ES' : ''}`
+      : `CONJUNTO${conjuntos > 1 ? 'S' : ''}`;
+
+    mensaje += ` - ( ${conjuntos} ${etiqueta} )`;
+
 
     return mensaje;
 }
+
 
 function formatearNumero(numero, decimales = 0) {
   // Convertir a número si es string
@@ -1430,23 +1973,6 @@ function calcularPerfilesPuerta(Y, X, NumPuertas, retracInf) {
   };
 }
 
-function calcularEmbellecedorPuertaold(X, Y, acabado) {
-  const div = datosFormularios.form5?.division;
-  if (!div) return [];
-
-  return div.lineas.map((l, i) => {
-    const longitud = div.tipo === 'D'
-      ? (i === 0 ? Y - 70 : X - 37 )
-      : X - 24;
-
-    return {
-      tipo: `Pletina 13x3mm ${acabado}${div.tipo === 'D' ? (i === 0 ? ' - Vertical' : ' - Horizontal') : ''}`,
-      longitud,
-      cantidad: l.cantidad
-    };
-  });
-}
-
 function calcularEmbellecedorPuerta(X, Y, acabado) {
   const div = datosFormularios.form5?.division;
   if (!div) return [];
@@ -1461,7 +1987,7 @@ function calcularEmbellecedorPuerta(X, Y, acabado) {
       },
       {
         tipo: `Pletina 13x3mm ${acabado} - Horizontal`,
-        longitud: match.floor((X - 37) / 2),   // -12-12-13 = 37
+        longitud: Math.floor((X - 37) / 2),   // -12-12-13 = 37
         cantidad: div.lineas[1]?.cantidad || 0
       }
     ].filter(item => item.cantidad > 0);
@@ -1642,7 +2168,7 @@ function calcularEmbellecedorFijo(altoFijo, anchoFijo, acabado) {
       },
       {
         tipo: `Pletina 13x3mm ${acabado} - Horizontal`,
-        longitud: match.floor((anchoFijo -37) / 2),  // -12-12-13 = 37
+        longitud: Math.floor((anchoFijo -37) / 2),  // -12-12-13 = 37
         cantidad: div.lineas[1]?.cantidad || 0
       }
     ].filter(item => item.cantidad > 0); // Filtrar líneas con cantidad 0
@@ -2079,7 +2605,6 @@ function volverAlInicio() {
   // Limpiar últimos datos de informe
   window.ultimosDatosInforme = null;
 
-
   // Ocultar bloques
   document.getElementById('bloque-puerta').classList.remove('active');
   document.getElementById('bloque-fijo').classList.remove('active');
@@ -2127,26 +2652,80 @@ async function iniciarAplicacion() {
 }
 
 
-// Exponer funciones al global
+// ============================================================================
+// 1. DEFINIR FUNCIONES REALES (asegúrate de que estén definidas ANTES de este bloque)
+// ============================================================================
+// - calcularDestino
+// - siguienteFormulario
+// - anteriorFormulario
+// - finalizarFlujo
+// - validarFormulario
+// - guardarDatosFormulario
+// - aplicarValoresPorDefecto
+// - aplicarFiltroForm4SegunFlujo
+// - configurarForm6SegunFlujo
+// - realizarCalculos
+// - mostrarInformesCompletos
+// - volverAlInicio
+// - cerrarInforme
+// ============================================================================
+
+// ============================================================================
+// 2. EXPONER FUNCIONES AL GLOBAL (con control de tablas cargadas)
+// ============================================================================
+
+// Guardar referencias originales
+const calcularDestinoOriginal = calcularDestino;
+const siguienteOriginal = siguienteFormulario;
+const anteriorOriginal = anteriorFormulario;
+const finalizarOriginal = finalizarFlujo;
+
+// Exponer con control de tablas
+window.calcularDestino = function(...args) {
+  if (!tablasCargadas) {
+    console.warn('⚠️ calcularDestino llamado antes de cargar tablas');
+    return null;
+  }
+  return calcularDestinoOriginal.apply(this, args);
+};
+
 window.siguienteFormulario = function(actual) {
   if (!tablasCargadas) {
     alert('⏳ Espera, las tablas de precios aún no se han cargado. Intenta de nuevo en unos segundos.');
     return;
   }
-  // Llamar a la función real
-  return siguienteFormulario(actual);
+  return siguienteOriginal.call(this, actual);
 };
 
+window.anteriorFormulario = function(actual) {
+  if (!tablasCargadas) {
+    console.warn('⚠️ Navegación hacia atrás mientras se cargan tablas');
+    return;
+  }
+  return anteriorOriginal.call(this, actual);
+};
 
-  // 2. AL FINAL, exponer funciones al global:
-  window.siguienteFormulario = siguienteFormulario;
-  window.anteriorFormulario = anteriorFormulario;
-  window.volverAlInicio = volverAlInicio;
-  window.cerrarInforme = cerrarInforme; 
-  // ... todas las funciones que usas en onclick=
-  
-  // Iniciar al cargar la página
-  iniciarAplicacion();
+window.limpiarDatos = limpiarDatos;
+
+window.finalizarFlujo = function() {
+  if (!tablasCargadas) {
+    alert('⏳ Las tablas aún no están cargadas. No se puede finalizar.');
+    return;
+  }
+  return finalizarOriginal.call(this);
+};
+
+// Funciones que no necesitan control de tablas (UI pura)
+window.volverAlInicio = volverAlInicio;
+window.cerrarInforme = cerrarInforme;
+window.configurarForm6SegunFlujo = configurarForm6SegunFlujo; // Si la usas fuera
+
+console.log('✅ Todas las funciones expuestas al global correctamente');
+
+// ============================================================================
+// 3. INICIAR APLICACIÓN AL CARGAR
+// ============================================================================
+iniciarAplicacion();
 
 </script>
 
