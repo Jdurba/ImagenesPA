@@ -1,316 +1,171 @@
+// ============================================
+// GENERADOR DE PDF CON 2 INFORMES (SIN PÁGINAS EN BLANCO NI FONDOS NOSEADOS)
+// ============================================
 
-
-function esperarImagenes() {
-  return Promise.all(
-    Array.from(document.images)
-      .filter(img => !img.complete)
-      .map(img => new Promise(resolve => {
-        img.onload = img.onerror = resolve;
-      }))
-  );
-}
-
-function precargarImagenesDeWrapper(wrapper) {
-  const imgs = Array.from(wrapper.querySelectorAll('img'));
-  return Promise.all(
-    imgs.map(img =>
-      new Promise((resolve, reject) => {
-        if (img.complete && img.naturalWidth > 0) return resolve();
-        const tempImg = new Image();
-        tempImg.crossOrigin = 'anonymous';
-        tempImg.onload = () => resolve();
-        tempImg.onerror = () => reject(new Error('Imagen no cargada: ' + img.src));
-        tempImg.src = img.src;
-      })
-    )
-  );
-}
-
-
-function extraerYprecargarImagenesHTML(htmlString) {
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = htmlString;
-  const imgs = Array.from(tempDiv.querySelectorAll('img'));
-  return Promise.all(
-    imgs.map(img => {
-      return new Promise((resolve, reject) => {
-        const tempImg = new Image();
-        tempImg.crossOrigin = 'anonymous';
-        tempImg.onload = () => resolve();
-        tempImg.onerror = () => reject(new Error('Imagen no cargada: ' + img.src));
-        tempImg.src = img.src;
-      });
-    })
-  );
-}
-
-
-
-
-
-
-
-
-
-async function generarPDFCompleto(event) {
-  const d = window.ultimosDatosInforme;
-  if (!d) {
-    alert('No hay datos para generar el PDF.');
-    return;
-  }
-
-  const btnPDF = event.target;
-  btnPDF.disabled = true;
-  btnPDF.textContent = 'Generando PDF...';
-  const pdfWrapper = document.getElementById('pdf-wrapper');
-  pdfWrapper.style.display = 'block';
-  pdfWrapper.style.width = '210mm';
-  pdfWrapper.style.background = 'white';
-  pdfWrapper.style.color = 'black';
-  pdfWrapper.style.fontFamily = 'Arial, sans-serif';
-  pdfWrapper.style.padding = '15mm';
-  pdfWrapper.style.boxSizing = 'border-box';
-
-
-  // Limitar altura para evitar página extra
-  pdfWrapper.style.maxHeight = '297mm';
-  pdfWrapper.style.overflow = 'hidden';
-
-  // Esperar a que todas las imágenes estén cargadas
-  function esperarImagenes() {
-    return Promise.all(
-      Array.from(document.images)
-        .filter(img => !img.complete)
-        .map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))
-    );
-  }
-
-  await esperarImagenes();
-
-
-  pdfWrapper.innerHTML = `
-    <div style="padding: 15mm; page-break-after: always;">
-      <div style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
-        <h1 style="font-size: 20px; margin: 0 0 10px 0;">PA VIDRIO MONTADO - HOJA DE FABRICACIÓN</h1>
-        <div style="font-size: 11px;"><strong>Cliente:</strong> ${d.cliente} | <strong>Nº Pedido:</strong> ${d.numPedido} | <strong>Fecha:</strong> ${d.fecha}</div>
-        <div style="font-size: 11px;"><strong>Comentarios:</strong> ${d.comentarios || 'Sin comentarios'}</div>
-        <p style="font-weight: bold; margin: 10px 0 0 0; font-size: 13px;">${d.comentarios}</p>
-      </div>
-
-      ${d.mostrarPuerta ? `
-      <div>
-        <div style="background:#bbb; border:2px solid #999; padding:6px 15px; font-weight:bold; font-size:11px; margin:8px 0;">MEDIDAS DE PUERTA</div>
-        <div style="font-weight:bold; font-size:11px; margin:10px 0 5px 0;">Perfiles Acabado ${d.acabado}</div>
-        <table style="width:100%; border-collapse:collapse; font-size:10px;">
-          <thead><tr style="background:#ddd;">
-            <th style="border:1px solid #333; padding:5px; text-align:left;">Tipo</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Longitud mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Cantidad</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Retrac</th>
-          </tr></thead>
-          <tbody>
-            ${d.perfilesPuerta.map(p => `
-              <tr>
-                <td style="border:1px solid #333; padding:5px;">${p.tipo}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(p.longitud)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(p.cantidad)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${p.retracInf || '-'}</td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-
-        <table style="width:100%; border-collapse:collapse; font-size:10px; margin-top:10px;">
-          <thead><tr style="background:#ddd;">
-            <th style="border:1px solid #333; padding:5px; text-align:left;">Embellecedor</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Longitud mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Cantidad</th>
-          </tr></thead>
-          <tbody>
-            ${d.embellecedorPuerta.map(e => `
-              <tr>
-                <td style="border:1px solid #333; padding:5px;">${e.tipo}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(e.longitud)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(e.cantidad)}</td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-
-        <div style="font-weight:bold; font-size:11px; margin:10px 0 5px 0;">Medidas de Cristales ${d.colorVidrio}</div>
-        <table style="width:100%; border-collapse:collapse; font-size:10px;">
-          <thead><tr style="background:#ddd;">
-            <th style="border:1px solid #333; padding:5px; text-align:left;">Vidrio Acabado</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Alto mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Ancho mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Cantidad</th>
-          </tr></thead>
-          <tbody>
-            ${d.cristalesPuerta.map(c => `
-              <tr>
-                <td style="border:1px solid #333; padding:5px;">${c.descripcion}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(c.alto)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(c.ancho)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(c.cantidad)}</td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-      </div>` : ''}
-
-      ${d.mostrarFijo ? `
-      <div style="margin-top:15px;">
-        <div style="background:#bbb; border:2px solid #999; padding:6px 15px; font-weight:bold; font-size:11px; margin:8px 0;">MEDIDAS DE FIJO</div>
-        <div style="font-weight:bold; font-size:11px; margin:10px 0 5px 0;">Perfiles Acabado ${d.acabado}</div>
-        <table style="width:100%; border-collapse:collapse; font-size:10px;">
-          <thead><tr style="background:#ddd;">
-            <th style="border:1px solid #333; padding:5px; text-align:left;">Tipo</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Longitud mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Cantidad</th>
-          </tr></thead>
-          <tbody>
-            ${d.perfilesFijo.map(p => `
-              <tr>
-                <td style="border:1px solid #333; padding:5px;">${p.tipo}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(p.longitud)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(p.cantidad)}</td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-
-        <table style="width:100%; border-collapse:collapse; font-size:10px; margin-top:10px;">
-          <thead><tr style="background:#ddd;">
-            <th style="border:1px solid #333; padding:5px; text-align:left;">Embellecedor</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Longitud mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Cantidad</th>
-          </tr></thead>
-          <tbody>
-            ${d.embellecedorFijo.map(e => `
-              <tr>
-                <td style="border:1px solid #333; padding:5px;">${e.tipo}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(e.longitud)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(e.cantidad)}</td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-
-        <div style="font-weight:bold; font-size:11px; margin:10px 0 5px 0;">Medidas de Cristales ${d.colorVidrio}</div>
-        <table style="width:100%; border-collapse:collapse; font-size:10px;">
-          <thead><tr style="background:#ddd;">
-            <th style="border:1px solid #333; padding:5px; text-align:left;">Vidrio Acabado</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Alto mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Ancho mm</th>
-            <th style="border:1px solid #333; padding:5px; text-align:center;">Cantidad</th>
-          </tr></thead>
-          <tbody>
-            ${d.cristalesFijo.map(c => `
-              <tr>
-                <td style="border:1px solid #333; padding:5px;">${c.descripcion}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(c.alto)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(c.ancho)}</td>
-                <td style="border:1px solid #333; padding:5px; text-align:center;">${formatearNumero(c.cantidad)}</td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-      </div>` : ''}
-
-      <!-- PÁGINA 2: HOJA DE PEDIDO -->
-      <div style="padding: 15mm; page-break-before: always;">
-        <div style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
-          <h1 style="font-size: 20px; margin: 0 0 10px 0;">PA VIDRIO MONTADO - HOJA DE PEDIDO</h1>
-          <div style="font-size: 11px;"><strong>Cliente:</strong> ${d.cliente} | <strong>Nº Pedido:</strong> ${d.numPedido} | <strong>Fecha:</strong> ${d.fecha}</div>
-          <div style="font-size: 11px;"><strong>Comentarios:</strong> ${d.comentarios || 'Sin comentarios'}</div>
-          <p style="font-weight: bold; margin: 10px 0 0 0; font-size: 13px;">${d.comentarios}</p>
-        </div>
-
-        ${d.mostrarPuerta ? `
-        <div>
-          <div style="background:#bbb; border:2px solid #999; padding:6px 15px; font-weight:bold; font-size:11px; margin:8px 0;">MEDIDAS PUERTA</div>
-          <table style="width:100%; border-collapse:collapse; font-size:10px;">
-            <thead><tr style="background:#ddd;">
-              <th style="border:1px solid #333; padding:5px; text-align:left; width:35%;">Concepto</th>
-              <th style="border:1px solid #333; padding:5px; text-align:left; width:50%;">Valor</th>
-              <th style="border:1px solid #333; padding:5px; text-align:center; width:15%;">Cantidad</th>
-            </tr></thead>
-            <tbody>
-              <tr><td style="border:1px solid #333; padding:5px;">Tipo</td><td style="border:1px solid #333; padding:5px;">CORREDERA</td><td style="border:1px solid #333; padding:5px; text-align:center;">${(d.perfilesPuerta[0]?.cantidad || 0) / 2}</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Acabado</td><td colspan="2" style="border:1px solid #333; padding:5px;">${d.acabado}</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Color Vidrio</td><td colspan="2" style="border:1px solid #333; padding:5px;">${d.colorVidrio}</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Alto Puerta</td><td style="border:1px solid #333; padding:5px;">${formatearNumero(d.altoPuerta)}</td><td style="border:1px solid #333; padding:5px; text-align:center;">-</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Ancho Puerta</td><td style="border:1px solid #333; padding:5px;">${formatearNumero(d.anchoPuerta)}</td><td style="border:1px solid #333; padding:5px; text-align:center;">-</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Embellecedor 13×3</td><td colspan="2" style="border:1px solid #333; padding:5px;">${d.textoDivision}</td></tr>
-            </tbody>
-          </table>
-        </div>` : ''}
-
-        ${d.mostrarFijo ? `
-        <div style="margin-top:15px;">
-          <div style="background:#bbb; border:2px solid #999; padding:6px 15px; font-weight:bold; font-size:11px; margin:8px 0;">MEDIDAS FIJO</div>
-          <table style="width:100%; border-collapse:collapse; font-size:10px;">
-            <thead><tr style="background:#ddd;">
-              <th style="border:1px solid #333; padding:5px; text-align:left; width:35%;">Concepto</th>
-              <th style="border:1px solid #333; padding:5px; text-align:left; width:50%;">Valor</th>
-              <th style="border:1px solid #333; padding:5px; text-align:center; width:15%;">Cantidad</th>
-            </tr></thead>
-            <tbody>
-              <tr><td style="border:1px solid #333; padding:5px;">Tipo</td><td style="border:1px solid #333; padding:5px;">FIJO</td><td style="border:1px solid #333; padding:5px; text-align:center;">${(d.perfilesFijo[0]?.cantidad || 0) / 2}</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Acabado</td><td colspan="2" style="border:1px solid #333; padding:5px;">${d.acabado}</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Color Vidrio</td><td colspan="2" style="border:1px solid #333; padding:5px;">${d.colorVidrio}</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Alto Fijo</td><td style="border:1px solid #333; padding:5px;">${formatearNumero(d.altoFijo)}</td><td style="border:1px solid #333; padding:5px; text-align:center;">-</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Ancho Fijo</td><td style="border:1px solid #333; padding:5px;">${formatearNumero(d.anchoFijo)}</td><td style="border:1px solid #333; padding:5px; text-align:center;">-</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Embellecedor 13×3</td><td colspan="2" style="border:1px solid #333; padding:5px;">${d.textoDivision}</td></tr>
-              <tr><td style="border:1px solid #333; padding:5px;">Bastidor</td><td colspan="2" style="border:1px solid #333; padding:5px;">Perfiles ${d.acabado} - ${d.textoTipoFijo}</td></tr>
-            </tbody>
-          </table>
-        </div>` : ''}
-      </div>
-    </div>
-  `;
-
-    // Extraer y precargar imágenes del string HTML
-    await extraerYprecargarImagenesHTML(pdfWrapper.innerHTML);
-    console.log('Imágenes precargadas desde string HTML');
-
-
-  // Generar PDF
-  const opt = {
-    margin: 5,
-    filename: `PA_${d.numPedido}_${d.cliente.replace(/\s+/g, '_')}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      logging: false
-    },
-    jsPDF: {
-      unit: 'mm',
-      format: 'a4',
-      orientation: 'portrait'
-    }
-  };
-
-
-  // Log de depuración: imágenes detectadas
-  console.log('Imágenes en pdfWrapper:', Array.from(pdfWrapper.querySelectorAll('img')).map(img => ({
-  src: img.src,
-  complete: img.complete,
-  naturalWidth: img.naturalWidth,
-  crossOrigin: img.crossOrigin
-  }))); 
-
+// Función principal que genera el PDF completo
+async function generarPDFCompleto() {
+  const boton = document.getElementById('btn-descargar-pdf');
+  if (!boton) return alert('❌ Botón no encontrado');
 
   try {
-    await html2pdf().set(opt).from(pdfWrapper).save();
-  } catch (err) {
-    console.error('Error al generar el PDF:', err);
-    alert('Error al generar el PDF. Revisa la consola.');
+    // 1. Desactivar botón
+    boton.disabled = true;
+    boton.textContent = '⏳ Generando PDF...';
+
+    // 2. Obtener contenedores
+    const informe1 = document.getElementById('informe-container');
+    const informe2 = document.getElementById('hoja-pedido-container');
+
+    // 3. Verificar que al menos uno existe y está visible
+    if ((!informe1 || informe1.style.display === 'none') && 
+        (!informe2 || informe2.style.display === 'none')) {
+      alert('❌ No hay informe visible para generar PDF');
+      return;
+    }
+
+    // 4. Crear PDF
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+
+    // 5. Informe 1 (si existe)
+    if (informe1 && informe1.style.display !== 'none') {
+      console.log('1️⃣ Capturando Informe 1...');
+      await capturarInforme(pdf, informe1, true);
+    }
+
+    // 6. Informe 2 (si existe)
+    if (informe2 && informe2.style.display !== 'none') {
+      console.log('2️⃣ Capturando Informe 2...');
+      await capturarInforme(pdf, informe2, false);
+    }
+
+    // 7. Generar nombre del archivo
+    const cliente = informe1?.querySelector('#inf-cliente')?.textContent?.trim() || 
+                    informe2?.querySelector('#hp-cliente')?.textContent?.trim() || 'informe';
+    const fecha = new Date().toLocaleDateString('es-ES').replace(/\//g, '-');
+    
+    // 8. Descargar
+    pdf.save(`PA-Vidrio-${cliente}-${fecha}.pdf`);
+
+  } catch (error) {
+    console.error('❌ ERROR COMPLETO:', error);
+    alert(`Error al generar PDF:\n${error.message}\n\nRevisa la consola (F12) para más detalles.`);
   } finally {
-    pdfWrapper.style.display = 'none';
-    btnPDF.disabled = false;
-    btnPDF.textContent = 'Descargar PDF';
-    // Restaurar estilos
-    pdfWrapper.style.maxHeight = '';
-    pdfWrapper.style.overflow = '';
+    // 9. Restaurar botón
+    boton.disabled = false;
+    boton.textContent = '📄 Generar PDF';
   }
 }
 
-  <!-- Contenedor OCULTO que pegará html2pdf (2 páginas) -->
-  <div id="pdf-wrapper" style="display:none;"></div>
+// ============================================
+// FUNCIÓN AUXILIAR: Captura un informe y lo ajusta (SIN FONDOS NOSEADOS)
+// ============================================
+async function capturarInforme(pdf, contenedor, esPrimero = true) {
+  if (!contenedor || contenedor.style.display === 'none') return;
+  
+  console.log(`📄 Capturando ${contenedor.id}...`);
+
+  // Esperar imágenes
+  await esperarImagenes(contenedor);
+
+  // Capturar con html2canvas
+  const canvas = await html2canvas(contenedor, {
+    scale: 1.5, // Reducido para mejor ajuste
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: '#ffffff',
+    logging: false,
+    
+    // 🔥 CLAVE: FORZAR FONDO BLANCO EN TODO
+    onclone: (clonedDoc) => {
+      // Forzar fondo blanco en el body y contenedor
+      clonedDoc.body.style.backgroundColor = '#ffffff';
+      const contenedorClonado = clonedDoc.getElementById(contenedor.id);
+      if (contenedorClonado) {
+        contenedorClonado.style.backgroundColor = '#ffffff';
+        contenedorClonado.style.setProperty('background-color', '#ffffff', 'important');
+      }
+
+      // Ocultar botones
+      clonedDoc.querySelectorAll('.btn').forEach(btn => {
+        btn.style.display = 'none';
+      });
+      
+      // Forzar SOLO los fondos grises DESEADOS (titulos y th)
+      const elementosCorrectos = clonedDoc.querySelectorAll('.bloque-titulo, .tabla-informe th');
+      elementosCorrectos.forEach(el => {
+        const estilo = window.getComputedStyle(el);
+        if (estilo.backgroundColor && estilo.backgroundColor !== 'transparent') {
+          el.style.backgroundColor = '#bbb'; // Color gris exacto que usas
+        }
+      });
+
+      // BORRAR cualquier otro fondo no deseado
+      clonedDoc.querySelectorAll('*').forEach(el => {
+        const estilo = window.getComputedStyle(el);
+        // Si NO es título ni th, pero tiene fondo gris suave = borrar
+        if (!el.classList.contains('bloque-titulo') && 
+            !el.closest('th') && 
+            el.tagName !== 'TH' &&
+            el.tagName !== 'BODY' &&
+            el.id !== contenedor.id) {
+          if (estilo.backgroundColor.includes('rgba') || 
+              estilo.backgroundColor.includes('rgb(242') ||
+              estilo.backgroundColor.includes('rgb(245')) {
+            el.style.backgroundColor = 'transparent';
+          }
+        }
+      });
+    }
+  });
+
+  const imgData = canvas.toDataURL('image/png');
+  const imgWidth = 210; // mm
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+  // Salto de página solo si NO es el primero
+  if (!esPrimero) {
+    pdf.addPage();
+  }
+  
+  // Añadir imagen en la página actual
+  pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+  
+  console.log(`✅ Informe capturado: ${imgWidth}x${imgHeight.toFixed(0)}mm`);
+}
+
+// ============================================
+// FUNCIÓN AUXILIAR: Esperar imágenes
+// ============================================
+function esperarImagenes(container) {
+  return new Promise((resolve) => {
+    const images = container.querySelectorAll('img');
+    if (images.length === 0) return resolve();
+    
+    let loaded = 0;
+    images.forEach(img => {
+      if (img.complete && img.naturalHeight > 0) {
+        loaded++;
+        if (loaded === images.length) resolve();
+      } else {
+        img.onload = img.onerror = () => {
+          loaded++;
+          if (loaded === images.length) resolve();
+        };
+      }
+    });
+  });
+}
+
+// ============================================
+// INICIAR AL CARGAR PÁGINA
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+  const boton = document.getElementById('btn-descargar-pdf');
+  if (boton) {
+    boton.addEventListener('click', generarPDFCompleto);
+    console.log('✅ Generador de PDF activado');
+  } else {
+    console.error('❌ No se encontró el botón #btn-descargar-pdf');
+  }
+});
