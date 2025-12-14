@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adinor PA Vidrio montado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-primario: #2563eb;
+      --borde: #d1d5db;
+      --borde-hover: #9ca3af;
+      --fondo: #ffffff;
+      --fondo-hover: #f9fafb;
+      --radio: 12px;
+    }
+
+        h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+        h2 {
+      font-size: 30px;
+      color: #1a2b6f;
+      margin-bottom: 30px;
+    }
+
+       h3 {
+      font-size: 15px;
+      /*margin-bottom: 30px; */
+      margin: 10px 0 0;       /* margen superior 4px, sin margen inferior */
+      text-align: center;  /* centra el texto horizontalmente */
+    }
+
+
+
+    .formulario {                /* Este lo traigo de PAMontada  para ocultar los forms al principio */
+      display: none;
+    }
+    .formulario.active {        
+      display: block;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin: 20px;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    /* Body de página completa */
+    html, body {
+    height: 100%;
+    }
+
+    .form {
+      width: 100%;
+      max-width: none;
+      margin: 0 auto;
+     /* background: transparent; 
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 24px; */
+    }
+
+    #form1 .opciones-imagenes, #form2 .opciones-imagenes, #form4 .opciones-imagenes, #form5 .opciones-imagenes {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    #form1 .opcion, #form2 .opcion, #form4 .opcion, #form5 .opcion {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    .paso-titulo { margin: 0 0 16px; font-size: 1.25rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 30px;
+      margin-left: 150px;   /* 👈  margin-left: 48px;   /* 👈 más margen a la izquierda */
+      margin-right: 150px;  /* equilibrio opcional */
+    }
+
+    #form5 .grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    /* Tarjeta accesible: <label> con <input> (oculto) + <div.visual> */
+    .card { display: block; cursor: pointer; }
+
+    .card input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .visual {
+      /*height: 100%;  */
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 8px;
+      padding: 12px;
+      border: 2px solid var(--borde);
+      border-radius: var(--radio);
+      background: var(--fondo);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .visual:hover {
+      border-color: var(--borde-hover);
+      background: var(--fondo-hover);
+    }
+
+    /* Contorno al seleccionar */
+    .card input:checked + .visual {
+      border-color: var(--color-primario);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Contorno al enfocar con teclado */
+    .card input:focus + .visual {
+      outline: 3px solid rgba(37, 99, 235, 0.6);
+      outline-offset: 2px;
+    }
+
+    .visual img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      justify-self: center;   /* centra horizontalmente en la grid */
+    }
+
+    #form4 .visual img {
+      width: 200px;
+      height: 160px;
+    }
+    
+    #form5 .visual img {
+      width: 110px;
+      height: 220px;
+      object-fit: contain;  /* Contein se ajusta a cuadro que tengamos es un zoom mas ajustado */
+    }
+
+
+    .visual p { margin: 0; font-size: 0.9rem; color: #4b5563; }
+
+
+
+    .acciones {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-start; /* 👈 Ahora se alinean a la izquierda  justify-content: flex-start; /* 👈 Ahora se alinean a la izquierda */
+      margin-top: 20px;
+    }
+
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+      min-width: 120px;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+  
+    .resumen-lista {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  
+  
+  
+  </style>
+
+
+</head>
+<body>
+
+<!-- Formulario 1 -->
+  <form id="form1" class="formulario active">
+    <h2>Sistemas con puertas abatibles</h2>
+
+      <div class="grid" aria-live="polite">
+        <!-- 1 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op1">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible01.png">
+            <h3>1 Puerta</h3>
+          </div>
+        </label>
+        <!-- 2 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op2">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible02.png">
+            <h3>1 Puerta y 1 Fijo</h3>
+          </div>
+        </label>
+        <!-- 3 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op3">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible03.png">
+             <h3>1 Puerta y 2 Fijos</h3>
+          </div>
+        </label>
+        <!-- 4 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op4">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible04.png">
+            <h3>2 Puertas (doble)</h3>
+          </div>
+        </label>
+        <!-- 5 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op5">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible05.png">
+            <h3>2 Puertas (doble) y 1 fijo</h3>
+          </div>
+        </label>
+        <!-- 6 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op6">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible05.png?text=TI"  >
+            <h3>2 Puertas (doble) y 2 fijos</h3>
+          </div>
+        </label>
+      </div>
+      <br>
+      <p>Los marcos de puerta y los bastidores de los fijos estan incluidos en los diseños.</p>
+      <p>Seleccionar una opción antes de continuar</p>
+      <div class="acciones">
+        <button type="button" onclick="volverAlInicio()" class="btn">⪡ Atrás</button>
+        <button type="button" onclick="cambiarFormulario(1,2)" class="btn">Siguiente ⪢</button>
+      </div>
+  </form>
+
+
+<!-- Formulario 2 -->
+ <form id="form2" class="formulario">
+    <h2>Tipo de cierre</h2>
+
+      <div class="grid" aria-live="polite">
+        <!-- 1 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op1">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/CierreCerradura.png">
+            <h3>Cierre Cerradura</h3>
+          </div>
+        </label>
+
+        <!-- 2 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="op2">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/CierreMagnetico.png">
+            <h3>Cierre Magnético</h3>
+          </div>
+        </label>
+      </div>
+      <br>
+      <p>Seleccionar una opción antes de continuar</p>
+      <div class="acciones">
+        <button type="button" onclick="cambiarFormulario(2,1)" class="btn">⪡ Atrás</button>
+        <button type="button" onclick="cambiarFormulario(2,4)" class="btn">Siguiente ⪢</button>
+      </div>
+  </form>
+
+ <!-- Formulario 4 -->
+ <form id="form4" class="formulario">
+    <h2>Tipología de Fijo</h2>
+      <div class="grid" aria-live="polite">
+        <!-- 1 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="0">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared3.png">
+            <h3>3 Paredes</h3>
+          </div>
+        </label>
+        <!-- 2 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="A">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared3U.png">
+            <h3>3 Paredes U</h3>
+          </div>
+        </label>
+        <!-- 3 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="B">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared4.png">
+            <h3>4 Paredes</h3>
+          </div>
+        </label>
+      </div>
+      <br>
+      <p>Seleccionar una opción antes de continuar</p>
+      <div class="acciones">
+        <button type="button" onclick="cambiarFormulario(4,2)" class="btn">⪡ Atrás</button>
+        <button type="button" onclick="cambiarFormulario(4,5)" class="btn">Siguiente ⪢</button>
+      </div>
+  </form>
+
+  <!-- Formulario 5    DIVISIONES   -->
+  <form id="form5" class="formulario">
+    <h2>Divisiones Adhesivas 13x3</h2>
+
+      <div class="grid" aria-live="polite">
+        <!-- 1 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="0">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Divisiones_0.png">
+            <h3>Sin embellecedor</h3>
+          </div>
+        </label>
+        <!-- 2 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="2">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Divisiones_1.png">
+            <h3>Modelo A</h3>
+          </div>
+        </label>
+        <!-- 3 -->
+        <label class="card">
+          <input type="radio" name="opcion" value="4">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Divisiones_2.png">
+            <h3>Modelo B</h3>
+          </div>
+        </label>
+
+        <label class="card">
+          <input type="radio" name="opcion" value="6">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Divisiones_3.png">
+            <h3>Modelo C</h3>
+          </div>
+        </label>
+
+        <label class="card">
+          <input type="radio" name="opcion" value="D">
+          <div class="visual">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Divisiones_3_Plus.png">
+            <h3>Modelo D</h3>
+          </div>
+        </label>
+      </div>
+      <br>
+      <p>Seleccionar una opción antes de continuar</p>
+      <div class="acciones">
+        <button type="button" onclick="cambiarFormulario(5,4)" class="btn">⪡ Atrás</button>
+        <button type="button" onclick="cambiarFormulario(5,6)" class="btn">Siguiente ⪢</button>
+      </div>
+  </form>
+
+<!-- Formulario 6 -->
+<form id="form6" class="formulario">
+  <h2>Medidas de Instalación</h2>
+  
+  <!-- Primera fila: Alto, Acabado y Color (3 columnas) -->
+  <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 5px;">
+    <div style="width: 200px;">
+      <label for="Alto">Alto de hueco<br>
+        <input type="number" id="Alto" name="Alto" required min="1" style="width: 100%; box-sizing: border-box; padding: 8px;">
+      </label>
+    </div>
+    <div style="width: 200px;">
+      <label for="AcabadoAluminio">Acabado Aluminio<br>
+        <select id="AcabadoAluminio" name="AcabadoAluminio" required style="width: 100%; box-sizing: border-box; padding: 8px;">
+          <option value="Blanco mate 9003">Blanco mate 9003</option>
+          <option value="Negro mate texturado">Negro mate texturado</option>
+          <option value="Acero corten">Acero corten</option>
+          <option value="Chapa roble barnizada">Chapa roble barnizada</option>
+          <option value="Chapa nogal barnizada">Chapa nogal barnizada</option>
+        </select><br>
+      </label>
+    </div>
+    <div style="width: 200px;">
+      <label for="ColorVidrio">Color de vidrio<br>
+        <select id="ColorVidrio" name="ColorVidrio" required style="width: 100%; box-sizing: border-box; padding: 8px;">
+          <option value="TRANSPARENTE">Transparente</option>
+          <option value="MATE">Mate</option>
+          <option value="BRONCE">Bronce</option>
+          <option value="GRIS">Gris</option>
+          <option value="GRIS OSCURO">Gris oscuro</option>
+        </select><br>
+      </label>
+    </div>
+  </div>
+  
+  <!-- Segunda fila: Solo Ancho (1 columna a la izquierda) -->
+  <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px; margin-top: 10px">
+    <div style="width: 200px;">
+      <label for="Ancho">Ancho de hueco<br>
+        <input type="number" id="Ancho" name="Ancho" required min="1" style="width: 100%; box-sizing: border-box; padding: 8px;"><br><br>
+      </label>
+    </div>
+    <div style="width: 200px;"></div> <!-- Espacio vacío a la derecha -->
+    <div style="width: 200px;"></div> <!-- Espacio vacío a la derecha -->
+  </div>
+  <!-- Tercera fila: Cliente y Nº Pedido -->
+  <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px; margin-top: 30px;">    <!-- Margin-top es la distacia a la linea anterior    -->
+    <label style="width: 450px;"> <!-- 200 + 50 + 200 = 450px para ocupar 2 columnas -->
+      Cliente<br>
+      <input type="text" name="cliente" required style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px;">
+    </label>
+    <label style="width: 200px;">
+      Nº Pedido<br>
+      <input type="text" name="numPedido" required style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px;">
+    </label>
+  </div>
+  
+    <!-- Cuarta fila: Comentarios (línea completa) -->
+    <div style="display: flex; justify-content: center;">
+      <label style="width: 700px;"> <!-- 200×3 + 50×2 = 700px -->
+        Comentarios<br>
+        <textarea name="comentarios" rows="2" style="width: 100%; box-sizing: border-box; padding: 8px; font-size: 16px; resize: vertical; font-family: inherit;"></textarea>
+      </label>
+    </div>
+    <br><br>
+    <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px;">
+  <label style="width: 200px;">
+    Nº de conjuntos a fabricar<br>
+    <input type="number" name="conjuntos" required min="1" value="1" style="width: 100%; box-sizing: border-box; padding: 8px; font-size: 16px;">
+  </label>
+  <div style="width: 450px;"></div> <!-- espacio vacío -->
+</div>
+ <br>
+    <p>Seleccionar una opción antes de continuar</p>
+    <div class="acciones" style="margin-top: 20px;">
+      <button type="button" onclick="cambiarFormulario(6,5)" class="btn">⪡ Atrás</button>
+      <button type="button" onclick="cambiarFormulario(6,6)" class="btn">Siguiente ⪢</button>
+    </div>
+  </form>
+
+  <script>
+
+    
+
+  const flujoSeleccionado = localStorage.getItem('flujoSeleccionado');
+  const datosGuardados = JSON.parse(localStorage.getItem('datosFormularios') || '{}');
+
+  console.log('Flujo seleccionado:', flujoSeleccionado); // '2' o '5'
+  console.log('Datos del formulario anterior:', datosGuardados);
+
+  if (flujoSeleccionado === '2') {
+    console.log('✅ Puerta Abatible - Frente completo');
+  } else if (flujoSeleccionado === '5') {
+    console.log('✅ Puerta Abatible - Elemento independiente');
+  }
+
+    function volverAlInicio() {
+    // Opcional: limpiar el localStorage
+    // localStorage.removeItem('flujoSeleccionado');
+    // localStorage.removeItem('datosFormularios');
+    
+    window.location.href = 'PAMontada.html'; // o el nombre de tu HTML principal
+    }
+
+
+  function cambiarFormulario(actual, destino) {
+    const formActual = document.getElementById(`form${actual}`);
+    const formDestino = document.getElementById(`form${destino}`);
+
+    if (formActual && formDestino) {
+      formActual.classList.remove('active'); // Oculta el actual
+      formDestino.classList.add('active');   // Muestra el destino
+    } else {
+      console.warn('Revisa los IDs o console.warn Revisa los IDs o parámetros:', { actual, destino });
+    }
+  }
+
+
+
+
+
+
+
+
+  </script>
+</body>

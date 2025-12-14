@@ -342,19 +342,19 @@ s<html lang="es">
     margin: 5px 10px 0px 100px; /*Define los márgenes externos de la tabla, arriba, derecha, abaj, izquierda */
     }
 
-      .tabla-informe th,
-      .tabla-informe td {
-        border: 1px solid #333;
-        padding: 6px 8px;   /*  espacio interno de la celda arriba y abajo / a los lados  */ 
-        text-align: center;
-        font-size: 12px;
-        line-height: 0.8;    /* 80% de la Altura de la letra */ 
-      }
+    .tabla-informe th,
+    .tabla-informe td {
+      border: 1px solid #333;
+      padding: 6px 8px;   /*  espacio interno de la celda arriba y abajo / a los lados  */ 
+      text-align: center;
+      font-size: 12px;
+      line-height: 0.8;    /* 80% de la Altura de la letra */ 
+    }
 
-      .tabla-informe th {
-        background: #ddd;
-        font-weight: bold;
-      }
+    .tabla-informe th {
+      background: #ddd;
+      font-weight: bold;
+    }
 
     .tabla-informe td:empty {
       border: none; 
@@ -1410,8 +1410,6 @@ function finalizarFlujoTest() {
 }
 
 
-
-
 function anteriorFormulario(actual) {
   try {
     const formActual = document.getElementById(`form${actual}`);
@@ -1442,9 +1440,16 @@ function siguienteFormulario(actual) {
     
     const flujoId = datosFormularios.form1?.imagen;
     
+    // ✅ REDIRECCIÓN A pruebabotones.html para opciones 2 y 5
     if (flujoId === '2' || flujoId === '5') {
-      const flujo = FLUJOS[flujoId];
-      alert(flujo?.mensaje || '⚠️ Opción en construcción');
+      // Guardar el flujoId en localStorage para que pruebabotones.html lo recupere
+      localStorage.setItem('flujoSeleccionado', flujoId);
+      
+      // Guardar todos los datos del formulario por si los necesitas
+      localStorage.setItem('datosFormularios', JSON.stringify(datosFormularios));
+      
+      // Redirigir a pruebabotones.html
+      window.location.href = 'PAMontAbatible.html';
       return;
     }
     
@@ -1460,7 +1465,7 @@ function siguienteFormulario(actual) {
         if (flujo.saltados && flujo.saltados.length > 0) {
           flujo.saltados.forEach(numForm => {
             const formKey = `form${numForm}`;
-            delete datosFormularios[formKey]; // ✅ Borrar completamente
+            delete datosFormularios[formKey];
             console.log(`🗑️  ${formKey} eliminado (formulario saltado)`);
           });
         }
@@ -1494,6 +1499,7 @@ function siguienteFormulario(actual) {
     alert(error.message);
   }
 }
+
 
 function limpiarDatos() {
   // ========== 1️⃣ RESET COMPLETO DEL OBJETO DE DATOS ==========
