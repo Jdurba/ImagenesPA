@@ -34,19 +34,25 @@ export async function cargarTablas() {
 }
 
 // ----------------------------------------------------------
-// Función pública: devuelve el presupuesto completo
+// Función pública: devuelve el presupuesto completo  / Se usa para Puerta y para Fijo con el nombre Puerta
 // ----------------------------------------------------------
 export function calcularPresupuesto(data) {
+  
   // data = {tipo, color, vidrio, altura, ancho, modeloEmb, bastidor}
 
   // 1. Ajustar medidas
   const {altoTabla, anchoTabla} = ajustarMedidas(data.tipo, data.altura, data.ancho);
 
-  // 2. Puerta
+  // 2. Puerta   (Vale para fijo también)
   const puerta = buscarPuerta(data.tipo, data.color, data.vidrio, altoTabla, anchoTabla);
+
+  if (data.altura > 2700) {
+  puerta.precio = parseFloat((puerta.precio * 1.20).toFixed(3));
+  } 
 
   // 3. Embellecedor
   const codEmb = `PAV.${data.modeloEmb}01.${data.color}`;
+  //console.log ('Embellecedor:', codEmb);
   const emb    = buscarDenominacionYPrecio(codEmb);
 
   // 4. Bastidor
@@ -79,6 +85,7 @@ function ajustarMedidas(tipo, altoIn, anchoIn) {
 }
 
 function buscarDenominacionYPrecio(codigo) {
+  console.log ('Embellecedor al entrar:', codigo);
   const rowP = tablas.codPrecio.find(r => r.Codigo === codigo);
   const precio = rowP ? parseFloat(rowP.Precio.replace(',', '.')) : 0;
   const rowA = tablas.articulos.find(r => r.CODIGO === codigo);
@@ -96,7 +103,8 @@ function buscarPuerta(tipo, color, vidrio, altoTabla, anchoTabla) {
     '02': 'MATE',
     '03': 'BRONCE',
     '04': 'GRIS',
-    '05': 'GRIS OSCURO'
+    '05': 'GRIS OSCURO',
+    '00': 'ESPECIAL'
   };
   const nomCol = COL_VIDRIOS[vidrio];
 
