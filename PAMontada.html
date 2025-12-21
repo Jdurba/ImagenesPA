@@ -467,10 +467,10 @@ s<html lang="es">
                 <p>Puerta corredera</p>
                 <input type="radio" name="imagen" value="3">
               </div>
-              <div class="opcion">
+              <!-- <div class="opcion">  
                 <p>Puerta abatible</p>
                 <input type="radio" name="imagen" value="5">
-              </div>
+              </div>   -->
               <div class="opcion">
                 <p>Fijo</p>
                 <input type="radio" name="imagen" value="4">
@@ -641,6 +641,7 @@ s<html lang="es">
           <option value="Acero corten">Acero corten</option>
           <option value="Chapa roble barnizada">Chapa roble barnizada</option>
           <option value="Chapa nogal barnizada">Chapa nogal barnizada</option>
+          <option value="Acabado Especial">Acabado Especial</option>
         </select><br><br>
       </label>
     </div>
@@ -652,6 +653,7 @@ s<html lang="es">
           <option value="BRONCE">Bronce</option>
           <option value="GRIS">Gris</option>
           <option value="GRIS OSCURO">Gris oscuro</option>
+          <option value="ESPECIAL">Especial</option>
         </select><br>
       </label>
     </div>
@@ -947,11 +949,6 @@ s<html lang="es">
 <script src="js/SalidaPDF.js"></script> <!-- TU ARCHIVO -->
 
 
-
-  
-
-
-
 <script type="module">
 
   let tablasCargadas = false; // ★ Añade esto en la línea 1 de tu script
@@ -969,7 +966,8 @@ s<html lang="es">
         'Negro mate texturado': 'L.NMT',
         'Acero corten': 'L.C',
         'Chapa roble barnizada': 'C.RB',
-        'Chapa nogal barnizada': 'C.NG'
+        'Chapa nogal barnizada': 'C.NG',
+        'Acabado Especial': 'ESP'
     };
 
     const CODIGOS_VIDRIO = {
@@ -977,7 +975,8 @@ s<html lang="es">
         'MATE': '02',
         'BRONCE': '03',
         'GRIS': '04',
-        'GRIS OSCURO': '05'
+        'GRIS OSCURO': '05',
+        'ESPECIAL': '00',
     };
 
     const CODIGOS_EMBELLECEDOR = {
@@ -1180,8 +1179,8 @@ function configurarForm6SegunFlujo(valorForm1) {
       color = 'green';
       break;
     default: // Flujo normal (1)
-      textoAlto = 'Alto de hueco';
-      textoAncho = 'Ancho de hueco';
+      textoAlto = 'Alto de hueco (mm)';
+      textoAncho = 'Ancho de hueco (mm)';
       color = 'black';
   }
   
@@ -1597,8 +1596,8 @@ function validarFormulario(form, numForm) {
     const alto = parseInt(form.querySelector('#Alto')?.value);
     const ancho = parseInt(form.querySelector('#Ancho')?.value);
     
-    if (!alto || !ancho || alto <= 0 || alto > 2700 || ancho <= 0 || ancho > 4500) {
-      alert('Revisar las medidas (rango válido: 1-2700mm alto, 1-4500mm ancho)');
+    if (!alto || !ancho || alto <= 0 || alto > 3000 || ancho <= 0 || ancho > 6000) {
+      alert('Revisar las medidas (rango válido: 1-3000 mm alto, 1-6000 mm ancho)');
       return false;
     }
   }
@@ -1775,7 +1774,7 @@ function realizarCalculos() {
       resultadoPuerta = calcularPerfilesPuerta(Y, X, NumPuertas, retracInf);
       
       const entradaPuerta = {
-        tipo: '01',
+        tipo: '01',    // Es corredera
         color: codigoColor,
         vidrio: codigoVidrio,
         altura: Y,
