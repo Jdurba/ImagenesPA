@@ -20,20 +20,26 @@
         h1, h2, h3, h4, h5, h6 {
       font-family: 'Montserrat', sans-serif;
     }
-        h2 {
+
+    h2 {
       font-size: 30px;
       color: #1a2b6f;
       margin-bottom: 30px;
     }
 
-       h3 {
+    h3 {
       font-size: 15px;
       /*margin-bottom: 30px; */
       margin: 10px 0 0;       /* margen superior 4px, sin margen inferior */
       text-align: center;  /* centra el texto horizontalmente */
     }
 
-
+    #form1 h3 {
+      font-size: 14px;
+      /*margin-bottom: 30px; */
+      margin: 4px 0 0;       /* margen superior 4px, sin margen inferior */
+      text-align: center;  /* centra el texto horizontalmente */
+    }
 
     .formulario {                /* Este lo traigo de PAMontada  para ocultar los forms al principio */
       display: none;
@@ -77,16 +83,65 @@
       align-items: center;
     }
 
-
     .paso-titulo { margin: 0 0 16px; font-size: 1.25rem; }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 30px;
+      gap: 25px;
       margin-left: 200px;   /* 👈  margin-left: 48px;   /* 👈 más margen a la izquierda */
       margin-right: 200px;  /* equilibrio opcional */
     }
+
+    /*   &&&&&&&&&&&&&    Formulario 1    &&&&&&&&&&&&&&&& */
+    /* Asegura que el input personalizado sea clicable */
+    #form1 input[name="opcion_extra"] {
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border: 3px solid #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+    }
+
+    #form1 input[name="opcion_extra"]:checked::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px; height: 8px;
+      background: #2196F3;
+      border-radius: 50%;
+    }
+
+    #form1 input[name="opcion"] {
+      width: 12px; /* Valor ligeramente diferente para distinguir */
+      height: 12px;
+    }
+
+    /* Alineación a la derecha (ya la tienes) */
+    #form1 .card:nth-last-child(2) { grid-column: 2; }
+    #form1 .card:nth-last-child(1) { grid-column: 3; }
+
+
+    /* LÍNEA SEPARADORA (ocupa todo el ancho) */
+    #form1 .separador {
+      grid-column: 1 / -1; /* Ocupa las 3 columnas */
+      grid-row: 3; /* Fila 3 */
+      border-top: 3px solid #1a2b6f; /* Línea gris clara */
+      margin: 5px 0,0; /* Espacio arriba y abajo de la línea */
+      display: flow-root; /* 👈 Evita colapsamiento, o sea que haya varias coincidencias de formato */
+    }
+
+    /* Subir los 3 elementos de la fila de opciones */
+    #form1 .separador + .card,           /* El "Opcional" */
+    #form1 .separador + .card + .card,  /* Primer checkbox */
+    #form1 .separador + .card + .card + .card { /* Segundo checkbox */
+      margin-top: -7%; /* 👈 Ajusta este valor, con % es más responive que -20Px */
+    }
+
 
     #form5 .grid {
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -106,14 +161,17 @@
       display: grid;
       grid-template-rows: auto auto 1fr;
       gap: 8px;
-      padding: 12px;
+      padding: 12px;    /* Espacio al borde  */
       border: 2px solid var(--borde);
       border-radius: var(--radio);
       background: var(--fondo);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
 
-    
+    #form1 .visual {
+      gap: 2px;  /*  Espacio entre elementos*/
+      padding: 5px;    /* Espacio interno al borde  */
+    }
 
     .visual:hover {
       border-color: var(--borde-hover);
@@ -136,8 +194,13 @@
       width: 120px;
       height: 120px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 2px;
       justify-self: center;   /* centra horizontalmente en la grid */
+    }
+
+    #form1 .visual img {
+      width: 115px;
+      height: 115px;
     }
 
     #form4 .visual img {
@@ -151,10 +214,7 @@
       object-fit: contain;  /* Contain se ajusta a cuadro que tengamos es un zoom mas ajustado */
     }
 
-
-    .visual p { margin: 0; font-size: 0.9rem; color: #4b5563; }
-
-
+    .visual p { margin: 0; font-size: 0.9rem; color: #4b5563; } 
 
     .acciones {
       display: flex;
@@ -223,7 +283,6 @@
     cursor: pointer !important;
     }
 
-    /* Labels centrados para campos de medida 
     .label-medida {
       flex: 1;
       text-align: center;
@@ -233,7 +292,6 @@
     .label-medida.oculto {
       display: none !important;
     }
-
 
     @media (max-width: 520px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
@@ -248,68 +306,98 @@
 </head>
 <body>
 
-<!-- Formulario 1 -->
-  <form id="form1" class="formulario active">
-    <h2>Sistemas con puertas abatibles</h2>
 
-      <div class="grid" aria-live="polite">
-        <!-- 1 -->
-        <label class="card">
-          <input type="radio" name="opcion" value="op1">
-          <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible01.png">
-            <h3>1 Puerta</h3>
-          </div>
-        </label>
-        <!-- 2 -->
-        <label class="card">
-          <input type="radio" name="opcion" value="op2">
-          <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible02.png">
-            <h3>1 Puerta y 1 Fijo</h3>
-          </div>
-        </label>
-        <!-- 3 -->
-        <label class="card">
-          <input type="radio" name="opcion" value="op3">
-          <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible03.png">
-             <h3>1 Puerta y 2 Fijos</h3>
-          </div>
-        </label>
-        <!-- 4 -->
-        <label class="card">
-          <input type="radio" name="opcion" value="op4">
-          <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible04.png">
-            <h3>2 Puertas (doble)</h3>
-          </div>
-        </label>
-        <!-- 5 -->
-        <label class="card">
-          <input type="radio" name="opcion" value="op5">
-          <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible05.png">
-            <h3>2 Puertas (doble) y 1 fijo</h3>
-          </div>
-        </label>
-        <!-- 6 -->
-        <label class="card">
-          <input type="radio" name="opcion" value="op6">
-          <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible06.png"  >
-            <h3>2 Puertas (doble) y 2 fijos</h3>
-          </div>
-        </label>
-      </div>
-      <br>
-      <p>Los marcos de puerta y los bastidores de los fijos estan incluidos en los diseños.</p>
-      <p>Seleccionar una opción antes de continuar</p>
-      <div class="acciones">
-        <button type="button" onclick="volverAlInicio()" class="btn">⪡ Atrás</button>
-        <button type="button" onclick="cambiarFormulario(1,2)" class="btn">Siguiente ⪢</button>
-      </div>
-  </form>
+  <!-- Formulario 1 -->
+<form id="form1" class="formulario active">
+  <h2>Sistemas con puertas abatibles</h2>
+
+    <div class="grid" aria-live="polite">
+      <!-- 1 -->
+      <label class="card">
+        <input type="radio" name="opcion" value="op1">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible01.png">
+          <h3>1 Puerta</h3>
+        </div>
+      </label>
+      <!-- 2 -->
+      <label class="card">
+        <input type="radio" name="opcion" value="op2">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible02.png">
+          <h3>1 Puerta y 1 Fijo</h3>
+        </div>
+      </label>
+      <!-- 3 -->
+      <label class="card">
+        <input type="radio" name="opcion" value="op3">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible03.png">
+           <h3>1 Puerta y 2 Fijos</h3>
+        </div>
+      </label>
+      <!-- 4 -->
+      <label class="card">
+        <input type="radio" name="opcion" value="op4">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible04.png">
+          <h3>2 Puertas (doble)</h3>
+        </div>
+      </label>
+      <!-- 5 -->
+      <label class="card">
+        <input type="radio" name="opcion" value="op5">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible05.png">
+          <h3>2 Puertas (doble) y 1 fijo</h3>
+        </div>
+      </label>
+      <!-- 6 -->
+      <label class="card">
+        <input type="radio" name="opcion" value="op6">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Abatible06.png">
+          <h3>2 Puertas (doble) y 2 fijos</h3>
+        </div>
+      </label>
+
+      <!-- LÍNEA SEPARADORA -->
+      <div class="separador"></div>
+
+      <label class="card" >
+          <p style="text-align: right;  font-size: 22px; color: #1a2b6f;">
+              Opcional   
+          </p>
+      </label>
+
+      <!-- 7 - OPCIÓN EXTRA -->
+      <label class="card">
+        <input type="checkbox" name="opcion_extra" value="op7">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/SobreMurete01.png">
+          <h3>Sobremurete con 1 Fijo</h3>
+        </div>
+      </label>
+      <!-- 8 - OPCIÓN EXTRA -->
+      <label class="card">
+        <input type="checkbox" name="opcion_extra" value="op8">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/SobreMurete01.png">
+          <h3>Sobremurete con 2 Fijos</h3>
+        </div>
+      </label>
+    </div>
+  <!--  margin: 10px 20px 30px 40px; arriba 10, derecha 20, abajo 30, izquierda 40 -->
+    <p style="margin: 20px 0 0 0;">Los marcos de puerta y los bastidores de los fijos estan incluidos en los diseños.</p>
+    <p style="margin: 5px 0;">Seleccionar al menos una opción antes de continuar</p>
+    <div class="acciones">
+      <button type="button" onclick="volverAlInicio()" class="btn">⪡ Atrás</button>
+      <button type="button" onclick="if(validarFormulario(1)) { cambiarFormulario(1,2); }" class="btn">Siguiente ⪢</button>
+    </div>
+     <br><br>
+</form>
+
+
 
 
 <!-- Formulario 2 -->
@@ -339,7 +427,7 @@
       <p>Seleccionar una opción antes de continuar</p>
       <div class="acciones">
         <button type="button" onclick="cambiarFormulario(2,1)" class="btn">⪡ Atrás</button>
-        <button type="button" onclick="cambiarFormulario(2,6)" class="btn">Siguiente ⪢</button>
+        <button type="button" onclick="if(validarFormulario(2)) { cambiarFormulario(2,6); }" class="btn">Siguiente ⪢</button>
       </div>
   </form>
 
@@ -375,7 +463,8 @@
       <br>
       <p>Seleccionar una opción antes de continuar</p>
       <div class="acciones">
-        <button type="button" onclick="cambiarFormulario(4,6)" class="btn">Siguiente ⪢</button>
+        <button type="button" onclick="if(validarFormulario(4)) { cambiarFormulario(4,6); }" class="btn">Siguiente ⪢</button>
+
       </div>
   </form>
 
@@ -428,7 +517,8 @@
       <br>
       <p>Seleccionar una opción antes de continuar</p>
       <div class="acciones">
-        <button type="button" onclick="cambiarFormulario(5,6)" class="btn">Siguiente ⪢</button>
+        <!--  <button type="button" onclick="cambiarFormulario(5,6)" class="btn">Selección ⪢</button>   -->
+        <button type="button" onclick="if(validarFormulario(5)) { cambiarFormulario(5,6); }" class="btn">Siguiente ⪢</button>
       </div>
   </form>
 
@@ -487,21 +577,6 @@
           </label>
         </div>
       </div>
-
-      <!-- Segunda fila: Ancho 
-      <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px; margin-top: 10px">
-        <div style="width: 200px;">
-          <label for="Ancho">Ancho de hueco (mm)<br>
-            <input type="number" id="Ancho" name="Ancho" required min="1" 
-            readonly style="width: 100%; box-sizing: border-box; padding: 8px; background-color: #e9ecef;"><br><br>  
-          </label>
-        </div>
-        <div style="width: 450px; font-size: 14px; color: #666; font-style: italic;">
-                Completar los anchos de los elementos del conjunto en mm
-        </div>
-        <div style="width: 200px;"></div>
-        <div style="width: 200px;"></div>
-      </div>  -->
       
       <!-- Segunda fila: Ancho con texto explicativo -->
       <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px; margin-top: 10px; align-items: center;">
@@ -520,11 +595,13 @@
       <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px; margin-top: 30px;">
         <label style="width: 450px;">
           Cliente<br>
-          <input type="text" name="cliente" required style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px;">
+          <input type="text" name="cliente" 
+          style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px;">
         </label>
         <label style="width: 200px;">
           Nº Pedido<br>
-          <input type="text" name="numPedido" required style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px;">
+          <input type="text" name="numPedido" 
+          style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px;">
         </label>
       </div>
       
@@ -552,10 +629,116 @@
   <p>** La medida de puerta incluye el marco y en la del fijo el bastidor (en mm).</p>
   <p>Seleccionar una opción antes de continuar</p>
   <div class="acciones" style="margin-top: 20px;">
-    <button type="button" onclick="cambiarFormulario(6,2)" class="btn">⪡ Atrás</button>
-    <button type="button" onclick="cambiarFormulario(6,6)" class="btn">Siguiente ⪢</button>
+    <button type="button" onclick="cambiarFormulario(6,2)" class="btn">⪡ Atrás</button> 
+    <!-- <button type="button" onclick="cambiarFormulario(6,7)" class="btn">Siguiente ⪢</button>   -->
+    <button type="button" onclick="if(validarFormulario(6)) { cambiarFormulario(6,7); }" class="btn">Siguiente ⪢</button>
   </div>
 </form>
+
+
+<!-- Formulario 7 -->
+<form id="form7" class="formulario">
+  <h2>Medidas de Instalación Sobremurete</h2>
+  
+  <div style="display: flex; gap: 20px; align-items: flex-start; margin-left: 60px">
+    
+    <!-- Columna izquierda: Imagen y campos -->
+    <div style="flex: 0 0 33%; display: flex; flex-direction: column; gap: 15px;">
+      <!-- Imagen -->
+      <div style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Murete1.png" 
+            alt="Imagen de referencia" 
+            class="imagen-referencia"
+            style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      </div>
+      <!-- Contenedor de campos - SE REGENERARÁ DINÁMICAMENTE -->
+      <div id="contenedor-campos-medidas" style="display: flex; gap: 8px;">
+        <!-- Los campos se crearán con JavaScript -->
+      </div>
+    </div>
+
+    <!-- Columna derecha: resto del formulario (sin cambios) -->
+    <div style="flex: 1;">
+      <!-- Primera fila: Alto, Acabado y Color -->
+      <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 5px;">
+        <div style="width: 200px;">
+          <label for="Alto">Alto de hueco (mm)<br>
+            <input type="number" id="Alto" name="Alto" required min="1" 
+                style="width: 100%; box-sizing: border-box; padding: 8px;">
+          </label>
+        </div>
+        <div style="width: 200px;">
+          <label for="AcabadoAluminio">Acabado Aluminio<br>
+               <input type="number" name="AcabadoAluminio" required min="1" 
+               readonly Style="width: 100%; box-sizing: border-box; padding: 8px; background-color: #e9ecef;">
+          </label>
+        </div>
+        <div style="width: 200px;">
+          <label for="ColorVidrio">Color de vidrio<br>
+                <input type="number" name="ColorVidrio" required min="1" 
+                readonly style="width: 100%; box-sizing: border-box; padding: 8px; background-color: #e9ecef;">
+          </label>
+        </div>
+      </div>
+      
+      <!-- Segunda fila: Ancho con texto explicativo -->
+      <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px; margin-top: 10px; align-items: center;">
+        <div style="width: 200px;">
+          <label for="Ancho">Ancho de hueco (mm)<br>
+            <input type="number" id="Ancho" name="Ancho" required min="1" 
+            readonly style="width: 100%; box-sizing: border-box; padding: 8px; background-color: #e9ecef;"><br><br>  
+          </label>
+        </div>
+        <div style="width: 450px; font-size: 14px; color: #3e3d3d; font-style: italic;">
+          (Es la suma de los anchos de los elementos del conjunto en mm)
+        </div>
+      </div>
+
+      <!-- Tercera fila: Cliente y Nº Pedido -->
+      <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px; margin-top: 30px;">
+        <label style="width: 450px;">
+          Cliente<br>
+          <input type="text" name="cliente" 
+          readonly style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px; background-color: #e9ecef;">
+        </label>
+        <label style="width: 200px;">
+          Nº Pedido<br>
+          <input type="text" name="numPedido" 
+          readonly style="width: 100%; box-sizing: border-box; padding: 8px; height: 30px; font-size: 16px; background-color: #e9ecef;">
+        </label>
+      </div>
+      
+      <!-- Cuarta fila: Comentarios -->
+      <div style="display: flex; justify-content: center;">
+        <label style="width: 700px;">
+          Comentarios Sobremurete<br>
+          <textarea name="comentarios" rows="2" style="width: 100%; box-sizing: border-box; padding: 8px; font-size: 16px; resize: vertical; font-family: inherit;"></textarea>
+        </label>
+      </div>
+      <br><br>
+      
+      <!-- Quinta fila: Nº de conjuntos -->
+      <div style="display: flex; gap: 50px; justify-content: center; margin-bottom: 20px;">
+        <label style="width: 200px;">
+          Nº de conjuntos a fabricar<br>
+          <input type="number" name="conjuntos" required min="1" value="1" style="width: 100%; box-sizing: border-box; padding: 8px; font-size: 16px;">
+        </label>
+        <div style="width: 450px;"></div>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  <p>** La medida del fijo incluye el bastidor (en mm).</p>
+  <p>Seleccionar una opción antes de continuar</p>
+  <div class="acciones" style="margin-top: 20px;">
+    <button type="button" onclick="cambiarFormulario(7,6)" class="btn">⪡ Atrás</button>
+    
+    <button type="button" onclick="if(validarFormulario(7)) { alert('✓ Datos validados correctamente.\n\nLa generación del reporte está en construcción.'); }" class="btn">Siguiente ⪢</button>
+  </div>
+</form>
+
+
 
 
 <!-- ********************   JAVA SCRIPT   *******************************  -->
@@ -576,6 +759,46 @@
     console.log('✅ Puerta Abatible - Elemento independiente');
   }
 
+
+// Para Form1
+// Solución robusta para checkboxes extra: 0 o 1 selección
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('✅ Script cargado'); // Debug
+  
+  const extraCards = document.querySelectorAll('#form1 .card');
+  console.log('Tarjetas encontradas:', extraCards.length); // Debe mostrar 8
+  
+  // Configurar solo las últimas 2 tarjetas (extras)
+  const ultimasDosCards = Array.from(extraCards).slice(-2);
+  console.log('Configurando extras:', ultimasDosCards.length); // Debe mostrar 2
+  
+  ultimasDosCards.forEach((card, index) => {
+    const input = card.querySelector('input[name="opcion_extra"]');
+    console.log(`Tarjeta ${index}:`, input?.value); // Debug
+    
+    card.addEventListener('click', function(e) {
+      // Si el clic fue directamente en el input, no hacer nada (ya lo manejamos abajo)
+      if (e.target.type === 'checkbox') return;
+      
+      e.preventDefault(); // Bloquea comportamiento por defecto del label
+      
+      if (input.checked) {
+        input.checked = false; // Desmarcar
+        console.log('Desmarcado:', input.value);
+      } else {
+        // Desmarcar el otro extra
+        ultimasDosCards.forEach(otherCard => {
+          const otherInput = otherCard.querySelector('input[name="opcion_extra"]');
+          if (otherInput !== input) otherInput.checked = false;
+        });
+        input.checked = true; // Marcar este
+        console.log('Marcado:', input.value);
+      }
+    });
+  });
+});
+
+
   function volverAlInicio() {
     // Opcional: limpiar el localStorage
     // localStorage.removeItem('flujoSeleccionado');
@@ -590,7 +813,6 @@
     if (actual === 4 || actual === 5) {
       guardarSeleccionIndividual(actual);
     }
-    
     // Guardar datos del formulario actual antes de cambiar
     guardarDatosFormulario(actual);
     
@@ -600,11 +822,6 @@
     if (formActual && formDestino) {
       formActual.classList.remove('active');
       
-      // Si vamos al formulario 6, configurarlo
-      if (destino === 6) {
-        cargarImagenFormulario6();
-      }
-      
       // Si vamos a Form4 o Form5, pre-seleccionar y actualizar título
       if (destino === 4 || destino === 5) {
         formDestino.classList.add('active');
@@ -612,6 +829,16 @@
         preseleccionarOpcion(destino);
       } else {
         formDestino.classList.add('active');
+      }
+
+      // Si vamos al formulario 6, configurarlo
+      if (destino === 6) {
+        cargarImagenFormulario6();
+      }
+      
+      // Si vamos al formulario 7, configurarlo
+      if (destino === 7) {
+        //cargarImagenFormulario6();
       }
     }
   }
@@ -642,7 +869,7 @@
     bastidorFijo2: null
   };
 
-  // Mapeo completo de opciones con imagen, composición y elementos
+  // PARA FORM6 -- Mapeo completo de opciones con imagen, composición y elementos
   const mapaOpciones = {
     "op1": {
       imagen: "https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/ConjuntoAbatibles01.png",
@@ -751,7 +978,7 @@
 
 
 // Función para cargar imagen y configurar formulario 6
-function cargarImagenFormulario6() {
+function cargarImagenFormulario6OLD() {
   const opcionSeleccionada = SelOpcion['form1']?.opcion;
   
   if (!opcionSeleccionada) return;
@@ -781,12 +1008,53 @@ function cargarImagenFormulario6() {
   poblarCaracteristicasForm6();
   hacerCamposClickeables();
 
-  // Activar suma automática DESPUÉS de crear los campos
-  agregarEventListenersSuma();
-
 }
 
 
+// Función para cargar imagen y configurar formulario 6
+function cargarImagenFormulario6(origenFormulario) {
+  const opcionSeleccionada = SelOpcion['form1']?.opcion;
+  
+  if (!opcionSeleccionada) return;
+  
+  const infoOpcion = mapaOpciones[opcionSeleccionada] || null;
+  
+  if (!infoOpcion) return;
+  
+  // Detectar si venimos del form1 comparando la opción anterior
+  const opcionAnterior = window.opcionForm1Anterior;
+  const cambioDeModelo = opcionAnterior && opcionAnterior !== opcionSeleccionada;
+  
+  if (cambioDeModelo) {
+    // Hubo cambio de modelo en Form1, resetear todo
+    resetearCamposFormulario6();
+    resetearConfiguracionesIndividuales();
+  }
+  
+  // Guardar opción actual para futuras comparaciones
+  window.opcionForm1Anterior = opcionSeleccionada;
+  
+  const imagenElement = document.querySelector('#form6 .imagen-referencia');
+  imagenElement.src = infoOpcion.imagen;
+  imagenElement.alt = `Configuración ${opcionSeleccionada}`;
+  
+  // Solo recrear campos si NO venimos de Form4 o Form5
+  const vieneDeConfiguracion = (origenFormulario === 4 || origenFormulario === 5);
+  
+  if (!vieneDeConfiguracion || cambioDeModelo) {
+    configurarCamposFormulario6(infoOpcion);
+    agregarEventListenersSuma();
+  }
+  
+  // Siempre actualizar características y hacer campos clickeables
+  poblarCaracteristicasForm6();
+  hacerCamposClickeables();
+}
+
+
+
+
+// FORM 4 y 5
 // Función para actualizar el título del formulario con el elemento en configuración
 function actualizarTituloFormulario(numeroFormulario) {
   if (!campoEnConfiguracion) return;
@@ -871,7 +1139,7 @@ function configurarCamposFormulario6(infoOpcion) {
   });
 }
 
-
+// FORM 6
 // Función para sumar los anchos visibles
 function sumarAnchosVisibles() {
   let total = 0;
@@ -1018,42 +1286,190 @@ function agregarEventListenersSuma() {
     // Objeto global para almacenar opciones seleccionadas de todos los formularios
   const SelOpcion = {};
 
-// Función para guardar datos de un formulario antes de cambiar
-function guardarDatosFormulario(numeroFormulario) {
+
+
+// Comportamiento exclusivo: 0 o 1 seleccionado
+document.querySelectorAll('#form1 input[name="opcion_extra"]').forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      // Desmarcar el otro
+      document.querySelectorAll('#form1 input[name="opcion_extra"]').forEach(cb => {
+        if (cb !== this) cb.checked = false;
+      });
+    }
+    // Si se desmarca, no hace nada (permite 0 seleccionados)
+  });
+});
+
+
+
+  // Función única de validación para todos los formularios
+  function validarFormulario(numeroFormulario) {
   const form = document.getElementById(`form${numeroFormulario}`);
   
-  if (!form) {
-    console.warn('Formulario no encontrado:', numeroFormulario);
-    return false;
-  }
+      if (!form) {
+        console.warn('Formulario no encontrado:', numeroFormulario);
+        return false;
+      }
+      
+      // VALIDACIÓN FORM1
+      if (numeroFormulario === 1) {
+        const radioSeleccionado = form.querySelector('input[type="radio"][name="opcion"]:checked');
+        if (!radioSeleccionado) {
+          alert('Por favor, selecciona un tipo de configuración antes de continuar.');
+          return false;
+        }
+        return true;
+      }
+      
+      // VALIDACIÓN FORM2
+      if (numeroFormulario === 2) {
+        const radioSeleccionado = form.querySelector('input[type="radio"][name="opcion"]:checked');
+        if (!radioSeleccionado) {
+          alert('Por favor, selecciona una opción antes de continuar.');
+          return false;
+        }
+        return true;
+      }
+      
+      // VALIDACIÓN FORM4 (si fuera necesario en el futuro)
+      if (numeroFormulario === 4) {
+        const radioSeleccionado = form.querySelector('input[type="radio"][name="opcion"]:checked');
+        if (!radioSeleccionado) {
+          alert('Por favor, selecciona una tipología de fijo.');
+          return false;
+        }
+        return true;
+      }
+      
+      // VALIDACIÓN FORM5 (si fuera necesario en el futuro)
+      if (numeroFormulario === 5) {
+        const radioSeleccionado = form.querySelector('input[type="radio"][name="opcion"]:checked');
+        if (!radioSeleccionado) {
+          alert('Por favor, selecciona un tipo de embellecedor.');
+          return false;
+        }
+        return true;
+      }
+      
+      // VALIDACIÓN FORM6
+      if (numeroFormulario === 6) {
+        // 1. Validar campos de medida (solo los visibles)
+        const camposMedida = form.querySelectorAll('input[name^="Ancho"]:not([name="Ancho"])');
+        for (let campo of camposMedida) {
+          const label = campo.closest('label');
+          if (label && label.offsetParent !== null) {
+            if (!campo.value || campo.value.trim() === '' || parseFloat(campo.value) <= 0) {
+              alert('Por favor, completa todas las medidas de ancho de los elementos.');
+              campo.focus();
+              return false;
+            }
+          }
+        }
+        
+        // 2. Validar características (embellecedor y bastidor)
+        const camposCaracteristicas = form.querySelectorAll('input.caracteristicas');
+        for (let campo of camposCaracteristicas) {
+          const label = campo.closest('label');
+          if (label && label.offsetParent !== null) {
+            if (!campo.value || campo.value.trim() === '') {
+              alert('Por favor, configura todos los embellecedores y bastidores haciendo clic en los campos correspondientes.');
+              campo.focus();
+              return false;
+            }
+          }
+        }
+        
+        // 3. Validar Alto de hueco
+        const campoAlto = form.querySelector('input[name="Alto"]');
+        if (!campoAlto.value || parseFloat(campoAlto.value) <= 0) {
+          alert('Por favor, introduce el alto de hueco.');
+          campoAlto.focus();
+          return false;
+        }
+        
+        // 4. Validar Acabado Aluminio
+        const campoAcabado = form.querySelector('select[name="AcabadoAluminio"]');
+        if (!campoAcabado.value) {
+          alert('Por favor, selecciona el acabado de aluminio.');
+          campoAcabado.focus();
+          return false;
+        }
+        
+        // 5. Validar Color de vidrio
+        const campoColor = form.querySelector('select[name="ColorVidrio"]');
+        if (!campoColor.value) {
+          alert('Por favor, selecciona el color de vidrio.');
+          campoColor.focus();
+          return false;
+        }
+        
+        // 6. Validar Cliente
+        const campoCliente = form.querySelector('input[name="cliente"]');
+        if (!campoCliente.value || campoCliente.value.trim() === '') {
+          alert('Por favor, introduce el nombre del cliente.');
+          campoCliente.focus();
+          return false;
+        }
+        
+        // 7. Validar Nº Pedido
+        const campoPedido = form.querySelector('input[name="numPedido"]');
+        if (!campoPedido.value || campoPedido.value.trim() === '') {
+          alert('Por favor, introduce el número de pedido.');
+          campoPedido.focus();
+          return false;
+        }
+        
+        // 8. Validar Nº de conjuntos
+        const campoConjuntos = form.querySelector('input[name="conjuntos"]');
+        if (!campoConjuntos.value || parseFloat(campoConjuntos.value) < 1) {
+          alert('Por favor, introduce el número de conjuntos a fabricar (mínimo 1).');
+          campoConjuntos.focus();
+          return false;
+        }
+        
+        return true;
+      }
   
-  // Crear objeto para este formulario si no existe
-  if (!SelOpcion[`form${numeroFormulario}`]) {
-    SelOpcion[`form${numeroFormulario}`] = {};
-  }
-  
-  // Obtener todos los campos del formulario
-  const formData = new FormData(form);
-  
-  // Guardar cada campo
-  for (let [name, value] of formData.entries()) {
-    SelOpcion[`form${numeroFormulario}`][name] = value;
-  }
-  
-  // También capturar radio buttons y checkboxes
-  const inputs = form.querySelectorAll('input, select, textarea');
-  inputs.forEach(input => {
-    if (input.type === 'radio' && input.checked) {
-      SelOpcion[`form${numeroFormulario}`][input.name] = input.value;
-    } else if (input.type === 'checkbox') {
-      SelOpcion[`form${numeroFormulario}`][input.name] = input.checked;
-    }
-  });
-  
-  console.log('Datos guardados del formulario', numeroFormulario, ':', SelOpcion[`form${numeroFormulario}`]);
+  // Por defecto, si no hay validación específica, permitir continuar
   return true;
+}
 
 
+// Función para guardar datos de un formulario antes de cambiar
+function guardarDatosFormulario(numeroFormulario) {
+      const form = document.getElementById(`form${numeroFormulario}`);
+      
+      if (!form) {
+        console.warn('Formulario no encontrado:', numeroFormulario);
+        return false;
+      }
+      
+      // Crear objeto para este formulario si no existe
+      if (!SelOpcion[`form${numeroFormulario}`]) {
+        SelOpcion[`form${numeroFormulario}`] = {};
+      }
+      
+      // Obtener todos los campos del formulario
+      const formData = new FormData(form);
+      
+      // Guardar cada campo
+      for (let [name, value] of formData.entries()) {
+        SelOpcion[`form${numeroFormulario}`][name] = value;
+      }
+      
+      // También capturar radio buttons y checkboxes
+      const inputs = form.querySelectorAll('input, select, textarea');
+      inputs.forEach(input => {
+        if (input.type === 'radio' && input.checked) {
+          SelOpcion[`form${numeroFormulario}`][input.name] = input.value;
+        } else if (input.type === 'checkbox') {
+          SelOpcion[`form${numeroFormulario}`][input.name] = input.checked;
+        }
+      });
+      
+      console.log('Datos guardados del formulario', numeroFormulario, ':', SelOpcion[`form${numeroFormulario}`]);
+      return true;
 }
 
 
