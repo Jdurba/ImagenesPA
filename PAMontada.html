@@ -70,7 +70,6 @@ s<html lang="es">
       align-items: center;
     }
 
- 
     /* ------   Opciones de formulario 1   ------ */
 
     /* Estilos de los marcos verdes */
@@ -86,32 +85,40 @@ s<html lang="es">
       font-size: 1.2em;
       font-weight: bold;
       color: #4CAF50;
-      padding: 0 10px;
+      padding: 0 20px;
     }
 
-    /* Contenedor para los marcos en horizontal */
+    /* Contenedor principal con proporción 4:6 */
     .contenedor-marcos {
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
+      align-items: flex-start;
+      width: calc(100% - 130px); /* 100% menos 130px de margen total */
+      margin: 0 auto; /* Centra horizontalmente */
+      max-width: 100%; /* Evita problemas en pantallas pequeñas */
     }
 
-    .contenedor-marcos .grupo-opciones {
-      flex: 1;
-      min-width: 300px;
+    /* Proporción 6 partes - Primero el ancho grande, luego el flex */
+    .grupo-opciones:first-child {
+      min-width: 350px; /* Ancho mínimo para el bloque grande */
+      flex: 4; /* Ocupa 4 partes */
     }
 
-    /* Hacer que las imágenes sean responsivas */
+    .grupo-opciones:last-child {
+      min-width: 250px; /* Ancho mínimo para el bloque pequeño */
+      flex: 2; /* Ocupa 2 partes */
+    }
+
+    /* Resto de estilos sin cambios... */
     .grupo-opciones img {
       max-width: 100%;
       height: auto;
     }
 
-    /* Mantener las imágenes en horizontal dentro de cada cuadro */
     .grupo-opciones .opciones-imagenes {
       display: flex;
       flex-direction: row;
-      gap: 15px;
+      gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -122,12 +129,11 @@ s<html lang="es">
       text-align: center;
     }
 
-    /* Sub-opciones en horizontal por defecto (PC) */
     .Sub-opcion {
       display: flex;
       flex-direction: row;
-      gap: 30px;
-      margin-top: 18px;   /* Distanca entre imagen y textos */
+      gap: 20px;
+      margin-top: 18px;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -136,12 +142,11 @@ s<html lang="es">
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
+      gap: 7px;
       min-width: auto;
       flex: none;
     }
 
-    /* Separación uniforme entre texto y radio button en todos los cuadros */
     .grupo-opciones .opcion p {
       margin-bottom: 8px;
     }
@@ -150,17 +155,24 @@ s<html lang="es">
       margin: 0;
     }
 
-    /* Ajustes para móvil */
+    /* Media Query ÚNICA y CORREGIDA */
     @media (max-width: 768px) {
       .contenedor-marcos {
         flex-direction: column;
+      }
+      
+      /* Resetea proporciones en móvil */
+      .grupo-opciones:first-child,
+      .grupo-opciones:last-child {
+        flex: none;
+        width: 100%;
+        min-width: auto; /* Resetea el min-width en móvil */
       }
       
       .grupo-opciones .opcion {
         min-width: 100%;
       }
       
-      /* Sub-opciones en vertical solo en móvil */
       .Sub-opcion {
         flex-direction: column;
       }
@@ -171,13 +183,14 @@ s<html lang="es">
       }
     }
 
+
     /*------------Fin Form 1-----------------------------*/
     /*--------------------------------------------------*/
 
 
     #form1 .opcion img {
       width: 230px;
-      height: 200px;
+      height: 180px;
       object-fit: contain;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -442,16 +455,25 @@ s<html lang="es">
       <fieldset class="grupo-opciones">
         <legend>Frentes completos - instalación en hueco</legend>
         <div class="opciones-imagenes">
+
           <label class="opcion">
             <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/PuertaCorredera.png" alt="Opción 1" width="300"><br><br>
             <p>Puerta corredera</p>
             <input type="radio" name="imagen" value="1" required>
           </label>
+
           <label class="opcion">
             <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/PuertaAbatible.png" alt="Opción 2" width="300"><br><br>
             <p>Puerta Abatible</p>
             <input type="radio" name="imagen" value="2">
           </label>
+
+          <label class="opcion">
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Murete.png" alt="Opción 5" width="300"><br><br>
+            <p>Sobremurete</p>
+            <input type="radio" name="imagen" value="5">
+          </label>
+
         </div>
       </fieldset>
       
@@ -461,20 +483,18 @@ s<html lang="es">
         <div class="opciones-imagenes">
           <label class="opcion">
             <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/ElementoSuelto.png" alt="Opción 3" width="300"><br><br>
-            <br>
             <div class="Sub-opcion">
-              <div class="opcion">
+              
+              <div class="opcion"> 
                 <p>Puerta corredera</p>
                 <input type="radio" name="imagen" value="3">
               </div>
-              <!-- <div class="opcion">  
-                <p>Puerta abatible</p>
-                <input type="radio" name="imagen" value="5">
-              </div>   -->
-              <div class="opcion">
+            
+              <div class="opcion">  
                 <p>Fijo</p>
                 <input type="radio" name="imagen" value="4">
               </div>
+
             </div>
           </label>
         </div>
@@ -997,26 +1017,20 @@ s<html lang="es">
 // SISTEMA DE FLUJOS DE NAVEGACIÓN
 // ==========================================
 
-
-
 const FLUJOS = {
   '1': { // Puerta corredera (flujo completo con bifurcación)
     rutaBase: [1, 2, 3], // Solo los pasos fijos
     requiereFijo: true,   // Tiene bifurcación en Form3
-    mensaje: null,
     valoresPorDefecto: {} // No usa valores por defecto (todo manual)
   },
   
-
   '2': { // Mensaje común para los bloqueados
       rutaBase: [1],
-      mensaje: '⚠️ Opción "Puerta Abatible" en construcción.\n\nPróximamente disponible.',
       valoresPorDefecto: {}
   },
 
   '5': { // Mensaje común para los bloqueados
       rutaBase: [1],
-      mensaje: '⚠️ Opción "Puerta Abatible" en construcción.\n\nPróximamente disponible.',
       valoresPorDefecto: {}
   }, 
 
@@ -1024,7 +1038,6 @@ const FLUJOS = {
     rutaBase: [1, 5, 6], // Salta directo a Form6
     saltados: [2, 3, 4], // ✅ Documentación explícita
     requiereFijo: false,
-    mensaje: null,
     valoresPorDefecto: {
       form2: { guia: 'SinGuia' },
       form3: { opcion: 'PuertaUnica' },
@@ -1033,12 +1046,9 @@ const FLUJOS = {
   '4': { // Elemento independiente → FIJO ÚNICO
     rutaBase: [1, 4, 5, 6], // Muestra Form4 y Form5
     requiereFijo: true,
-    mensaje: null,
     valoresPorDefecto: {
       form2: { guia: 'SinGuia' },
       form3: { opcion: 'FijoUnico' },
-      // form4: null, // El usuario selecciona
-      // form5: null, // El usuario selecciona
     }
   }
 };
@@ -1130,7 +1140,6 @@ function aplicarFiltroForm4SegunFlujo() {
   }
   // FLUJO 4 (Value 4) no necesita filtro, ya están todas visibles
 }
-
 
 
 function guardarValoresPorDefecto(valoresPorDefecto, forzar = false) {
@@ -1439,21 +1448,7 @@ function siguienteFormulario(actual) {
     
     const flujoId = datosFormularios.form1?.imagen;
     
-    // ✅ REDIRECCIÓN A pruebabotones.html para opciones 2 y 5
-    if (flujoId === '2' || flujoId === '5') {
-      // Guardar el flujoId en localStorage para que pruebabotones.html lo recupere
-      localStorage.setItem('flujoSeleccionado', flujoId);
-      
-      // Guardar todos los datos del formulario por si los necesitas
-      localStorage.setItem('datosFormularios', JSON.stringify(datosFormularios));
 
-      alert('⚠️ En fase de desarrollo. No valido para pedidos.');
-      
-      // Redirigir a pruebabotones.html
-      window.location.href = 'PAMontAbatible.html';
-      return;
-    }
-    
     // ✅ AL SALIR DE FORM1: Limpiar y aplicar valores por defecto
     if (actual === 1) {
       const flujo = FLUJOS[flujoId];
@@ -1478,6 +1473,30 @@ function siguienteFormulario(actual) {
         }
       }
       
+          // ✅ REDIRECCIÓN A 'PAMontAbatible.html para opciones 2
+    if (flujoId === '2') {
+      // Guardar el flujoId en localStorage para que pruebabotones.html lo recupere
+      localStorage.setItem('flujoSeleccionado', flujoId);
+      
+      // Guardar todos los datos del formulario por si los necesitas
+      localStorage.setItem('datosFormularios', JSON.stringify(datosFormularios));
+
+      alert('⚠️ En fase de desarrollo. No valido para pedidos.');
+      
+      // Redirigir a pruebabotones.html
+      window.location.href = 'PAMontAbatible.html';
+      return;
+    }
+
+          // ✅ De momento nada
+    if (flujoId === '5') {
+
+      alert('⚠️ Murete En fase de desarrollo. No valido para pedidos.');
+
+      return;
+    }
+
+
       // ✅ Configurar Form6 y actualizar flujo actual
       configurarForm6SegunFlujo(flujoId);
       flujoActual = flujoId;
