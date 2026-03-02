@@ -4,6 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script>
+    // ⚙️ CONFIGURACIÓN GLOBAL — Cambiar aquí si se cambia el host
+    const RutaImagen = "https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/";
+  </script>
+
   <title>Adinor PA Vidrio montado</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
   
@@ -44,6 +50,7 @@
     .formulario {                /* Este lo traigo de PAMontada  para ocultar los forms al principio */
       display: none;
     }
+
     .formulario.active {        
       display: block;
     }
@@ -147,6 +154,18 @@
       justify-self: center;   /* centra horizontalmente en la grid */
     }
 
+    #form2 .visual {
+      padding: 20px;
+    }
+
+
+    #form2 .visual img {
+      width: 200px;
+      height: 180px;
+      object-fit: contain;
+      object-position: center;
+    }
+
     #form4 .visual img {
       width: 200px;
       height: 160px;
@@ -184,12 +203,10 @@
       color: white;
     }
 
-  
     .resumen-lista {
       margin: 8px 0 0;
       padding-left: 20px;
     }
-
 
     /* ----------  FORMULARIO 6 ----------- */
     /* Estilos para campos de medidas pequeños (4 dígitos) */
@@ -226,6 +243,13 @@
     cursor: pointer !important;
     }
 
+    select#AcabadoAluminio,
+    select#ColorVidrio,
+    select[name="manoPuerta1"],
+    select[name="manoPuerta2"] {
+        background-color: #ffffff !important; /* o el color que quieras */
+    }
+
     .label-medida {
       flex: 1;
       text-align: center;
@@ -242,6 +266,40 @@
     @media (max-width: 520px) {
       .grid { grid-template-columns: 1fr; }
     }
+
+    /* CSS INFORMES */
+    .pagina-informe{display:none;width:210mm;min-height:297mm;padding:15mm;box-sizing:border-box;background:white!important;margin:20px auto;page-break-after:always}
+    .pagina-informe.active{display:block}
+    .informe-header{margin-bottom:15px;padding-bottom:10px}
+    .informe-header h1{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:bold;margin:0 0 15px 0;color:#1a2b6f;text-align:left;letter-spacing:1px}
+    .linea-principal{display:flex;gap:20px;margin-bottom:8px;align-items:center}
+    .linea-comentarios{margin-bottom:8px}
+    .linea-resumen{background:#f0f0f0;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:14px;color:#1a2b6f;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+    .linea-resumen .texto-resumen{flex:1;text-align:center}
+    .linea-resumen .paginacion{font-size:14px;font-weight:bold;color:#1a2b6f;white-space:nowrap}
+    .campo-informe{display:flex;align-items:center;gap:8px;min-width:0}
+    .campo-informe label{font-weight:bold;font-size:12px;white-space:nowrap;flex-shrink:0;color:#555}
+    .campo-informe span{flex:1 1 auto;padding:2px 8px;border-bottom:1px solid #999;font-size:12px;min-width:0}
+    .campo-informe-full{display:flex;align-items:center;gap:8px;width:100%}
+    .campo-informe-full label{font-weight:bold;font-size:12px;color:#555;flex-shrink:0}
+    .campo-informe-full span{flex:1;padding:2px 8px;border-bottom:1px solid #999;font-size:12px}
+    .titulo-elemento{color:black;padding:8px 15px;font-weight:bold;font-size:16px;margin:15px 0 12px 0;border-radius:4px;text-align:left;line-height:1.4;border:2px solid #000;background:transparent}
+    .titulo-elemento .elemento-principal{font-size:14px;display:block;margin-bottom:3px}
+    .titulo-elemento .elemento-detalle{font-size:11px;font-weight:normal;display:block}
+    .bloque-fabricacion,.bloque-pedido{margin-bottom:15px}
+    .bloque-titulo{background:#a8a8a8;color:white;padding:6px 12px;font-weight:bold;font-size:13px;margin-bottom:8px;text-align:center}
+    .seccion-titulo{font-weight:bold;font-size:11px;margin:8px 0 4px 0;color:#333}
+    .tabla-informe{width:calc(100% - 200px);border-collapse:collapse;margin:5px auto 15px auto;font-size:11px}
+    .tabla-informe th,.tabla-informe td{border:1px solid #999;padding:4px 6px;text-align:center}
+    .tabla-informe th{background:#e5e7eb;font-weight:bold;font-size:10px}
+    .tabla-informe .imagen-perfil{width:50px}
+    .tabla-informe td img{width:40px;height:40px;object-fit:contain}
+    .tabla-informe .texto-izq{text-align:left!important}
+    .tabla-informe .texto-Der{text-align:right!important}
+    #botones-accion-informes{display:none;text-align:center;margin:20px 0;gap:10px}
+    #botones-accion-informes button{padding:12px 24px;font-size:16px;font-weight:bold;border:none;border-radius:8px;cursor:pointer}
+    #btn-volver{background:#6b7280;color:white}
+    #btn-nueva-config{background:#059669;color:white}
   
   </style>
 
@@ -315,27 +373,24 @@
      <br><br>
 </form>
 
-
 <!-- Formulario 2 -->
  <form id="form2" class="formulario">
     <h2>Tipo de cierre</h2>
-
       <div class="grid" aria-live="polite">
         <!-- 1 -->
         <label class="card">
-          <input type="radio" name="opcion" value="op1">
+          <input type="radio" name="opcion" value="op1" checked>  <!--  Checked hace que se predeterminado-->  
           <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/CierreCerradura.png">
-            <h3>Cierre Cerradura</h3>
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/CierreMagnetico.png">
+            <h3>Cierre Magnético</h3>
           </div>
         </label>
-
         <!-- 2 -->
         <label class="card">
           <input type="radio" name="opcion" value="op2">
           <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/CierreMagnetico.png">
-            <h3>Cierre Magnético</h3>
+            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/CierreCerradura.png">
+            <h3>Cierre Cerradura</h3>
           </div>
         </label>
       </div>
@@ -367,15 +422,7 @@
             <h3>3 Paredes U</h3>
           </div>
         </label>
-        <!-- 3 -->
-        <label class="card">
-          <input type="radio" name="opcion" value="B">
-          <div class="visual">
-            <img src="https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/FijoPared4.png">
-            <h3>4 Paredes</h3>
-          </div>
-        </label>
-      </div>
+      </div> 
       <br>
       <p>Seleccionar una opción antes de continuar</p>
       <div class="acciones">
@@ -478,6 +525,7 @@
               <option value="Acero corten">Acero corten</option>
               <option value="Chapa roble barnizada">Chapa roble barnizada</option>
               <option value="Chapa nogal barnizada">Chapa nogal barnizada</option>
+              <option value="Acabado Especial">Acabado Especial</option>
             </select><br>
           </label>
         </div>
@@ -489,6 +537,7 @@
               <option value="BRONCE">Bronce</option>
               <option value="GRIS">Gris</option>
               <option value="GRIS OSCURO">Gris oscuro</option>
+              <option value="ESPECIAL">Especial</option>
             </select><br>
           </label>
         </div>
@@ -546,10 +595,105 @@
   <p>Seleccionar una opción antes de continuar</p>
   <div class="acciones" style="margin-top: 20px;">
     <button type="button" onclick="cambiarFormulario(6,2)" class="btn">⪡ Atrás</button> 
-    <button type="button" onclick="if(validarFormulario(6)) { alert('✓ Datos validados correctamente.\n\nLa generación del reporte está en construcción.'); }" class="btn">Siguiente ⪢</button>
+    <button type="button" onclick="generarInformesConPrecios()" class="btn">Generar Informes ⪢</button>
   </div>
 </form>
 
+<!-- PAGINAS DE INFORMES -->
+<div id="pagina-fijo1" class="pagina-informe">
+<div class="informe-header"><h1>PA vidrio montado - Abatible</h1>
+<div class="linea-principal"><div class="campo-informe" style="flex:2"><label>Cliente:</label><span id="fijo1-cliente"></span></div><div class="campo-informe" style="flex:1"><label>Nº Pedido:</label><span id="fijo1-pedido"></span></div><div class="campo-informe" style="flex:1"><label>Fecha:</label><span id="fijo1-fecha"></span></div></div>
+<div class="linea-comentarios"><div class="campo-informe-full"><label>Comentarios:</label><span id="fijo1-comentarios"></span></div></div>
+<div class="linea-resumen"><span class="texto-resumen" id="fijo1-resumen-config"></span><span class="paginacion" id="fijo1-paginacion"></span></div></div>
+<div class="titulo-elemento"><span class="elemento-principal">FIJO 1</span><span class="elemento-detalle" id="fijo1-detalle-config"></span></div>
+<div class="bloque-fabricacion"><div class="bloque-titulo">HOJA DE FABRICACIÓN</div>
+<div class="seccion-titulo">Perfiles Acabado: <span id="fijo1-acabado"></span></div>
+<table class="tabla-informe"><thead><tr><th class="imagen-perfil">🔧</th><th>Tipo</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="fijo1-tabla-perfiles"></tbody></table>
+<table class="tabla-informe"><thead><tr><th>Embellecedor</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="fijo1-tabla-embellecedor"></tbody></table>
+<div class="seccion-titulo">Medidas de Cristales - Color: <span id="fijo1-color-vidrio"></span></div>
+<table class="tabla-informe"><thead><tr><th>Vidrio</th><th>Alto (mm)</th><th>Ancho (mm)</th><th>Cantidad</th></tr></thead><tbody id="fijo1-tabla-cristales"></tbody></table></div>
+<div class="bloque-pedido"><div class="bloque-titulo">HOJA DE PEDIDO - PRECIOS</div>
+<table class="tabla-informe"><thead><tr><th>Código</th><th>Concepto</th><th>Descripción</th><th>Cantidad</th><th>Precio €</th></tr></thead>
+<tbody>
+<tr><td id="fijo1-cod-fijo" class="texto-izq"></td><td class="texto-izq">Fijo</td><td id="fijo1-tipo-fijo" class="texto-izq"></td><td id="fijo1-cant-fijo" class="texto-Der"></td><td id="fijo1-precio-fijo" class="texto-Der"></td></tr>
+<tr><td></td><td class="texto-izq">Acabado</td><td id="fijo1-acabado-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Color Vidrio</td><td id="fijo1-color-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Medidas</td><td class="texto-izq"><span id="fijo1-alto-precio"></span> alto x <span id="fijo1-ancho-precio"></span> ancho</td><td></td><td></td></tr>
+<tr><td id="fijo1-cod-emb" class="texto-izq"></td><td class="texto-izq">Embellecedor</td><td id="fijo1-emb-precio" class="texto-izq"></td><td id="fijo1-cant-emb" class="texto-Der"></td><td id="fijo1-precio-emb" class="texto-Der"></td></tr>
+<tr><td id="fijo1-cod-bast" class="texto-izq"></td><td class="texto-izq">Bastidor</td><td id="fijo1-bast-precio" class="texto-izq"></td><td id="fijo1-cant-bast" class="texto-Der"></td><td id="fijo1-precio-bast" class="texto-Der"></td></tr>
+</tbody></table></div></div>
+
+<div id="pagina-puerta1" class="pagina-informe">
+<div class="informe-header"><h1>PA vidrio montado - Abatible</h1>
+<div class="linea-principal"><div class="campo-informe" style="flex:2"><label>Cliente:</label><span id="puerta1-cliente"></span></div><div class="campo-informe" style="flex:1"><label>Nº Pedido:</label><span id="puerta1-pedido"></span></div><div class="campo-informe" style="flex:1"><label>Fecha:</label><span id="puerta1-fecha"></span></div></div>
+<div class="linea-comentarios"><div class="campo-informe-full"><label>Comentarios:</label><span id="puerta1-comentarios"></span></div></div>
+<div class="linea-resumen"><span class="texto-resumen" id="puerta1-resumen-config"></span><span class="paginacion" id="puerta1-paginacion"></span></div></div>
+<div class="titulo-elemento"><span class="elemento-principal">PUERTA 1</span><span class="elemento-detalle" id="puerta1-detalle-config"></span></div>
+<div class="bloque-fabricacion"><div class="bloque-titulo">HOJA DE FABRICACIÓN</div>
+<div class="seccion-titulo">Perfiles Acabado: <span id="puerta1-acabado"></span></div>
+<table class="tabla-informe"><thead><tr><th class="imagen-perfil">🔧</th><th>Tipo</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="puerta1-tabla-perfiles"></tbody></table>
+<table class="tabla-informe"><thead><tr><th>Embellecedor</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="puerta1-tabla-embellecedor"></tbody></table>
+<div class="seccion-titulo">Medidas de Cristales - Color: <span id="puerta1-color-vidrio"></span></div>
+<table class="tabla-informe"><thead><tr><th>Vidrio</th><th>Alto (mm)</th><th>Ancho (mm)</th><th>Cantidad</th></tr></thead><tbody id="puerta1-tabla-cristales"></tbody></table></div>
+<div class="bloque-pedido"><div class="bloque-titulo">HOJA DE PEDIDO - PRECIOS</div>
+<table class="tabla-informe"><thead><tr><th>Código</th><th>Concepto</th><th>Descripción</th><th>Cantidad</th><th>Precio €</th></tr></thead>
+<tbody>
+<tr><td id="puerta1-cod-puerta" class="texto-izq"></td><td class="texto-izq">Puerta</td><td id="puerta1-tipo-puerta" class="texto-izq"></td><td id="puerta1-cant-puerta" class="texto-Der"></td><td id="puerta1-precio-puerta" class="texto-Der"></td></tr>
+<tr><td></td><td class="texto-izq">Acabado</td><td id="puerta1-acabado-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Color Vidrio</td><td id="puerta1-color-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Medidas</td><td class="texto-izq"><span id="puerta1-alto-precio"></span> alto x <span id="puerta1-ancho-precio"></span> ancho</td><td></td><td></td></tr>
+<tr><td id="puerta1-cod-emb" class="texto-izq"></td><td class="texto-izq">Embellecedor</td><td id="puerta1-emb-precio" class="texto-izq"></td><td id="puerta1-cant-emb" class="texto-Der"></td><td id="puerta1-precio-emb" class="texto-Der"></td></tr>
+</tbody></table></div></div>
+
+<div id="pagina-puerta2" class="pagina-informe">
+<div class="informe-header"><h1>PA vidrio montado - Abatible</h1>
+<div class="linea-principal"><div class="campo-informe" style="flex:2"><label>Cliente:</label><span id="puerta2-cliente"></span></div><div class="campo-informe" style="flex:1"><label>Nº Pedido:</label><span id="puerta2-pedido"></span></div><div class="campo-informe" style="flex:1"><label>Fecha:</label><span id="puerta2-fecha"></span></div></div>
+<div class="linea-comentarios"><div class="campo-informe-full"><label>Comentarios:</label><span id="puerta2-comentarios"></span></div></div>
+<div class="linea-resumen"><span class="texto-resumen" id="puerta2-resumen-config"></span><span class="paginacion" id="puerta2-paginacion"></span></div></div>
+<div class="titulo-elemento"><span class="elemento-principal">PUERTA 2</span><span class="elemento-detalle" id="puerta2-detalle-config"></span></div>
+<div class="bloque-fabricacion"><div class="bloque-titulo">HOJA DE FABRICACIÓN</div>
+<div class="seccion-titulo">Perfiles Acabado: <span id="puerta2-acabado"></span></div>
+<table class="tabla-informe"><thead><tr><th class="imagen-perfil">🔧</th><th>Tipo</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="puerta2-tabla-perfiles"></tbody></table>
+<table class="tabla-informe"><thead><tr><th>Embellecedor</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="puerta2-tabla-embellecedor"></tbody></table>
+<div class="seccion-titulo">Medidas de Cristales - Color: <span id="puerta2-color-vidrio"></span></div>
+<table class="tabla-informe"><thead><tr><th>Vidrio</th><th>Alto (mm)</th><th>Ancho (mm)</th><th>Cantidad</th></tr></thead><tbody id="puerta2-tabla-cristales"></tbody></table></div>
+<div class="bloque-pedido"><div class="bloque-titulo">HOJA DE PEDIDO - PRECIOS</div>
+<table class="tabla-informe"><thead><tr><th>Código</th><th>Concepto</th><th>Descripción</th><th>Cantidad</th><th>Precio €</th></tr></thead>
+<tbody>
+<tr><td id="puerta2-cod-puerta" class="texto-izq"></td><td class="texto-izq">Puerta</td><td id="puerta2-tipo-puerta" class="texto-izq"></td><td id="puerta2-cant-puerta" class="texto-Der"></td><td id="puerta2-precio-puerta" class="texto-Der"></td></tr>
+<tr><td></td><td class="texto-izq">Acabado</td><td id="puerta2-acabado-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Color Vidrio</td><td id="puerta2-color-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Medidas</td><td class="texto-izq"><span id="puerta2-alto-precio"></span> alto x <span id="puerta2-ancho-precio"></span> ancho</td><td></td><td></td></tr>
+<tr><td id="puerta2-cod-emb" class="texto-izq"></td><td class="texto-izq">Embellecedor</td><td id="puerta2-emb-precio" class="texto-izq"></td><td id="puerta2-cant-emb" class="texto-Der"></td><td id="puerta2-precio-emb" class="texto-Der"></td></tr>
+</tbody></table></div></div>
+
+<div id="pagina-fijo2" class="pagina-informe">
+<div class="informe-header"><h1>PA vidrio montado - Abatible</h1>
+<div class="linea-principal"><div class="campo-informe" style="flex:2"><label>Cliente:</label><span id="fijo2-cliente"></span></div><div class="campo-informe" style="flex:1"><label>Nº Pedido:</label><span id="fijo2-pedido"></span></div><div class="campo-informe" style="flex:1"><label>Fecha:</label><span id="fijo2-fecha"></span></div></div>
+<div class="linea-comentarios"><div class="campo-informe-full"><label>Comentarios:</label><span id="fijo2-comentarios"></span></div></div>
+<div class="linea-resumen"><span class="texto-resumen" id="fijo2-resumen-config"></span><span class="paginacion" id="fijo2-paginacion"></span></div></div>
+<div class="titulo-elemento"><span class="elemento-principal">FIJO 2</span><span class="elemento-detalle" id="fijo2-detalle-config"></span></div>
+<div class="bloque-fabricacion"><div class="bloque-titulo">HOJA DE FABRICACIÓN</div>
+<div class="seccion-titulo">Perfiles Acabado: <span id="fijo2-acabado"></span></div>
+<table class="tabla-informe"><thead><tr><th class="imagen-perfil">🔧</th><th>Tipo</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="fijo2-tabla-perfiles"></tbody></table>
+<table class="tabla-informe"><thead><tr><th>Embellecedor</th><th>Longitud (mm)</th><th>Cantidad</th></tr></thead><tbody id="fijo2-tabla-embellecedor"></tbody></table>
+<div class="seccion-titulo">Medidas de Cristales - Color: <span id="fijo2-color-vidrio"></span></div>
+<table class="tabla-informe"><thead><tr><th>Vidrio</th><th>Alto (mm)</th><th>Ancho (mm)</th><th>Cantidad</th></tr></thead><tbody id="fijo2-tabla-cristales"></tbody></table></div>
+<div class="bloque-pedido"><div class="bloque-titulo">HOJA DE PEDIDO - PRECIOS</div>
+<table class="tabla-informe"><thead><tr><th>Código</th><th>Concepto</th><th>Descripción</th><th>Cantidad</th><th>Precio €</th></tr></thead>
+<tbody>
+<tr><td id="fijo2-cod-fijo" class="texto-izq"></td><td class="texto-izq">Fijo</td><td id="fijo2-tipo-fijo" class="texto-izq"></td><td id="fijo2-cant-fijo" class="texto-Der"></td><td id="fijo2-precio-fijo" class="texto-Der"></td></tr>
+<tr><td></td><td class="texto-izq">Acabado</td><td id="fijo2-acabado-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Color Vidrio</td><td id="fijo2-color-precio" class="texto-izq"></td><td></td><td></td></tr>
+<tr><td></td><td class="texto-izq">Medidas</td><td class="texto-izq"><span id="fijo2-alto-precio"></span> alto x <span id="fijo2-ancho-precio"></span> ancho</td><td></td><td></td></tr>
+<tr><td id="fijo2-cod-emb" class="texto-izq"></td><td class="texto-izq">Embellecedor</td><td id="fijo2-emb-precio" class="texto-izq"></td><td id="fijo2-cant-emb" class="texto-Der"></td><td id="fijo2-precio-emb" class="texto-Der"></td></tr>
+<tr><td id="fijo2-cod-bast" class="texto-izq"></td><td class="texto-izq">Bastidor</td><td id="fijo2-bast-precio" class="texto-izq"></td><td id="fijo2-cant-bast" class="texto-Der"></td><td id="fijo2-precio-bast" class="texto-Der"></td></tr>
+</tbody></table></div></div>
+
+<div id="botones-accion-informes">
+<button id="btn-volver" onclick="ocultarInformes()">⪡ Volver</button>
+<button id="btn-nueva-config" onclick="limpiarTodo()">Nueva Configuración</button>
+</div>
 
 
 <!-- ********************   JAVA SCRIPT   *******************************  -->
@@ -607,9 +751,6 @@
       }
     }
   }
-
-
-
 
 
   // Función para resetear todas las configuraciones individuales
@@ -777,8 +918,6 @@ function cargarImagenFormulario6(origenFormulario) {
 }
 
 
-
-
 // FORM 4 y 5
 // Función para actualizar el título del formulario con el elemento en configuración
 function actualizarTituloFormulario(numeroFormulario) {
@@ -823,7 +962,7 @@ function configurarCamposFormulario6(infoOpcion) {
       case 'Fijo1':
         label.style.color = 'blue';
         html = `
-          Fijo 1<br>
+          ** Fijo 1<br>
           <input type="number" name="AnchoFijo1" maxlength="4" class="campo-medida"><br>
           <input type="text" name="embellecedorFijo1" placeholder="embellecedor" readonly class="caracteristicas"><br>
           <input type="text" name="bastidorFijo1" placeholder="bastidor" readonly class="caracteristicas">
@@ -833,25 +972,35 @@ function configurarCamposFormulario6(infoOpcion) {
       case 'Puerta1':
         label.style.color = 'red';
         html = `
-          Puerta 1<br>
+          ** Puerta 1<br>
           <input type="number" name="AnchoPuerta1" maxlength="4" class="campo-medida"><br>
-          <input type="text" name="embellecedorPuerta1" placeholder="embellecedor" readonly class="caracteristicas">
+          <input type="text" name="embellecedorPuerta1" placeholder="embellecedor" readonly class="caracteristicas"><br>
+          <select name="manoPuerta1" class="campo-medida" style="margin-top:4px;">
+            <option value="">-- Mano --</option>
+            <option value="Derecha">Derecha</option>
+            <option value="Izquierda">Izquierda</option>
+          </select>
         `;
         break;
         
       case 'Puerta2':
         label.style.color = 'red';
         html = `
-          Puerta 2<br>
+          ** Puerta 2<br>
           <input type="number" name="AnchoPuerta2" maxlength="4" class="campo-medida"><br>
-          <input type="text" name="embellecedorPuerta2" placeholder="embellecedor" readonly class="caracteristicas">
+          <input type="text" name="embellecedorPuerta2" placeholder="embellecedor" readonly class="caracteristicas"><br>
+          <select name="manoPuerta2" class="campo-medida" style="margin-top:4px;">
+            <option value="">-- Mano --</option>
+            <option value="Derecha">Derecha</option>
+            <option value="Izquierda">Izquierda</option>
+          </select>
         `;
         break;
         
       case 'Fijo2':
         label.style.color = 'blue';
         html = `
-          Fijo 2<br>
+          ** Fijo 2<br>
           <input type="number" name="AnchoFijo2" maxlength="4" class="campo-medida"><br>
           <input type="text" name="embellecedorFijo2" placeholder="embellecedor" readonly class="caracteristicas"><br>
           <input type="text" name="bastidorFijo2" placeholder="bastidor" readonly class="caracteristicas">
@@ -981,9 +1130,6 @@ function agregarEventListenersSuma() {
   }
 
 
-
-
-
   // Función para resetear los campos del formulario 6
   function resetearCamposFormulario6() {
     const campoFijo1 = document.querySelector('input[name="AnchoFijo1"]');
@@ -1013,9 +1159,6 @@ function agregarEventListenersSuma() {
       radiosForm5.forEach(radio => radio.checked = false);
     }
   }
-
-
-
 
 
     // Objeto global para almacenar opciones seleccionadas de todos los formularios
@@ -1071,7 +1214,7 @@ document.querySelectorAll('#form1 input[name="opcion_extra"]').forEach(checkbox 
       }
       
       // Validar otros campos obligatorios
-      const obligatorios = ['Alto', 'AcabadoAluminio', 'ColorVidrio', 'cliente', 'numPedido', 'conjuntos'];
+      const obligatorios = ['Alto', 'AcabadoAluminio', 'ColorVidrio', 'conjuntos'];
       for (let name of obligatorios) {
         const campo = form.querySelector(`[name="${name}"]`);
         if (!campo.value) {
@@ -1092,9 +1235,6 @@ document.querySelectorAll('#form1 input[name="opcion_extra"]').forEach(checkbox 
     }
     return true;
 }
-
-
-
 
 
 // Función para guardar datos de un formulario antes de cambiar
@@ -1133,9 +1273,463 @@ function guardarDatosFormulario(numeroFormulario) {
       return true;
 }
 
+function Imprime() {
+setSafeDisplay('informe-container', true); 
+}
 
 
+// FUNCIONES DE CÁLCULO DE FABRICACIÓN
+function calcularPerfilesPuerta(numPuerta,config,medidas){const perfiles=[];const tipoCierre=SelOpcion.form2||'Op1';const esMagnetico=tipoCierre==='Op1';const numPuertas=config.numPuertas;const altoReal=parseFloat(medidas.alto)-2;const anchoPuerta=parseFloat(medidas[`ancho_p${numPuerta}`])-1;const altoPuerta=altoReal-11-20;const anchoPuertaReal=anchoPuerta-44;const conjuntos=parseInt(medidas.conjuntos)||1;const rutaImg='https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/';if(esMagnetico){perfiles.push({tipo:'Vertical Bisagras',cantidad:1*conjuntos,medida:Math.round(altoPuerta-6),imagen:rutaImg+'VERTICAL.jpg'});perfiles.push({tipo:'Vertical',cantidad:1*conjuntos,medida:Math.round(altoPuerta),imagen:rutaImg+'VERTICAL.jpg'});perfiles.push({tipo:'Horizontal',cantidad:1*conjuntos,medida:Math.round(anchoPuertaReal-24),imagen:rutaImg+'HORIZONTAL.jpg'});perfiles.push({tipo:'Horizontal Mec Iman',cantidad:1*conjuntos,medida:Math.round(anchoPuertaReal-24),imagen:rutaImg+'HORIZONTAL.jpg'})}else{perfiles.push({tipo:'Vertical Bisagras',cantidad:1*conjuntos,medida:Math.round(altoPuerta-6),imagen:rutaImg+'VERTICAL.jpg'});perfiles.push({tipo:'Vertical Mec Cerradura',cantidad:1*conjuntos,medida:Math.round(altoPuerta),imagen:rutaImg+'VERTICAL.jpg'});perfiles.push({tipo:'Horizontal',cantidad:2*conjuntos,medida:Math.round(anchoPuertaReal-24),imagen:rutaImg+'HORIZONTAL.jpg'})}if(numPuerta===1){perfiles.push({tipo:'Perfil Marco',cantidad:2*conjuntos,medida:Math.round(altoReal),imagen:rutaImg+'MARCO.jpg'});perfiles.push({tipo:'Pletina Vertical',cantidad:2*conjuntos,medida:Math.round(altoReal),imagen:rutaImg+'PLETINA.jpg'});let medidaPletinaH;if(numPuertas===1){medidaPletinaH=anchoPuerta-64}else{const ancho_p2=parseFloat(medidas.ancho_p2)-1;medidaPletinaH=anchoPuerta+ancho_p2-64}perfiles.push({tipo:'Pletina Horizontal',cantidad:1*conjuntos,medida:Math.round(medidaPletinaH),imagen:rutaImg+'PLETINA.jpg'});let nombreTubular,medidaTubular;if(numPuertas===1){nombreTubular='Tubular 40x20 Mec Iman';medidaTubular=anchoPuerta-39}else{nombreTubular='Tubular 40x20 Doble';const ancho_p2=parseFloat(medidas.ancho_p2)-1;medidaTubular=anchoPuerta+ancho_p2-39}perfiles.push({tipo:nombreTubular,cantidad:1*conjuntos,medida:Math.round(medidaTubular),imagen:rutaImg+'TUB40x20.jpg'})}return perfiles}
+function calcularPerfilesFijo(tipoFijo,config,medidas){const perfiles=[];const tipoBastidor=SelOpcion.form4?.opcion||'0';const conjuntos=parseInt(medidas.conjuntos)||1;const altoReal=parseFloat(medidas.alto)-2;const anchoFijoNom=parseFloat(medidas[`ancho_${tipoFijo}`]);const anchoFijoReal=anchoFijoNom-1;const holguraFijo=2;const rutaImg='https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/';if(tipoBastidor==='0'){const altoFijo=altoReal-19-19-holguraFijo;const anchoFijo=anchoFijoReal-8-8-holguraFijo;perfiles.push({tipo:'Vertical',cantidad:2*conjuntos,medida:Math.round(altoFijo),imagen:rutaImg+'VERTICAL.jpg'});perfiles.push({tipo:'Horizontal',cantidad:2*conjuntos,medida:Math.round(anchoFijo-24),imagen:rutaImg+'HORIZONTAL.jpg'});perfiles.push({tipo:'Perfil U Fijo Vertical',cantidad:2*conjuntos,medida:Math.round(altoReal),imagen:rutaImg+'PAFU.jpg'});perfiles.push({tipo:'Perfil Base Fijo Horizontal',cantidad:2*conjuntos,medida:Math.round(anchoFijoReal-36),imagen:rutaImg+'PAFB.jpg'});perfiles.push({tipo:'Perfil Clip Fijo Horizontal',cantidad:2*conjuntos,medida:Math.round(anchoFijoReal-36),imagen:rutaImg+'PAFC.jpg'})}else{const altoElementoFijo=altoReal-8-8-holguraFijo;const anchoElementoFijo=anchoFijoReal-8-8-holguraFijo;perfiles.push({tipo:'Vertical',cantidad:2*conjuntos,medida:Math.round(altoElementoFijo),imagen:rutaImg+'VERTICAL.jpg'});perfiles.push({tipo:'Horizontal',cantidad:2*conjuntos,medida:Math.round(anchoElementoFijo-24),imagen:rutaImg+'HORIZONTAL.jpg'});perfiles.push({tipo:'Perfil U Fijo Vertical',cantidad:2*conjuntos,medida:Math.round(altoReal),imagen:rutaImg+'PAFU.jpg'});perfiles.push({tipo:'Perfil U Fijo Horizontal',cantidad:2*conjuntos,medida:Math.round(anchoFijoReal-36),imagen:rutaImg+'PAFU.jpg'})}return perfiles}
+function calcularEmbellecedores(tipoElemento,modeloEmb,medidas,config){if(!modeloEmb||modeloEmb==='Sin embellecedor'){return[]}const embellecedores=[];const conjuntos=parseInt(medidas.conjuntos)||1;const esFijo=tipoElemento.includes('fijo');let anchoBase,altoBase;if(esFijo){const tipoBastidor=SelOpcion.form4?.opcion||'0';const altoReal=parseFloat(medidas.alto)-2;const anchoFijoReal=parseFloat(medidas[`ancho_${tipoElemento}`])-1;const holguraFijo=2;if(tipoBastidor==='0'){altoBase=altoReal-19-19-holguraFijo;anchoBase=anchoFijoReal-8-8-holguraFijo}else{altoBase=altoReal-8-8-holguraFijo;anchoBase=anchoFijoReal-8-8-holguraFijo}}else{const numPuerta=tipoElemento==='puerta1'?1:2;const altoReal=parseFloat(medidas.alto)-2;const anchoPuerta=parseFloat(medidas[`ancho_p${numPuerta}`])-1;altoBase=altoReal-11-20;anchoBase=anchoPuerta-44}switch(modeloEmb){case'Modelo A':embellecedores.push({tipo:'Pletina 13x3mm',cantidad:2*conjuntos,medida:Math.round(anchoBase-24)});break;case'Modelo B':embellecedores.push({tipo:'Pletina 13x3mm',cantidad:4*conjuntos,medida:Math.round(anchoBase-24)});break;case'Modelo C':embellecedores.push({tipo:'Pletina 13x3mm',cantidad:6*conjuntos,medida:Math.round(anchoBase-24)});break;case'Modelo D':embellecedores.push({tipo:'Pletina 13x3mm - Vertical',cantidad:2*conjuntos,medida:Math.round(altoBase-70)});embellecedores.push({tipo:'Pletina 13x3mm - Horizontal',cantidad:12*conjuntos,medida:Math.floor((anchoBase-24-13)/2)});break}return embellecedores}
+function calcularVidrios(tipoElemento,medidas,config){const vidrios=[];const conjuntos=parseInt(medidas.conjuntos)||1;const esFijo=tipoElemento.includes('fijo');if(esFijo){const tipoBastidor=SelOpcion.form4?.opcion||'0';const altoReal=parseFloat(medidas.alto)-2;const anchoFijoReal=parseFloat(medidas[`ancho_${tipoElemento}`])-1;const holguraFijo=2;let altoFijo,anchoFijo;if(tipoBastidor==='0'){altoFijo=altoReal-19-19-holguraFijo;anchoFijo=anchoFijoReal-8-8-holguraFijo}else{altoFijo=altoReal-8-8-holguraFijo;anchoFijo=anchoFijoReal-8-8-holguraFijo}vidrios.push({tipo:'Vidrio templado 4mm',cantidad:1*conjuntos,alto:Math.round(altoFijo-58),ancho:Math.round(anchoFijo-10)})}else{const numPuerta=tipoElemento==='puerta1'?1:2;const altoReal=parseFloat(medidas.alto)-2;const anchoPuerta=parseFloat(medidas[`ancho_p${numPuerta}`])-1;const altoPuerta=altoReal-11-20;const anchoPuertaReal=anchoPuerta-44;vidrios.push({tipo:'Vidrio templado 4mm',cantidad:1*conjuntos,alto:Math.round(altoPuerta-58),ancho:Math.round(anchoPuertaReal-10)})}return vidrios}
+function generarInformes(){console.log('🚀 Generando informes...');guardarDatosFormulario(6);document.querySelectorAll('.pagina-informe').forEach(p=>p.classList.remove('active'));const opcionForm1=SelOpcion.form1?.opcion;if(!opcionForm1){alert('Error: No se encontró la configuración seleccionada');return}const config=mapaOpciones[opcionForm1];if(!config){alert('Error: Configuración no válida');return}const datosComunes={cliente:SelOpcion.form6?.cliente||'',pedido:SelOpcion.form6?.numPedido||'',fecha:new Date().toLocaleDateString('es-ES'),comentarios:SelOpcion.form6?.comentarios||'',conjuntos:SelOpcion.form6?.conjuntos||'1',acabado:SelOpcion.form6?.AcabadoAluminio||'',colorVidrio:SelOpcion.form6?.ColorVidrio||'',alto:SelOpcion.form6?.Alto||''};document.querySelectorAll('.formulario').forEach(f=>f.classList.remove('active'));const totalPaginas=config.composicion.length;config.composicion.forEach((elemento,indice)=>{const tipoElemento=elemento.toLowerCase();generarPaginaElemento(tipoElemento,datosComunes,config,indice,totalPaginas)});document.getElementById('botones-accion-informes').style.display='flex';window.scrollTo({top:0,behavior:'smooth'});console.log('✅ Informes generados correctamente')}
+function generarPaginaElemento(tipoElemento,datosComunes,config,indice,total){const paginaId=`pagina-${tipoElemento}`;const pagina=document.getElementById(paginaId);if(!pagina){console.warn(`⚠️ Página ${paginaId} no encontrada`);return}pagina.classList.add('active');document.getElementById(`${tipoElemento}-cliente`).textContent=datosComunes.cliente;document.getElementById(`${tipoElemento}-pedido`).textContent=datosComunes.pedido;document.getElementById(`${tipoElemento}-fecha`).textContent=datosComunes.fecha;document.getElementById(`${tipoElemento}-comentarios`).textContent=datosComunes.comentarios;const numPuertas=config.numPuertas;const numFijos=config.numFijos;let textoResumen='';if(numPuertas>0&&numFijos>0){textoResumen=`${numPuertas} ${numPuertas===1?'PUERTA':'PUERTAS'} Y ${numFijos} ${numFijos===1?'FIJO':'FIJOS'} (${datosComunes.conjuntos} ${datosComunes.conjuntos==='1'?'CONJUNTO':'CONJUNTOS'})`}else if(numPuertas>0){textoResumen=`${numPuertas} ${numPuertas===1?'PUERTA':'PUERTAS'} (${datosComunes.conjuntos} ${datosComunes.conjuntos==='1'?'CONJUNTO':'CONJUNTOS'})`}else if(numFijos>0){textoResumen=`${numFijos} ${numFijos===1?'FIJO':'FIJOS'} (${datosComunes.conjuntos} ${datosComunes.conjuntos==='1'?'CONJUNTO':'CONJUNTOS'})`}document.getElementById(`${tipoElemento}-resumen-config`).textContent=textoResumen;document.getElementById(`${tipoElemento}-paginacion`).textContent=`Pág ${indice+1} / ${total}`;const esFijo=tipoElemento.includes('fijo');if(esFijo){const nombreCampoBastidor=`bastidor${tipoElemento.charAt(0).toUpperCase()+tipoElemento.slice(1)}`;const bastidorSeleccionado=configuracionesIndividuales[nombreCampoBastidor]||'Sin especificar';document.querySelector(`#pagina-${tipoElemento} .elemento-principal`).textContent=tipoElemento.toUpperCase().replace(/(\d)/,' $1');document.getElementById(`${tipoElemento}-detalle-config`).textContent=bastidorSeleccionado}else{const nombreCampoEmb=`embellecedor${tipoElemento.charAt(0).toUpperCase()+tipoElemento.slice(1)}`;const embSeleccionado=configuracionesIndividuales[nombreCampoEmb]||'Sin especificar';let tituloPrincipal=tipoElemento.toUpperCase().replace(/(\d)/,' $1');document.querySelector(`#pagina-${tipoElemento} .elemento-principal`).textContent=tituloPrincipal;document.getElementById(`${tipoElemento}-detalle-config`).textContent=embSeleccionado}document.getElementById(`${tipoElemento}-acabado`).textContent=datosComunes.acabado;document.getElementById(`${tipoElemento}-color-vidrio`).textContent=datosComunes.colorVidrio;const medidas={alto:datosComunes.alto,conjuntos:datosComunes.conjuntos};if(esFijo){medidas[`ancho_${tipoElemento}`]=SelOpcion.form6?.[`Ancho${tipoElemento.charAt(0).toUpperCase()+tipoElemento.slice(1)}`]||'0'}else{const numPuerta=tipoElemento==='puerta1'?1:2;medidas[`ancho_p${numPuerta}`]=SelOpcion.form6?.[`Ancho${tipoElemento.charAt(0).toUpperCase()+tipoElemento.slice(1)}`]||'0';if(config.numPuertas===2&&numPuerta===1){medidas.ancho_p2=SelOpcion.form6?.AnchoPuerta2||'0'}}let perfiles=[];let embellecedores=[];let vidrios=[];if(esFijo){perfiles=calcularPerfilesFijo(tipoElemento,config,medidas);const nombreCampoEmb=`embellecedor${tipoElemento.charAt(0).toUpperCase()+tipoElemento.slice(1)}`;const modeloEmb=configuracionesIndividuales[nombreCampoEmb];embellecedores=calcularEmbellecedores(tipoElemento,modeloEmb,medidas,config);vidrios=calcularVidrios(tipoElemento,medidas,config)}else{const numPuerta=tipoElemento==='puerta1'?1:2;perfiles=calcularPerfilesPuerta(numPuerta,config,medidas);const nombreCampoEmb=`embellecedor${tipoElemento.charAt(0).toUpperCase()+tipoElemento.slice(1)}`;const modeloEmb=configuracionesIndividuales[nombreCampoEmb];embellecedores=calcularEmbellecedores(tipoElemento,modeloEmb,medidas,config);vidrios=calcularVidrios(tipoElemento,medidas,config)}const tablaPerfiles=document.getElementById(`${tipoElemento}-tabla-perfiles`);if(tablaPerfiles){tablaPerfiles.innerHTML='';perfiles.forEach(perfil=>{const tr=document.createElement('tr');tr.innerHTML=`<td><img src="${perfil.imagen}" width="40" height="40" style="object-fit:contain;"></td><td>${perfil.tipo}</td><td class="texto-Der">${perfil.medida}</td><td class="texto-Der">${perfil.cantidad}</td>`;tablaPerfiles.appendChild(tr)})}const tablaEmb=document.getElementById(`${tipoElemento}-tabla-embellecedor`);if(tablaEmb){tablaEmb.innerHTML='';if(embellecedores.length>0){embellecedores.forEach(emb=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${emb.tipo}</td><td class="texto-Der">${emb.medida}</td><td class="texto-Der">${emb.cantidad}</td>`;tablaEmb.appendChild(tr)})}else{tablaEmb.innerHTML='<tr><td colspan="3" style="text-align:center;">Sin embellecedor</td></tr>'}}const tablaCristales=document.getElementById(`${tipoElemento}-tabla-cristales`);if(tablaCristales){tablaCristales.innerHTML='';vidrios.forEach(vidrio=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="texto-izq">${vidrio.tipo}</td><td class="texto-Der">${vidrio.alto}</td><td class="texto-Der">${vidrio.ancho}</td><td class="texto-Der">${vidrio.cantidad}</td>`;tablaCristales.appendChild(tr)})}const anchoElemento=esFijo?SelOpcion.form6?.[`Ancho${tipoElemento.charAt(0).toUpperCase()+tipoElemento.slice(1)}`]||'0':medidas[`ancho_p${tipoElemento==='puerta1'?1:2}`];document.getElementById(`${tipoElemento}-acabado-precio`).textContent=datosComunes.acabado;document.getElementById(`${tipoElemento}-color-precio`).textContent=datosComunes.colorVidrio;document.getElementById(`${tipoElemento}-alto-precio`).textContent=datosComunes.alto;document.getElementById(`${tipoElemento}-ancho-precio`).textContent=anchoElemento;console.log(`✅ Página ${tipoElemento} generada con cálculos`)}
+function ocultarInformes(){document.querySelectorAll('.pagina-informe').forEach(p=>p.classList.remove('active'));document.getElementById('botones-accion-informes').style.display='none';document.getElementById('form6').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function limpiarTodo(){if(confirm('¿Estás seguro? Se perderán todos los datos introducidos.')){location.reload()}}
 
+// CÓDIGO DE PRECIOS - VERSION MEJORADA CON LOGGING
+// CÓDIGO DE PRECIOS - VERSION FINAL
+
+const URL_CODIGO_PRECIO = 'https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Archivos/CodigoPrecio.csv';
+const URL_ARTICULOS = 'https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Archivos/ArticulosPAmont.csv';
+const URL_ELEMENTOS = 'https://raw.githubusercontent.com/Jdurba/ImagenesPA/main/Archivos/ElementosPrecio.csv';
+
+let tablasPrecios = {};
+let tablasPreciosCargadas = false;
+
+function csvToObj(text, delim = ';') {
+  const lines = text.trim().split(/\r?\n/);
+  const heads = lines[0].split(delim).map(h => h.trim());
+  return lines.slice(1).map(l => {
+    const vals = l.split(delim);
+    const obj = {};
+    heads.forEach((h, i) => {
+      const val = vals[i] || '';
+      obj[h] = val.trim().replace(/\r$/, '');
+    });
+    return obj;
+  }).filter(obj => Object.values(obj).some(v => v !== ''));
+}
+
+async function cargarTablasPrecios() {
+  if (tablasPreciosCargadas) return true;
+  
+  console.log('🔄 Cargando tablas de precios...');
+  try {
+    const [cp, art, el] = await Promise.all([
+      fetch(URL_CODIGO_PRECIO).then(r => r.text()).then(csvToObj),
+      fetch(URL_ARTICULOS).then(r => r.text()).then(csvToObj),
+      fetch(URL_ELEMENTOS).then(r => r.text()).then(csvToObj)
+    ]);
+    tablasPrecios.codPrecio = cp;
+    tablasPrecios.articulos = art;
+    tablasPrecios.elementos = el;
+    tablasPreciosCargadas = true;
+    console.log('✅ Tablas de precios cargadas');
+    return true;
+  } catch (error) {
+    console.error('❌ Error cargando tablas:', error);
+    return false;
+  }
+}
+
+const MAPA_ACABADOS = {
+  'Blanco mate 9003': 'L.BM03',
+  'Negro mate texturado': 'L.NMT',
+  'Acero corten': 'L.C',
+  'Chapa roble barnizada': 'C.RB',
+  'Chapa nogal barnizada': 'C.NG',
+  'Acabado Especial': 'ESP'
+};
+
+const MAPA_VIDRIOS = {
+  'TRANSPARENTE': '01',
+  'MATE': '02',
+  'BRONCE': '03',
+  'GRIS': '04',
+  'GRIS OSCURO': '05',
+  'ESPECIAL': '00'
+};
+
+const MAPA_EMBELLECEDORES = {
+  'Sin embellecedor': null,
+  'Modelo A': 'MA',
+  'Modelo B': 'MB',
+  'Modelo C': 'MC',
+  'Modelo D': 'MD'
+};
+
+const MAPA_BASTIDORES = {
+  '3 Paredes':   '0301',
+  '3 Paredes U': '0302'
+};
+
+function ajustarMedidasPrecios(tipo, altoIn, anchoIn) {
+  const altoTabla = altoIn <= 2500 ? 2500 : 2700;
+  const ESCALAS_ANCHO = {
+    '01': [600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500],
+    '02': [500, 1000, 1500],
+    '05': [600, 700, 800, 900, 1000, 1100],
+    '15': [600, 700, 800, 900, 1000, 1100],
+    '06': [1200, 1400, 1600, 1800, 2000, 2200],
+    '07': [600, 700, 800, 900, 1000]
+  };
+  const escala = ESCALAS_ANCHO[tipo] || ESCALAS_ANCHO['01'];
+  for (const v of escala) if (v >= anchoIn) return { altoTabla, anchoTabla: v };
+  return { altoTabla, anchoTabla: escala[escala.length - 1] };
+}
+
+function buscarDenominacionYPrecio(codigo) {
+  const rowP = tablasPrecios.codPrecio.find(r => r.Codigo === codigo);
+  const precio = rowP ? parseFloat(rowP.Precio.replace(',', '.')) : 0;
+  const rowA = tablasPrecios.articulos.find(r => r.CODIGO === codigo);
+  const denom = rowA ? rowA.DENOMINACION : codigo;
+  return { codigo, denominacion: denom, precio };
+}
+
+function buscarPuertaPrecio(tipo, color, vidrio, altoTabla, anchoTabla) {
+  const codigo = `PAV.${tipo}${vidrio}.${color}`;
+  const rowArt = tablasPrecios.articulos.find(r => r.CODIGO === codigo);
+  const denom = rowArt ? rowArt.DENOMINACION : codigo;
+  
+  const COL_VIDRIOS = {
+    '01': 'TRANSPARENTE',
+    '02': 'MATE',
+    '03': 'BRONCE',
+    '04': 'GRIS',
+    '05': 'GRIS OSCURO',
+    '00': 'ESPECIAL'
+  };
+  const nomCol = COL_VIDRIOS[vidrio];
+  
+  const rowEl = tablasPrecios.elementos.find(r => 
+    r.TIPO === tipo && 
+    r.ALTOTABLA == altoTabla && 
+    r.COLOR === color && 
+    r.ANCHOTABLA == anchoTabla
+  );
+  
+  if (!rowEl) {
+    console.warn(`⚠️ Precio no encontrado: TIPO=${tipo}, ALTO=${altoTabla}, COLOR=${color}, ANCHO=${anchoTabla}`);
+    return { codigo, denominacion: denom, precio: 0 };
+  }
+  
+  const precStr = rowEl[nomCol] || '0';
+  const precioLimpio = precStr.replace(/\./g, '').replace(',', '.');
+  const precio = parseFloat(precioLimpio);
+  return { codigo, denominacion: denom, precio };
+}
+
+async function calcularPresupuestoElemento(data) {
+  await cargarTablasPrecios();
+  
+  let tipoReal = data.tipo;
+  if (data.tipo === '05' && data.tipoCierre === 'Op2') {
+    tipoReal = '15';
+  }
+  
+  const {altoTabla, anchoTabla} = ajustarMedidasPrecios(tipoReal, data.altura, data.ancho);
+  const puerta = buscarPuertaPrecio(tipoReal, data.color, data.vidrio, altoTabla, anchoTabla);
+  
+  if (data.altura > 2700) {
+    puerta.precio = parseFloat((puerta.precio * 1.20).toFixed(3));
+  }
+  
+  const codEmb = data.modeloEmb ? `PAV.${data.modeloEmb}01.${data.color}` : null;
+  const emb = codEmb ? buscarDenominacionYPrecio(codEmb) : { codigo: '', denominacion: 'Sin embellecedor', precio: 0 };
+  
+  const codBast = data.bastidor ? `PAV.${data.bastidor}.${data.color}` : null;
+  const bast = codBast ? buscarDenominacionYPrecio(codBast) : { codigo: '', denominacion: '', precio: 0 };
+  
+  return {
+    puerta: {...puerta, obs: `Medidas reales: Alto ${data.altura} mm, Ancho ${data.ancho} mm`},
+    emb,
+    bast
+  };
+}
+
+// FUNCIÓN PARA RELLENAR PRECIOS EN LAS TABLAS DE INFORMES
+async function rellenarPreciosEnInforme(tipoElemento, config, datosComunes) {
+  const esFijo = tipoElemento.includes('fijo');
+  
+  // Preparar datos para calcular presupuesto
+  const data = {
+    tipo: esFijo ? '02' : (config.numPuertas === 2 ? '06' : '05'),
+    color: MAPA_ACABADOS[datosComunes.acabado] || 'L.BM03',
+    vidrio: MAPA_VIDRIOS[datosComunes.colorVidrio.toUpperCase()] || '01',
+    altura: parseInt(datosComunes.alto),
+    ancho: 0,
+    modeloEmb: null,
+    bastidor: null,
+    tipoCierre: SelOpcion.form2 || 'Op1'
+  };
+  
+  // Obtener ancho del elemento
+  const nombreCampoAncho = `Ancho${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`;
+  
+  // CORRECCIÓN: Para tipo 06 (2 puertas), sumar los anchos de ambas puertas
+  if (data.tipo === '06' && !esFijo) {
+    const ancho1 = parseInt(SelOpcion.form6?.AnchoPuerta1 || 0);
+    const ancho2 = parseInt(SelOpcion.form6?.AnchoPuerta2 || 0);
+    data.ancho = ancho1 + ancho2;
+    console.log(`📏 Tipo 06 - Sumando anchos: ${ancho1} + ${ancho2} = ${data.ancho}`);
+  } else {
+    data.ancho = parseInt(SelOpcion.form6?.[nombreCampoAncho] || 0);
+  }
+  
+  // Obtener embellecedor
+  const nombreCampoEmb = `embellecedor${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`;
+  const embText = configuracionesIndividuales[nombreCampoEmb];
+  data.modeloEmb = MAPA_EMBELLECEDORES[embText];
+  
+  // Obtener bastidor (solo para fijos)
+  if (esFijo) {
+    const nombreCampoBastidor = `bastidor${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`;
+    const bastidorText = configuracionesIndividuales[nombreCampoBastidor];
+    data.bastidor = MAPA_BASTIDORES[bastidorText] || 'BA01';
+  }
+  
+  try {
+    const resultado = await calcularPresupuestoElemento(data);
+    
+    // RELLENAR TABLA DE PRECIOS
+    const conjuntos = parseInt(datosComunes.conjuntos);
+    
+    // Fila principal (Puerta o Fijo)
+    const tipoPrincipal = esFijo ? 'Fijo' : 'Puerta';
+    const idCodPrincipal = esFijo ? `${tipoElemento}-cod-fijo` : `${tipoElemento}-cod-puerta`;
+    const idTipoPrincipal = esFijo ? `${tipoElemento}-tipo-fijo` : `${tipoElemento}-tipo-puerta`;
+    const idCantPrincipal = esFijo ? `${tipoElemento}-cant-fijo` : `${tipoElemento}-cant-puerta`;
+    const idPrecioPrincipal = esFijo ? `${tipoElemento}-precio-fijo` : `${tipoElemento}-precio-puerta`;
+    
+    // Solo rellenar si existen los elementos (pueden no existir en algunas configuraciones)
+    const elemCod = document.getElementById(idCodPrincipal);
+    const elemTipo = document.getElementById(idTipoPrincipal);
+    const elemCant = document.getElementById(idCantPrincipal);
+    const elemPrecio = document.getElementById(idPrecioPrincipal);
+    
+    if (elemCod) elemCod.textContent = resultado.puerta.codigo;
+    if (elemTipo) elemTipo.textContent = resultado.puerta.denominacion;
+    if (elemCant) elemCant.textContent = conjuntos;
+    if (elemPrecio) elemPrecio.textContent = resultado.puerta.precio.toFixed(2);
+    
+    // Embellecedor
+    const elemCodEmb = document.getElementById(`${tipoElemento}-cod-emb`);
+    const elemEmbPrecio = document.getElementById(`${tipoElemento}-emb-precio`);
+    const elemCantEmb = document.getElementById(`${tipoElemento}-cant-emb`);
+    const elemPrecioEmb = document.getElementById(`${tipoElemento}-precio-emb`);
+    
+    if (elemCodEmb) elemCodEmb.textContent = resultado.emb.codigo;
+    if (elemEmbPrecio) elemEmbPrecio.textContent = resultado.emb.denominacion;
+    if (elemCantEmb) elemCantEmb.textContent = resultado.emb.precio > 0 ? conjuntos : '';
+    if (elemPrecioEmb) elemPrecioEmb.textContent = resultado.emb.precio > 0 ? resultado.emb.precio.toFixed(2) : '';
+    
+    // Bastidor (solo fijos)
+    if (esFijo) {
+      const elemCodBast = document.getElementById(`${tipoElemento}-cod-bast`);
+      const elemBastPrecio = document.getElementById(`${tipoElemento}-bast-precio`);
+      const elemCantBast = document.getElementById(`${tipoElemento}-cant-bast`);
+      const elemPrecioBast = document.getElementById(`${tipoElemento}-precio-bast`);
+      
+      if (elemCodBast) elemCodBast.textContent = resultado.bast.codigo;
+      if (elemBastPrecio) elemBastPrecio.textContent = resultado.bast.denominacion;
+      if (elemCantBast) elemCantBast.textContent = resultado.bast.precio > 0 ? conjuntos : '';
+      if (elemPrecioBast) elemPrecioBast.textContent = resultado.bast.precio > 0 ? resultado.bast.precio.toFixed(2) : '';
+    }
+    
+    console.log(`✅ Precios rellenados para ${tipoElemento}`);
+    return resultado;
+    
+  } catch (error) {
+    console.error(`❌ Error calculando precios para ${tipoElemento}:`, error);
+    return null;
+  }
+}
+
+
+// VERSIÓN MEJORADA DE generarPaginaElemento CON PRECIOS
+async function generarPaginaElementoConPrecios(tipoElemento, datosComunes, config, indice, total) {
+  const paginaId = `pagina-${tipoElemento}`;
+  const pagina = document.getElementById(paginaId);
+  
+  if (!pagina) {
+    console.warn(`⚠️ Página ${paginaId} no encontrada`);
+    return;
+  }
+  
+  pagina.classList.add('active');
+  
+  // Rellenar cabecera
+  document.getElementById(`${tipoElemento}-cliente`).textContent = datosComunes.cliente;
+  document.getElementById(`${tipoElemento}-pedido`).textContent = datosComunes.pedido;
+  document.getElementById(`${tipoElemento}-fecha`).textContent = datosComunes.fecha;
+  document.getElementById(`${tipoElemento}-comentarios`).textContent = datosComunes.comentarios;
+  
+  // Resumen de configuración
+  const numPuertas = config.numPuertas;
+  const numFijos = config.numFijos;
+  let textoResumen = '';
+  if (numPuertas > 0 && numFijos > 0) {
+    textoResumen = `${numPuertas} ${numPuertas === 1 ? 'PUERTA' : 'PUERTAS'} Y ${numFijos} ${numFijos === 1 ? 'FIJO' : 'FIJOS'} (${datosComunes.conjuntos} ${datosComunes.conjuntos === '1' ? 'CONJUNTO' : 'CONJUNTOS'})`;
+  } else if (numPuertas > 0) {
+    textoResumen = `${numPuertas} ${numPuertas === 1 ? 'PUERTA' : 'PUERTAS'} (${datosComunes.conjuntos} ${datosComunes.conjuntos === '1' ? 'CONJUNTO' : 'CONJUNTOS'})`;
+  } else if (numFijos > 0) {
+    textoResumen = `${numFijos} ${numFijos === 1 ? 'FIJO' : 'FIJOS'} (${datosComunes.conjuntos} ${datosComunes.conjuntos === '1' ? 'CONJUNTO' : 'CONJUNTOS'})`;
+  }
+  document.getElementById(`${tipoElemento}-resumen-config`).textContent = textoResumen;
+  document.getElementById(`${tipoElemento}-paginacion`).textContent = `Pág ${indice + 1} / ${total}`;
+  
+  const esFijo = tipoElemento.includes('fijo');
+  if (esFijo) {
+    const nombreCampoBastidor = `bastidor${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`;
+    const bastidorSeleccionado = configuracionesIndividuales[nombreCampoBastidor] || 'Sin especificar';
+    document.querySelector(`#pagina-${tipoElemento} .elemento-principal`).textContent = tipoElemento.toUpperCase().replace(/(\d)/, ' $1');
+    document.getElementById(`${tipoElemento}-detalle-config`).textContent = bastidorSeleccionado;
+  } else {
+    const nombreCampoEmb = `embellecedor${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`;
+    const embSeleccionado = configuracionesIndividuales[nombreCampoEmb] || 'Sin especificar';
+    let tituloPrincipal = tipoElemento.toUpperCase().replace(/(\d)/, ' $1');
+    document.querySelector(`#pagina-${tipoElemento} .elemento-principal`).textContent = tituloPrincipal;
+    document.getElementById(`${tipoElemento}-detalle-config`).textContent = embSeleccionado;
+  }
+  
+  document.getElementById(`${tipoElemento}-acabado`).textContent = datosComunes.acabado;
+  document.getElementById(`${tipoElemento}-color-vidrio`).textContent = datosComunes.colorVidrio;
+  
+  const medidas = { alto: datosComunes.alto, conjuntos: datosComunes.conjuntos };
+  
+  if (esFijo) {
+    medidas[`ancho_${tipoElemento}`] = SelOpcion.form6?.[`Ancho${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`] || '0';
+  } else {
+    const numPuerta = tipoElemento === 'puerta1' ? 1 : 2;
+    medidas[`ancho_p${numPuerta}`] = SelOpcion.form6?.[`Ancho${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`] || '0';
+    if (config.numPuertas === 2 && numPuerta === 1) {
+      medidas.ancho_p2 = SelOpcion.form6?.AnchoPuerta2 || '0';
+    }
+  }
+  
+  // Calcular perfiles, embellecedores y vidrios
+  let perfiles = [];
+  let embellecedores = [];
+  let vidrios = [];
+  
+  if (esFijo) {
+    perfiles = calcularPerfilesFijo(tipoElemento, config, medidas);
+    const nombreCampoEmb = `embellecedor${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`;
+    const modeloEmb = configuracionesIndividuales[nombreCampoEmb];
+    embellecedores = calcularEmbellecedores(tipoElemento, modeloEmb, medidas, config);
+    vidrios = calcularVidrios(tipoElemento, medidas, config);
+  } else {
+    const numPuerta = tipoElemento === 'puerta1' ? 1 : 2;
+    perfiles = calcularPerfilesPuerta(numPuerta, config, medidas);
+    const nombreCampoEmb = `embellecedor${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`;
+    const modeloEmb = configuracionesIndividuales[nombreCampoEmb];
+    embellecedores = calcularEmbellecedores(tipoElemento, modeloEmb, medidas, config);
+    vidrios = calcularVidrios(tipoElemento, medidas, config);
+  }
+  
+  // Rellenar tabla de perfiles
+  const tablaPerfiles = document.getElementById(`${tipoElemento}-tabla-perfiles`);
+  if (tablaPerfiles) {
+    tablaPerfiles.innerHTML = '';
+    perfiles.forEach(perfil => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><img src="${perfil.imagen}" width="40" height="40" style="object-fit:contain;"></td><td>${perfil.tipo}</td><td class="texto-Der">${perfil.medida}</td><td class="texto-Der">${perfil.cantidad}</td>`;
+      tablaPerfiles.appendChild(tr);
+    });
+  }
+  
+  // Rellenar tabla de embellecedores
+  const tablaEmb = document.getElementById(`${tipoElemento}-tabla-embellecedor`);
+  if (tablaEmb) {
+    tablaEmb.innerHTML = '';
+    if (embellecedores.length > 0) {
+      embellecedores.forEach(emb => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${emb.tipo}</td><td class="texto-Der">${emb.medida}</td><td class="texto-Der">${emb.cantidad}</td>`;
+        tablaEmb.appendChild(tr);
+      });
+    } else {
+      tablaEmb.innerHTML = '<tr><td colspan="3" style="text-align:center;">Sin embellecedor</td></tr>';
+    }
+  }
+  
+  // Rellenar tabla de cristales
+  const tablaCristales = document.getElementById(`${tipoElemento}-tabla-cristales`);
+  if (tablaCristales) {
+    tablaCristales.innerHTML = '';
+    vidrios.forEach(vidrio => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="texto-izq">${vidrio.tipo}</td><td class="texto-Der">${vidrio.alto}</td><td class="texto-Der">${vidrio.ancho}</td><td class="texto-Der">${vidrio.cantidad}</td>`;
+      tablaCristales.appendChild(tr);
+    });
+  }
+  
+  // Rellenar medidas en sección precios
+  const anchoElemento = esFijo ? SelOpcion.form6?.[`Ancho${tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)}`] || '0' : medidas[`ancho_p${tipoElemento === 'puerta1' ? 1 : 2}`];
+  document.getElementById(`${tipoElemento}-acabado-precio`).textContent = datosComunes.acabado;
+  document.getElementById(`${tipoElemento}-color-precio`).textContent = datosComunes.colorVidrio;
+  document.getElementById(`${tipoElemento}-alto-precio`).textContent = datosComunes.alto;
+  document.getElementById(`${tipoElemento}-ancho-precio`).textContent = anchoElemento;
+  
+  // *** NUEVA PARTE: CALCULAR Y RELLENAR PRECIOS ***
+  await rellenarPreciosEnInforme(tipoElemento, config, datosComunes);
+  
+  console.log(`✅ Página ${tipoElemento} generada con cálculos y precios`);
+}
+
+// MODIFICAR generarInformes para que sea async y use la nueva función
+async function generarInformesConPrecios() {
+  console.log('🚀 Generando informes con precios...');
+  
+  guardarDatosFormulario(6);
+  
+  // Cargar tablas de precios primero
+  await cargarTablasPrecios();
+  
+  document.querySelectorAll('.pagina-informe').forEach(p => p.classList.remove('active'));
+  
+  const opcionForm1 = SelOpcion.form1?.opcion;
+  if (!opcionForm1) {
+    alert('Error: No se encontró la configuración seleccionada');
+    return;
+  }
+  
+  const config = mapaOpciones[opcionForm1];
+  if (!config) {
+    alert('Error: Configuración no válida');
+    return;
+  }
+  
+  const datosComunes = {
+    cliente: SelOpcion.form6?.cliente || '',
+    pedido: SelOpcion.form6?.numPedido || '',
+    fecha: new Date().toLocaleDateString('es-ES'),
+    comentarios: SelOpcion.form6?.comentarios || '',
+    conjuntos: SelOpcion.form6?.conjuntos || '1',
+    acabado: SelOpcion.form6?.AcabadoAluminio || '',
+    colorVidrio: SelOpcion.form6?.ColorVidrio || '',
+    alto: SelOpcion.form6?.Alto || ''
+  };
+  
+  document.querySelectorAll('.formulario').forEach(f => f.classList.remove('active'));
+  
+  const totalPaginas = config.composicion.length;
+  
+  // Generar páginas de forma secuencial (await cada una)
+  for (let i = 0; i < config.composicion.length; i++) {
+    const elemento = config.composicion[i];
+    const tipoElemento = elemento.toLowerCase();
+    await generarPaginaElementoConPrecios(tipoElemento, datosComunes, config, i, totalPaginas);
+  }
+  
+  document.getElementById('botones-accion-informes').style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  console.log('✅ Informes generados correctamente con precios');
+}
 
   </script>
 </body>
+</html>
