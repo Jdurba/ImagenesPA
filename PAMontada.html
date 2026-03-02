@@ -2167,7 +2167,7 @@ function calcularPerfilesFijo(alto, X, NumFijos, tipoFijo) {
     
     // Calcular medidas del cristal del fijo  usando los valores ya calculados
     const altoCristalFijo = verticales.longitud - 58;  // alto form6 - perfilesfijo - holguras = Verticales.longitud y luego -58 
-    const anchoCristalFijo = horizontales.longitud - 10;    // Depende igualmente de los perfiles fijos elegidos
+    const anchoCristalFijo = horizontales.longitud + 24 - 10;    // Depende igualmente de los perfiles fijos elegidos
 
     return {
         perfiles: perfiles,
@@ -2756,6 +2756,7 @@ iniciarAplicacion();
 </script>
 
  </body>
+
 
 
 
